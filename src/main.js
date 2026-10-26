@@ -1,4 +1,3 @@
-import { Light3DHero } from './light-3d.js';
 import { i18n } from './i18n.js';
 
 class CareerPortalApp {
@@ -7,8 +6,12 @@ class CareerPortalApp {
     this.initLight3D();
     this.initLampEffect();
     this.initCard3DTilt();
-    this.render();
     this.bindEvents();
+    
+    // If language is English, trigger English render; otherwise the HTML already has complete Chinese pre-rendered!
+    if (this.currentLang === 'en') {
+      this.render();
+    }
   }
 
   detectLanguage() {
@@ -18,10 +21,17 @@ class CareerPortalApp {
     return navLang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
   }
 
-  initLight3D() {
+  async initLight3D() {
     const container = document.getElementById('hero-3d-canvas-container');
-    if (container) {
+    if (!container) return;
+
+    try {
+      const { Light3DHero } = await import('./light-3d.js');
       this.light3D = new Light3DHero(container);
+      const fallback = document.getElementById('hero-3d-fallback');
+      if (fallback) fallback.style.display = 'none';
+    } catch (err) {
+      console.warn('3D Hero initialization fallback:', err);
     }
   }
 
@@ -33,7 +43,6 @@ class CareerPortalApp {
   }
 
   initCard3DTilt() {
-    // 3D perspective tilt effect for project cards
     const applyTilt = (card) => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();

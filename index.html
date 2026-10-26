@@ -7,6 +7,13 @@
   <meta name="description" content="吕炳荣（Lyu Bingrong）个人求职主站。中北大学软件工程，曾于北京智源人工智能研究院从事大模型安全评测与竞技场建模，开源项目 Clawd on Desk (6k+ Stars) 核心维护者。">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦀</text></svg>">
   <link rel="stylesheet" href="./src/style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://esm.sh/three@0.160.0"
+    }
+  }
+  </script>
 </head>
 <body>
   <!-- Desk Lamp Ambient Illumination (跟随鼠标移动的光斑) -->
@@ -65,7 +72,16 @@
         <!-- Right 3D Visual Frame -->
         <div class="hero-3d-wrapper">
           <div class="hero-3d-frame">
-            <div id="hero-3d-canvas-container"></div>
+            <div id="hero-3d-canvas-container">
+              <!-- Fallback SVG shown if WebGL takes time to initialize -->
+              <div id="hero-3d-fallback" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+                <svg width="140" height="140" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" stroke="#C76F50" stroke-width="2" fill="rgba(199, 111, 80, 0.08)"/>
+                  <polygon points="50,25 75,38 75,62 50,75 25,62 25,38" stroke="#2A3040" stroke-width="1.5" fill="rgba(42, 48, 64, 0.05)"/>
+                  <circle cx="50" cy="50" r="8" fill="#C76F50"/>
+                </svg>
+              </div>
+            </div>
           </div>
           <div class="hero-3d-caption" id="hero-3d-caption">
             Prism Lattice · 3D 交互透镜
@@ -75,7 +91,26 @@
 
       <!-- STATS TICKER / 核心数据一览 -->
       <section class="stats-banner" id="stats-banner">
-        <!-- Injected via JS -->
+        <div class="stat-item">
+          <div class="stat-number">6,000+</div>
+          <div class="stat-label">GitHub Stars 维护项目</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">66</div>
+          <div class="stat-label">核心 PR 提交已合并</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">20+</div>
+          <div class="stat-label">AI Coding Agent 接入</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2×</div>
+          <div class="stat-label">Kaggle 国际铜牌</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">🥇 1st</div>
+          <div class="stat-label">“挑战杯”国家级一等奖</div>
+        </div>
       </section>
 
       <!-- SECTION 1: EXPERIENCE / 实习经历 -->
@@ -91,7 +126,27 @@
         </div>
 
         <div class="exp-card" id="exp-card">
-          <!-- Injected via JS -->
+          <div class="exp-header">
+            <div>
+              <div class="exp-company">北京智源人工智能研究院 · 智能评测实习生</div>
+              <div class="exp-dept-role">智能评测组 · Intelligent Evaluation Group</div>
+            </div>
+            <div class="exp-period-pill">2024.11 – 2025.03</div>
+          </div>
+          <div class="exp-duties-list">
+            <div class="duty-block">
+              <div class="duty-title">大模型安全评测与对抗攻击 (LLM Red Teaming)</div>
+              <div class="duty-desc">系统开展大语言模型安全与鲁棒性评测，针对提示注入、越狱提示词与对抗扰动开展红队测试，探索模型安全边界，深度参与构建多维度安全评测基准。</div>
+            </div>
+            <div class="duty-block">
+              <div class="duty-title">匿名竞技场标注质量建模 (Arena Quality Modeling)</div>
+              <div class="duty-desc">参与设计匿名 LLM 竞技场（Arena）的用户标注置信度评估算法，运用统计与异常检测方法过滤噪声与恶意低质标注，切实保障人类偏好数据（RLHF/Preference Data）的信度与模型排名的公平性。</div>
+            </div>
+            <div class="duty-block">
+              <div class="duty-title">主观基准评测规范与方法论研讨</div>
+              <div class="duty-desc">参与大模型主观开放式任务的评测方案制定，参与设计细粒度多维度打分量表、测试集规范与自动化验证流程。</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -108,7 +163,85 @@
         </div>
 
         <div class="projects-grid" id="projects-grid">
-          <!-- Injected via JS -->
+          <!-- Card 1: Clawd on Desk -->
+          <div class="project-card-tilt" data-id="clawd">
+            <div class="project-meta-bar">
+              <span class="project-role-badge">核心维护者 (Maintainer) · 66 Merged PRs</span>
+              <span class="project-star-badge">6,000+ GitHub Stars</span>
+            </div>
+            <h3 class="project-title">Clawd on Desk · 跨平台 AI 编程桌面伴侣</h3>
+            <p class="project-oneliner">一款能实时响应 Claude Code、Codex、Cursor、Gemini 等 20+ 款主流 AI 编程智能体状态的轻量桌面伴侣。</p>
+            <ul class="project-bullets-list">
+              <li>架构重构：独立设计并主导统一设置与交互系统，统一全局配置持久化与多模块状态同步。</li>
+              <li>运行时 Hook：搭建多 Agent 异步 Hook 接入体系与后台会话生命周期调度，保障生态扩展性。</li>
+              <li>原生质量：系统优化 Windows 平台托盘行为、崩溃恢复与多端（Win/Mac/Linux）原生体验。</li>
+            </ul>
+            <div class="project-bottom-row">
+              <div class="project-tags-wrap">
+                <span class="tag-badge">Electron</span>
+                <span class="tag-badge">JavaScript</span>
+                <span class="tag-badge">Agent Hooks</span>
+                <span class="tag-badge">Windows Platform</span>
+                <span class="tag-badge">Open-Source</span>
+              </div>
+              <a href="https://github.com/rullerzhou-afk/clawd-on-desk" target="_blank" rel="noopener noreferrer" class="project-link-cta">
+                GitHub 仓库 (6k+ Stars) →
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Robotics Challenge Cup & RAICOM -->
+          <div class="project-card-tilt" data-id="robotics">
+            <div class="project-meta-bar">
+              <span class="project-role-badge">团队负责人 / 核心算法与系统工程</span>
+              <span class="project-star-badge">国一 🥇 & 国二 🥈</span>
+            </div>
+            <h3 class="project-title">全国“挑战杯” & RAICOM 国赛智能系统</h3>
+            <p class="project-oneliner">将深度学习感知、空间位姿解算与机器人协同决策结合，在国家级高难度对抗场景中完成精准执行。</p>
+            <ul class="project-bullets-list">
+              <li>第十九届“挑战杯”全国大学生课外学术科技作品竞赛“人工智能+”专项赛 全国一等奖（2025）。</li>
+              <li>2026 睿抗机器人开发者大赛（RAICOM）全国总决赛 全国二等奖（2026.08）。</li>
+              <li>打通从图像目标检测、点云空间定位到底层电机动力响应的完整闭环。</li>
+            </ul>
+            <div class="project-bottom-row">
+              <div class="project-tags-wrap">
+                <span class="tag-badge">Computer Vision</span>
+                <span class="tag-badge">Robot Systems</span>
+                <span class="tag-badge">PyTorch</span>
+                <span class="tag-badge">C++</span>
+                <span class="tag-badge">Edge AI</span>
+              </div>
+              <a href="https://github.com/YOIMIYA66" target="_blank" rel="noopener noreferrer" class="project-link-cta">
+                查看荣誉与项目沉淀 →
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Kaggle -->
+          <div class="project-card-tilt" data-id="kaggle">
+            <div class="project-meta-bar">
+              <span class="project-role-badge">竞赛选手 · 2× Bronze Medals</span>
+              <span class="project-star-badge">Kaggle 2× 铜牌 · TAAC Top 8.5%</span>
+            </div>
+            <h3 class="project-title">Kaggle 国际模型推理与低资源语言赛题</h3>
+            <p class="project-oneliner">在有限算力与嘈杂低资源场景中，通过提示工程、链式推理微调与特征对齐取得前列排位。</p>
+            <ul class="project-bullets-list">
+              <li>NVIDIA Nemotron 模型推理挑战赛：探索复杂逻辑链推导与蒸馏对齐，斩获 Kaggle 铜牌。</li>
+              <li>Deep Past 挑战赛：阿卡德古楔形文字与英语低资源翻译，攻克稀疏词表与古文语境对齐难题，摘得铜牌。</li>
+              <li>TAAC × KDD Cup 2026 腾讯推荐挑战赛：排名前 8.5%（160 / 1873）。</li>
+            </ul>
+            <div class="project-bottom-row">
+              <div class="project-tags-wrap">
+                <span class="tag-badge">LLM Reasoning</span>
+                <span class="tag-badge">Low-Resource NLP</span>
+                <span class="tag-badge">PyTorch</span>
+                <span class="tag-badge">Hugging Face</span>
+              </div>
+              <a href="https://www.kaggle.com/lvbingrong" target="_blank" rel="noopener noreferrer" class="project-link-cta">
+                Kaggle 竞赛主页 →
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -134,7 +267,46 @@
               </tr>
             </thead>
             <tbody id="honors-tbody">
-              <!-- Injected via JS -->
+              <tr>
+                <td class="award-cell high-rank">国家级二等奖</td>
+                <td class="event-cell">2026 睿抗机器人开发者大赛（RAICOM）全国总决赛</td>
+                <td class="date-cell">2026.08</td>
+              </tr>
+              <tr>
+                <td class="award-cell">Kaggle 铜牌</td>
+                <td class="event-cell">NVIDIA Nemotron 模型推理挑战赛</td>
+                <td class="date-cell">2026.06</td>
+              </tr>
+              <tr>
+                <td class="award-cell">全球前 8.5% (160/1873)</td>
+                <td class="event-cell">TAAC × KDD Cup 2026 腾讯 Uni-Rec 推荐挑战赛</td>
+                <td class="date-cell">2026.05</td>
+              </tr>
+              <tr>
+                <td class="award-cell">Kaggle 铜牌</td>
+                <td class="event-cell">Deep Past 挑战赛 · 阿卡德语英译</td>
+                <td class="date-cell">2026.03</td>
+              </tr>
+              <tr>
+                <td class="award-cell high-rank">国家级一等奖</td>
+                <td class="event-cell">第十九届“挑战杯”全国大学生课外科技作品竞赛“人工智能+”专项赛</td>
+                <td class="date-cell">2025</td>
+              </tr>
+              <tr>
+                <td class="award-cell">国家级三等奖</td>
+                <td class="event-cell">第十六届中国大学生服务外包创新创业大赛</td>
+                <td class="date-cell">2025</td>
+              </tr>
+              <tr>
+                <td class="award-cell">国家级铜奖</td>
+                <td class="event-cell">中国国际大学生创新大赛（高教主赛道）</td>
+                <td class="date-cell">2024</td>
+              </tr>
+              <tr>
+                <td class="award-cell">全球总决赛季军</td>
+                <td class="event-cell">第六届中关村人才创客大赛</td>
+                <td class="date-cell">2024</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -153,7 +325,50 @@
         </div>
 
         <div class="skills-grid" id="skills-grid">
-          <!-- Injected via JS -->
+          <div class="skill-card">
+            <div class="skill-cat-title">编程语言与基础</div>
+            <div class="skill-tags-flow">
+              <span class="skill-item-tag">Python</span>
+              <span class="skill-item-tag">JavaScript / ES6+</span>
+              <span class="skill-item-tag">TypeScript</span>
+              <span class="skill-item-tag">C / C++</span>
+              <span class="skill-item-tag">Bash / Shell</span>
+              <span class="skill-item-tag">SQL</span>
+              <span class="skill-item-tag">Git</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-cat-title">大模型与评测安全</div>
+            <div class="skill-tags-flow">
+              <span class="skill-item-tag">LLM Red Teaming (对抗攻击与注入)</span>
+              <span class="skill-item-tag">安全评测基准构建</span>
+              <span class="skill-item-tag">Human Preference & Arena 质量建模</span>
+              <span class="skill-item-tag">Prompt Engineering</span>
+              <span class="skill-item-tag">OpenAI / Claude / Gemini API</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-cat-title">机器学习与数据科学</div>
+            <div class="skill-tags-flow">
+              <span class="skill-item-tag">PyTorch</span>
+              <span class="skill-item-tag">Hugging Face Transformers</span>
+              <span class="skill-item-tag">scikit-learn</span>
+              <span class="skill-item-tag">NumPy / Pandas</span>
+              <span class="skill-item-tag">OpenCV</span>
+              <span class="skill-item-tag">Jupyter Lab</span>
+            </div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-cat-title">桌面与应用工程</div>
+            <div class="skill-tags-flow">
+              <span class="skill-item-tag">Electron</span>
+              <span class="skill-item-tag">Node.js</span>
+              <span class="skill-item-tag">Windows 原生系统适配</span>
+              <span class="skill-item-tag">CI/CD (GitHub Actions)</span>
+              <span class="skill-item-tag">Docker</span>
+              <span class="skill-item-tag">Vite / Modern Web</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -189,7 +404,26 @@
           </div>
 
           <div class="contact-links-col" id="contact-links-col">
-            <!-- Injected via JS -->
+            <a href="mailto:lyubingrong@foxmail.com" class="contact-link-row">
+              <span class="contact-network-name">电子邮箱</span>
+              <span class="contact-network-val">lyubingrong@foxmail.com →</span>
+            </a>
+            <a href="https://github.com/YOIMIYA66" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+              <span class="contact-network-name">GitHub</span>
+              <span class="contact-network-val">YOIMIYA66 →</span>
+            </a>
+            <a href="https://www.linkedin.com/in/%E7%82%B3%E8%8D%A3-%E5%90%95-3a13ab3a2/" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+              <span class="contact-network-name">LinkedIn 领英</span>
+              <span class="contact-network-val">吕炳荣 (Lyu Bingrong) →</span>
+            </a>
+            <a href="https://www.kaggle.com/lvbingrong" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+              <span class="contact-network-name">Kaggle</span>
+              <span class="contact-network-val">lvbingrong (2× Bronze) →</span>
+            </a>
+            <a href="https://aistudio.baidu.com/personalcenter/thirdview/4207625" target="_blank" rel="noopener noreferrer" class="contact-link-row">
+              <span class="contact-network-name">百度飞桨 AI Studio</span>
+              <span class="contact-network-val">个人中心 4207625 →</span>
+            </a>
           </div>
         </div>
       </section>
