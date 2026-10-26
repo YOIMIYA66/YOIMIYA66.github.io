@@ -155,42 +155,6 @@
       egg.classList.remove('show-tooltip');
     }
 
-    function spawnFloatingSparkles() {
-      // 1. 主跳字 +1 ♥
-      const spark = document.createElement('span');
-      spark.className = 'like-spark';
-      spark.textContent = '+1 ♥';
-      const offset = (Math.random() - 0.5) * 16;
-      spark.style.setProperty('--dx', `${offset}px`);
-      spark.style.right = '24px';
-      spark.style.bottom = '18px';
-      egg.appendChild(spark);
-      setTimeout(() => spark.remove(), 900);
-
-      // 2. 伴随爆发的 16-Bit 彩色微星/火花粒子 (✦, ★, ♥)
-      const stars = [
-        { char: '✦', color: '#EA580C' },
-        { char: '★', color: '#F59E0B' },
-        { char: '♥', color: '#DC2626' }
-      ];
-      stars.forEach((s, idx) => {
-        const star = document.createElement('span');
-        star.className = 'like-mini-star';
-        star.textContent = s.char;
-        star.style.color = s.color;
-        const sx = (idx - 1) * 14 + (Math.random() - 0.5) * 8;
-        const sy = -18 - Math.random() * 14;
-        const rot = (Math.random() - 0.5) * 45;
-        star.style.setProperty('--sx', `${sx}px`);
-        star.style.setProperty('--sy', `${sy}px`);
-        star.style.setProperty('--sr', `${rot}deg`);
-        star.style.right = '32px';
-        star.style.bottom = '18px';
-        egg.appendChild(star);
-        setTimeout(() => star.remove(), 800);
-      });
-    }
-
     likeBtn.addEventListener('click', () => {
       likes++;
       localStorage.setItem('yoimiya_likes', likes);
@@ -204,10 +168,7 @@
         likeBtn.classList.remove('popped');
       }, 400);
 
-      // 2. 街机像素飞字 + 彩色星芒粒子
-      spawnFloatingSparkles();
-
-      // 3. 弹出双语感谢气泡（保留多语言 DOM 节点，互不影响）
+      // 2. 弹出双语感谢气泡（干净清晰，无浮字重叠）
       const item = THANK_MESSAGES[msgIndex % THANK_MESSAGES.length];
       msgIndex++;
       if (tooltipZh) tooltipZh.textContent = item.zh;

@@ -394,19 +394,14 @@ export class PixelCompanion {
       pixel(pxR, py, '#FFFDF8');
     }
 
-    // Sleek Silver Wireframe Glasses with Dynamic Code Screen Reflection
+    // Sleek Silver Wireframe Glasses
     rect(30, 24 + headY, 5, 5, '#94A3B8');
-    rect(31, 25 + headY, 3, 3, 'rgba(186, 230, 253, 0.35)');
+    rect(31, 25 + headY, 3, 3, 'rgba(186, 230, 253, 0.4)');
     rect(37, 24 + headY, 5, 5, '#94A3B8');
-    rect(38, 25 + headY, 3, 3, 'rgba(186, 230, 253, 0.35)');
+    rect(38, 25 + headY, 3, 3, 'rgba(186, 230, 253, 0.4)');
     rect(35, 26 + headY, 2, 1, '#CBD5E1'); // Silver bridge
     pixel(31, 24 + headY, '#FFFFFF'); // Corner shine
     pixel(38, 24 + headY, '#FFFFFF');
-
-    // Terminal screen reflection dynamically catching on spectacles
-    const specTick = Math.floor(this.codeTimer) % 4;
-    pixel(32, 26 + headY, specTick % 2 === 0 ? 'rgba(56, 189, 248, 0.6)' : 'rgba(74, 222, 128, 0.6)');
-    pixel(39, 26 + headY, specTick % 2 === 0 ? 'rgba(56, 189, 248, 0.6)' : 'rgba(74, 222, 128, 0.6)');
 
     // Focused Smile
     if (this.isHappy) {
@@ -533,30 +528,21 @@ export class PixelCompanion {
     pixel(46, 47, 'rgba(56, 189, 248, 0.25)');
     pixel(48, 47, 'rgba(56, 189, 248, 0.25)');
 
-    // --- 10. Warm Steaming Coffee Mug & Desk Mini Succulent ---
+    // --- 10. Warm Steaming Coffee Mug (Essential Dev Detail) ---
     // Terracotta ceramic mug with creamy latte heart inside
-    rect(63, 45, 3, 4, '#D97757');
-    rect(63, 45, 3, 1, '#FAF9F5'); // Ceramic rim
-    pixel(64, 45, '#451A03');     // Dark espresso coffee
-    pixel(64, 45, '#FEF3C7');     // Latte foam heart
-    pixel(62, 46, '#B5593B');     // Handle
-    pixel(62, 47, '#B5593B');
+    rect(65, 45, 3, 4, '#D97757');
+    rect(65, 45, 3, 1, '#FAF9F5'); // Ceramic rim
+    pixel(66, 45, '#451A03');     // Dark espresso coffee
+    pixel(66, 45, '#FEF3C7');     // Latte foam heart
+    pixel(64, 46, '#B5593B');     // Handle
+    pixel(64, 47, '#B5593B');
 
     // Animated rising steam
     const steamWave = Math.sin(this.steamTick);
-    const steamX = 64 + (steamWave > 0 ? 1 : 0);
+    const steamX = 66 + (steamWave > 0 ? 1 : 0);
     pixel(steamX, 43, 'rgba(250, 249, 245, 0.7)');
-    pixel(64 + (steamWave < -0.2 ? -1 : 0), 41, 'rgba(250, 249, 245, 0.45)');
+    pixel(66 + (steamWave < -0.2 ? -1 : 0), 41, 'rgba(250, 249, 245, 0.45)');
     pixel(steamX, 39, 'rgba(250, 249, 245, 0.25)');
-
-    // Mini Potted Jade Succulent on Desk (治愈系多肉微盆栽)
-    rect(68, 46, 3, 3, '#B5593B'); // Terracotta clay pot
-    rect(67, 45, 5, 1, '#D97757'); // Pot rim
-    pixel(69, 46, '#451A03');     // Soil
-    pixel(68, 44, '#10B981');     // Succulent rosette leaves
-    pixel(69, 43, '#34D399');
-    pixel(70, 44, '#059669');
-    pixel(69, 42, '#A7F3D0');     // Top leaf highlight
 
     // --- 11. Interactive Speech Bubble (Fitted comfortably inside upper circle arc) ---
     const showBubble = (this.isHovered && !this.isHappy) || this.bubbleTimer > 0;
