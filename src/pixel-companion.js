@@ -1,5 +1,5 @@
 // Lyu Bingrong (YOIMIYA66) Custom Pixel Art Companion & Diorama
-// 100% Authentic 16-bit Pixel Art: Developer in formal dark suit with glasses & blue tie,
+// 100% Authentic 16-bit Pixel Art: Developer in iconic Orange Plaid Flannel Shirt & Glasses,
 // seated at a developer workstation desk, actively coding on a glowing monitor with animated typing!
 
 export class PixelCompanion {
@@ -28,9 +28,20 @@ export class PixelCompanion {
     this.typeTimer = 0;
     this.steamTick = 0;
     this.particles = [];
-    this.bubbleText = 'CODING...';
+    this.bubbleText = 'IN FLOW';
     this.bubbleTimer = 0;
+    this.quoteIndex = 0;
     this.starTick = 0;
+
+    // Meaningful engineering & career slogans
+    this.quotes = [
+      'NO TOYS',   // 不制造脆弱玩具，交付真实生产力（工作信条）
+      'TRUTH✓',    // 实事求是，用严密指标度量模型边界
+      '6.5K★',     // Clawd on Desk 核心维护项目 6,500+ stars
+      'FACTS✓',    // 知行合一，实事求是
+      'EVAL AI',   // 智源 BAAI 大模型安全评测与红队
+      'READY!'     // 已毕业，随时支持线上面试与快速到岗
+    ];
 
     this.bindEvents();
     this.scheduleBlink();
@@ -91,17 +102,17 @@ export class PixelCompanion {
     this.hopVy = -1.8;
     this.isHappy = true;
     
-    // Cycle celebratory developer quotes on click
-    const quotes = ['PASS✓', 'SHIP!', '6.5K★', 'READY!'];
-    this.bubbleText = quotes[Math.floor(Math.random() * quotes.length)];
-    this.bubbleTimer = 2.0;
+    // Cycle through meaningful developer slogans sequentially
+    this.bubbleText = this.quotes[this.quoteIndex % this.quotes.length];
+    this.quoteIndex++;
+    this.bubbleTimer = 2.4;
 
     setTimeout(() => {
       this.isHappy = false;
     }, 1400);
 
-    // Burst 16-bit glowing particle sparks from workstation
-    const colors = ['#38BDF8', '#4ADE80', '#F59E0B', '#60A5FA', '#D97757', '#FDE047'];
+    // Burst 16-bit glowing particle sparks from workstation (terracotta orange, cyan, gold, green)
+    const colors = ['#EA580C', '#38BDF8', '#4ADE80', '#F59E0B', '#FDBA74', '#FDE047'];
     for (let i = 0; i < 7; i++) {
       const angle = (i / 7) * Math.PI * 2 + (Math.random() - 0.5) * 0.3;
       const speed = 1.0 + Math.random() * 1.4;
@@ -244,7 +255,7 @@ export class PixelCompanion {
     // Developer shoes shadow
     rect(36, 63, 9, 2, 'rgba(31, 30, 29, 0.22)');
     // Desk feet shadow
-    rect(43, 63, 4, 2, 'rgba(31, 30, 29, 0.22)');
+    rect(52, 63, 6, 2, 'rgba(31, 30, 29, 0.22)');
     rect(64, 63, 6, 2, 'rgba(31, 30, 29, 0.22)');
 
     // --- 3. Ergonomic Office Chair (Behind Seated Developer) ---
@@ -269,17 +280,19 @@ export class PixelCompanion {
     rect(22, 61, 3, 2, '#0F172A'); // Left caster
     rect(34, 61, 3, 2, '#0F172A'); // Right caster
 
-    // --- 4. Seated Developer: Lower Body & Legs ---
-    // Horizontal thighs extending toward desk
-    rect(25, 47 + bodyY, 13, 5, '#181C26');
-    rect(27, 48 + bodyY, 9, 2, '#232938'); // Trousers crease
+    // --- 4. Seated Developer: Lower Body & Jeans ---
+    // Comfortable dark indigo denim jeans (programmer casual style)
+    rect(25, 47 + bodyY, 13, 5, '#1E293B');
+    rect(27, 48 + bodyY, 9, 2, '#334155'); // Denim wash highlight
+    pixel(31, 49 + bodyY, '#475569');
     // Vertical lower legs extending down to floor
-    rect(35, 52 + bodyY, 6, 9, '#181C26');
-    rect(36, 53 + bodyY, 4, 7, '#232938');
-    // Formal dark leather shoes resting on floor
-    rect(36, 60, 8, 3, '#10141D');
-    rect(37, 60, 7, 1, '#232938'); // Leather specular line
-    pixel(43, 61, '#334155');
+    rect(35, 52 + bodyY, 6, 9, '#1E293B');
+    rect(36, 53 + bodyY, 4, 7, '#334155');
+    // Retro Programmer Sneakers (White base with orange accent stripe)
+    rect(36, 60, 8, 3, '#F8FAFC'); // Clean white leather
+    rect(36, 62, 8, 1, '#94A3B8'); // Sneaker rubber sole
+    rect(38, 60, 4, 1, '#EA580C'); // Terracotta orange retro side stripe
+    pixel(43, 61, '#CBD5E1');
 
     // --- 5. Developer Workstation Desk (Surface & Legs) ---
     // Desk Top (Warm Walnut Surface with Light Bevel)
@@ -293,23 +306,45 @@ export class PixelCompanion {
     rect(65, 52, 3, 11, '#2D3748');
     rect(64, 62, 5, 1, '#10141D'); // Foot pad
 
-    // --- 6. Developer Torso (Dark Tailored Suit & Royal Blue Tie) ---
-    // Suit jacket base
-    rect(26, 35 + bodyY, 13, 13, '#10141D');
-    rect(27, 36 + bodyY, 11, 11, '#1C212D');
-    // Suit lapels
-    rect(31, 36 + bodyY, 3, 9, '#242B3A');
-    // Crisp light blue / white shirt collar
-    rect(32, 35 + bodyY, 5, 6, '#F0F4F8');
-    rect(31, 35 + bodyY, 2, 2, '#FFFDF8');
-    // Royal Blue Silk Tie (Exact ID match)
-    rect(33, 36 + bodyY, 3, 2, '#3B82F6'); // Tie knot
-    pixel(34, 36 + bodyY, '#60A5FA'); // Knot highlight
-    rect(33, 38 + bodyY, 3, 7, '#2563EB'); // Tie body
-    pixel(34, 45 + bodyY, '#1D4ED8'); // Tie tip
-    // Terracotta chest badge ("荣")
-    rect(27, 39 + bodyY, 3, 3, '#D97757');
-    pixel(28, 40 + bodyY, '#FFFDF8');
+    // --- 6. Developer Torso: Iconic Orange Plaid Flannel Shirt (橘色格子衫) ---
+    // Base Shirt Body
+    rect(26, 35 + bodyY, 13, 13, '#10141D'); // Outer outline
+    rect(27, 36 + bodyY, 11, 11, '#EA580C'); // Primary warm pumpkin orange
+
+    // Dark Russet / Charcoal Plaid Grid Checks (深色格子交错线)
+    // Vertical check stripes
+    rect(29, 36 + bodyY, 1, 11, '#7C2D12');
+    rect(34, 36 + bodyY, 1, 11, '#431407'); // Central button placket
+    // Horizontal check stripes
+    rect(27, 38 + bodyY, 11, 1, '#7C2D12');
+    rect(27, 42 + bodyY, 11, 1, '#7C2D12');
+    rect(27, 45 + bodyY, 11, 1, '#7C2D12');
+
+    // Warm Cream Yellow Accent Checks (浅米暖黄细格线，形成丰富层次)
+    rect(31, 36 + bodyY, 1, 11, '#FED7AA');
+    rect(36, 36 + bodyY, 1, 11, '#FED7AA');
+    rect(27, 40 + bodyY, 11, 1, '#FDBA74');
+    rect(27, 44 + bodyY, 11, 1, '#FDBA74');
+
+    // Plaid Intersections (网格交差点呈现浓郁红棕)
+    pixel(29, 38 + bodyY, '#431407');
+    pixel(29, 42 + bodyY, '#431407');
+    pixel(29, 45 + bodyY, '#431407');
+    pixel(34, 38 + bodyY, '#1F1E1D');
+    pixel(34, 42 + bodyY, '#1F1E1D');
+    pixel(34, 45 + bodyY, '#1F1E1D');
+
+    // Comfortable Inner Dark Tee Collar showing at neckline
+    rect(32, 35 + bodyY, 4, 2, '#1E293B');
+    pixel(33, 36 + bodyY, '#334155');
+
+    // Shirt Placket Buttons (白米色微纽扣)
+    pixel(34, 39 + bodyY, '#FFFDF8');
+    pixel(34, 43 + bodyY, '#FFFDF8');
+
+    // Plaid Chest Pocket (左胸贴袋)
+    rect(27, 40 + bodyY, 3, 3, '#C2410C');
+    pixel(28, 40 + bodyY, '#FDBA74');
 
     // --- 7. Head, Face, Hair & Glasses (ID Photo Likeness) ---
     const headY = bodyY;
@@ -390,12 +425,17 @@ export class PixelCompanion {
     rect(34, 19 + headY, 3, 2, '#151821');
     rect(39, 19 + headY, 3, 2, '#151821');
 
-    // --- 8. Arms & Keyboard Typing (Animated Keystrokes!) ---
-    // Arms extending forward towards the keyboard
+    // --- 8. Arms & Keyboard Typing (Matching Orange Plaid Sleeves) ---
+    // Upper arm in orange plaid flannel
     rect(34, 41 + bodyY, 7, 4, '#10141D');
-    rect(35, 42 + bodyY, 6, 3, '#1C212D');
-    // White shirt cuff
-    rect(41, 44 + bodyY, 2, 3, '#F0F4F8');
+    rect(35, 41 + bodyY, 6, 4, '#EA580C');
+    pixel(37, 41 + bodyY, '#7C2D12'); // Plaid line
+    pixel(39, 42 + bodyY, '#FDBA74');
+    pixel(36, 43 + bodyY, '#7C2D12');
+
+    // Rolled-up sleeve cuff
+    rect(40, 44 + bodyY, 3, 3, '#C2410C');
+    pixel(41, 44 + bodyY, '#FED7AA');
 
     // Keyboard on desk
     rect(44, 48, 9, 2, '#1E293B');
@@ -469,46 +509,68 @@ export class PixelCompanion {
     pixel(66 + (steamWave < -0.2 ? -1 : 0), 41, 'rgba(250, 249, 245, 0.45)');
     pixel(steamX, 39, 'rgba(250, 249, 245, 0.25)');
 
-    // --- 11. Interactive Speech Bubble (inside upper circle arc) ---
+    // --- 11. Interactive Speech Bubble (Fitted comfortably inside upper circle arc) ---
     const showBubble = (this.isHovered && !this.isHappy) || this.bubbleTimer > 0;
-    const textToShow = this.bubbleTimer > 0 ? this.bubbleText : (this.isHovered ? 'CODING...' : '');
+    const textToShow = this.bubbleTimer > 0 ? this.bubbleText : (this.isHovered ? 'IN FLOW' : '');
     if (showBubble && textToShow) {
       const charWidth = 4;
       const totalTextW = textToShow.length * charWidth - 1;
-      const bubbleW = Math.max(26, totalTextW + 8);
+      const bubbleW = Math.max(24, totalTextW + 6);
       const bubbleX = Math.round(cx - bubbleW / 2);
-      const bubbleY = 7; // Fixed comfortably inside upper arc
+      const bubbleY = 11; // Comfortable vertical fit inside upper circle
 
       // Bubble outline & fill
       rect(bubbleX, bubbleY, bubbleW, 9, '#151821');
       rect(bubbleX + 1, bubbleY + 1, bubbleW - 2, 7, '#FFFDF8');
-      // Bubble tail pointing down
+      // Bubble tail pointing down to head
       rect(39, bubbleY + 9, 3, 1, '#151821');
       rect(40, bubbleY + 10, 2, 1, '#151821');
 
-      // 3x5 Pixel Font Dictionary
+      // Full 3x5 Pixel Font Dictionary (Comprehensive A-Z, 0-9 & Symbols)
       const GLYPHS = {
-        'C': [0b111, 0b100, 0b100, 0b100, 0b111],
-        'O': [0b111, 0b101, 0b101, 0b101, 0b111],
-        'D': [0b110, 0b101, 0b101, 0b101, 0b110],
-        'I': [0b111, 0b010, 0b010, 0b010, 0b111],
-        'N': [0b101, 0b111, 0b111, 0b101, 0b101],
-        'G': [0b111, 0b100, 0b101, 0b101, 0b111],
-        '.': [0b000, 0b000, 0b000, 0b000, 0b010],
-        '!': [0b010, 0b010, 0b010, 0b000, 0b010],
-        '6': [0b111, 0b100, 0b111, 0b101, 0b111],
-        '5': [0b111, 0b100, 0b111, 0b001, 0b111],
-        'K': [0b101, 0b110, 0b100, 0b110, 0b101],
-        '★': [0b010, 0b111, 0b010, 0b101, 0b000],
-        'S': [0b111, 0b100, 0b111, 0b001, 0b111],
-        'H': [0b101, 0b101, 0b111, 0b101, 0b101],
-        'P': [0b111, 0b101, 0b111, 0b100, 0b100],
         'A': [0b111, 0b101, 0b111, 0b101, 0b101],
-        'R': [0b110, 0b101, 0b110, 0b101, 0b101],
+        'B': [0b110, 0b101, 0b110, 0b101, 0b110],
+        'C': [0b111, 0b100, 0b100, 0b100, 0b111],
+        'D': [0b110, 0b101, 0b101, 0b101, 0b110],
         'E': [0b111, 0b100, 0b110, 0b100, 0b111],
+        'F': [0b111, 0b100, 0b110, 0b100, 0b100],
+        'G': [0b111, 0b100, 0b101, 0b101, 0b111],
+        'H': [0b101, 0b101, 0b111, 0b101, 0b101],
+        'I': [0b111, 0b010, 0b010, 0b010, 0b111],
+        'J': [0b001, 0b001, 0b001, 0b101, 0b111],
+        'K': [0b101, 0b110, 0b100, 0b110, 0b101],
+        'L': [0b100, 0b100, 0b100, 0b100, 0b111],
+        'M': [0b101, 0b111, 0b101, 0b101, 0b101],
+        'N': [0b101, 0b111, 0b111, 0b101, 0b101],
+        'O': [0b111, 0b101, 0b101, 0b101, 0b111],
+        'P': [0b111, 0b101, 0b111, 0b100, 0b100],
+        'Q': [0b111, 0b101, 0b101, 0b111, 0b001],
+        'R': [0b110, 0b101, 0b110, 0b101, 0b101],
+        'S': [0b111, 0b100, 0b111, 0b001, 0b111],
+        'T': [0b111, 0b010, 0b010, 0b010, 0b010],
+        'U': [0b101, 0b101, 0b101, 0b101, 0b111],
+        'V': [0b101, 0b101, 0b101, 0b101, 0b010],
+        'W': [0b101, 0b101, 0b101, 0b111, 0b101],
+        'X': [0b101, 0b101, 0b010, 0b101, 0b101],
         'Y': [0b101, 0b101, 0b010, 0b010, 0b010],
-        '✓': [0b000, 0b001, 0b001, 0b101, 0b010],
+        'Z': [0b111, 0b001, 0b010, 0b100, 0b111],
+        '0': [0b111, 0b101, 0b101, 0b101, 0b111],
+        '1': [0b010, 0b110, 0b010, 0b010, 0b111],
+        '2': [0b111, 0b001, 0b111, 0b100, 0b111],
+        '3': [0b111, 0b001, 0b111, 0b001, 0b111],
+        '4': [0b101, 0b101, 0b111, 0b001, 0b001],
+        '5': [0b111, 0b100, 0b111, 0b001, 0b111],
+        '6': [0b111, 0b100, 0b111, 0b101, 0b111],
+        '7': [0b111, 0b001, 0b010, 0b010, 0b010],
+        '8': [0b111, 0b101, 0b111, 0b101, 0b111],
+        '9': [0b111, 0b101, 0b111, 0b001, 0b111],
+        '!': [0b010, 0b010, 0b010, 0b000, 0b010],
+        '.': [0b000, 0b000, 0b000, 0b000, 0b010],
+        '-': [0b000, 0b000, 0b111, 0b000, 0b000],
         '+': [0b000, 0b010, 0b111, 0b010, 0b000],
+        '★': [0b010, 0b111, 0b010, 0b101, 0b000],
+        '✓': [0b000, 0b001, 0b001, 0b101, 0b010],
+        '&': [0b010, 0b101, 0b010, 0b101, 0b011],
         ' ': [0b000, 0b000, 0b000, 0b000, 0b000]
       };
 
@@ -517,7 +579,7 @@ export class PixelCompanion {
         const char = textToShow[i].toUpperCase();
         const rows = GLYPHS[char] || GLYPHS[' '];
         const scx = startX + i * charWidth;
-        const color = (char === '★' || char === '✓') ? '#D97757' : (char === '!' ? '#2563EB' : '#151821');
+        const color = (char === '★' || char === '✓') ? '#EA580C' : (char === '!' ? '#2563EB' : '#151821');
         for (let r = 0; r < 5; r++) {
           const rowVal = rows[r];
           if ((rowVal & 0b100) !== 0) pixel(scx, bubbleY + 2 + r, color);
