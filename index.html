@@ -101,130 +101,20 @@
         </p>
       </div>
 
-      <!-- 右侧纸质手作展台 -->
+      <!-- 右侧展台：像素风开发者伙伴 (致敬 Clawd on Desk 开源桌宠美学) -->
       <figure class="plate">
         <div class="stage lit">
           <div class="sun" aria-hidden="true"></div>
           <div class="ground" aria-hidden="true"></div>
-          <button class="doll" type="button" id="doll" aria-label="Interactive Paper Puppet Companion">
-            <span class="zh vh">剪纸风的桌宠伙伴。点一下打个招呼</span>
-            <span class="en vh">A papercraft desktop companion. Click to say hi</span>
-            <!-- 高精细度手作纸质插画伙伴 (Layered Papercraft Vector Puppet) -->
-            <svg viewBox="0 0 340 380" class="puppet-svg" style="width:100%;height:100%;display:block;overflow:visible;">
-              <defs>
-                <filter id="card-cut-depth" x="-15%" y="-15%" width="130%" height="130%">
-                  <feDropShadow dx="1" dy="3.5" stdDeviation="2.5" flood-color="rgba(35, 42, 60, 0.22)"/>
-                </filter>
-                <filter id="piece-shadow" x="-15%" y="-15%" width="130%" height="130%">
-                  <feDropShadow dx="0.5" dy="2" stdDeviation="1.5" flood-color="rgba(35, 42, 60, 0.18)"/>
-                </filter>
-              </defs>
-
-              <!-- 1. 身体躯干剪纸分件 (Torso & Attire) -->
-              <g id="puppet-torso" filter="url(#card-cut-depth)">
-                <!-- 藏青深色针织马甲/外套 -->
-                <path d="M102 268 C102 222, 134 208, 170 208 C206 208, 238 222, 238 268 L248 318 L92 318 Z" fill="#2E3748" stroke="#1E2430" stroke-width="2.5" stroke-linejoin="round"/>
-                <!-- 针织纹理细线 -->
-                <line x1="170" y1="230" x2="170" y2="318" stroke="#3D485C" stroke-width="2" stroke-dasharray="4 3"/>
-                <!-- 衬衫内领 (挺括白卡纸) -->
-                <polygon points="170,230 148,206 170,212 192,206" fill="#FFFDF8" stroke="#1E2430" stroke-width="2" stroke-linejoin="round"/>
-                
-                <!-- 胸前口袋与中国印章 (赤陶色实名落款印章：荣) -->
-                <g filter="url(#piece-shadow)">
-                  <rect x="118" y="244" width="28" height="28" rx="3.5" fill="#C76F50" stroke="#FFFDF8" stroke-width="1.8"/>
-                  <text x="132" y="264" font-family="'Noto Serif SC', 'Songti SC', serif" font-size="15" font-weight="900" fill="#FFFDF8" text-anchor="middle">荣</text>
-                </g>
-              </g>
-
-              <!-- 2. 怀中桌面桌宠伙伴 (Clawd / Paper Cat Mascot in Arms) -->
-              <g id="puppet-pet" class="puppet-pet" filter="url(#card-cut-depth)">
-                <!-- 宠物身体 (温润乳白卡纸) -->
-                <ellipse cx="196" cy="275" rx="36" ry="28" fill="#FFFDF8" stroke="#1E2430" stroke-width="2.2"/>
-                <!-- 宠物猫耳 -->
-                <polygon points="174,254 164,236 182,246" fill="#C76F50" stroke="#1E2430" stroke-width="2" stroke-linejoin="round"/>
-                <polygon points="214,254 226,236 208,246" fill="#C76F50" stroke="#1E2430" stroke-width="2" stroke-linejoin="round"/>
-                <!-- 耳内粉嫩纸层 -->
-                <polygon points="174,251 168,239 180,246" fill="#F8CECC"/>
-                <polygon points="214,251 222,239 210,246" fill="#F8CECC"/>
-                <!-- 宠物闭眼惬意弧线 -->
-                <path d="M182 272 Q188 276 192 272" stroke="#1E2430" stroke-width="2" fill="none" stroke-linecap="round"/>
-                <path d="M202 272 Q206 276 212 272" stroke="#1E2430" stroke-width="2" fill="none" stroke-linecap="round"/>
-                <!-- 萌萌小胡须 -->
-                <line x1="168" y1="274" x2="176" y2="274" stroke="#1E2430" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="218" y1="274" x2="226" y2="274" stroke="#1E2430" stroke-width="1.5" stroke-linecap="round"/>
-                <!-- 双手拥抱前爪 -->
-                <ellipse cx="180" cy="292" rx="7" ry="5" fill="#FFFDF8" stroke="#1E2430" stroke-width="1.8"/>
-                <ellipse cx="212" cy="292" rx="7" ry="5" fill="#FFFDF8" stroke="#1E2430" stroke-width="1.8"/>
-              </g>
-
-              <!-- 3. 头部部件：带骨骼旋转跟随光标倾斜 (Head Rig) -->
-              <g class="puppet-head" filter="url(#card-cut-depth)">
-                <!-- 脖颈 -->
-                <rect x="157" y="190" width="26" height="24" rx="4" fill="#F5E8DC" stroke="#1E2430" stroke-width="2"/>
-
-                <!-- 后发层 (羽状层次墨色剪纸) -->
-                <path d="M116 142 C110 180, 120 206, 134 212 C134 212, 126 186, 126 156 Z" fill="#1E2430"/>
-                <path d="M224 142 C230 180, 220 206, 206 212 C206 212, 214 186, 214 156 Z" fill="#1E2430"/>
-
-                <!-- 头脸主轮廓纸卡 (清爽浅桃色肤感纸) -->
-                <rect x="120" y="96" width="100" height="106" rx="26" fill="#FFF5EB" stroke="#1E2430" stroke-width="2.5"/>
-
-                <!-- 耳朵 -->
-                <ellipse cx="118" cy="150" rx="7" ry="10" fill="#FFF5EB" stroke="#1E2430" stroke-width="2"/>
-                <ellipse cx="222" cy="150" rx="7" ry="10" fill="#FFF5EB" stroke="#1E2430" stroke-width="2"/>
-
-                <!-- 前发与刘海层次 (纸雕羽翼发丝) -->
-                <path d="M112 118 C112 76, 228 76, 228 118 C216 112, 204 118, 192 110 C180 120, 166 112, 154 116 C140 108, 126 116, 112 118 Z" fill="#242C3A" stroke="#1E2430" stroke-width="2.5" stroke-linejoin="round"/>
-                <!-- 呆毛/灵动发丝 -->
-                <path d="M170 82 Q182 66 194 72 Q184 76 174 84" fill="#242C3A" stroke="#1E2430" stroke-width="2"/>
-
-                <!-- 极客斯文黑金细框眼镜 -->
-                <g class="puppet-glasses" filter="url(#piece-shadow)">
-                  <rect x="128" y="132" width="34" height="26" rx="6" fill="rgba(203, 215, 225, 0.22)" stroke="#1E2430" stroke-width="2.2"/>
-                  <rect x="178" y="132" width="34" height="26" rx="6" fill="rgba(203, 215, 225, 0.22)" stroke="#1E2430" stroke-width="2.2"/>
-                  <!-- 镜梁与鼻托 -->
-                  <path d="M162 142 Q170 138 178 142" stroke="#C76F50" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                </g>
-
-                <!-- 眉毛 -->
-                <path d="M130 126 Q144 122 158 126" stroke="#242C3A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                <path d="M182 126 Q196 122 210 126" stroke="#242C3A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-
-                <!-- 眼睛：睁眼清澈灵动状态 (高光与眼神光) -->
-                <g class="eye-open">
-                  <ellipse cx="145" cy="145" rx="5.5" ry="6.5" fill="#1E2430"/>
-                  <circle cx="143" cy="143" r="2" fill="#FFFDF8"/>
-                  <circle cx="146.5" cy="146.5" r="0.9" fill="#FFFDF8"/>
-
-                  <ellipse cx="195" cy="145" rx="5.5" ry="6.5" fill="#1E2430"/>
-                  <circle cx="193" cy="143" r="2" fill="#FFFDF8"/>
-                  <circle cx="196.5" cy="146.5" r="0.9" fill="#FFFDF8"/>
-                </g>
-                <!-- 眼睛：自然眨眼弧线 (动态随机触发) -->
-                <g class="eye-closed" style="display:none;">
-                  <path d="M138 146 Q145 152 152 146" stroke="#1E2430" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                  <path d="M188 146 Q195 152 202 146" stroke="#1E2430" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-                </g>
-
-                <!-- 脸颊自然纸晕腮红 -->
-                <ellipse cx="127" cy="158" rx="6" ry="4" fill="#C76F50" opacity="0.32"/>
-                <ellipse cx="213" cy="158" rx="6" ry="4" fill="#C76F50" opacity="0.32"/>
-
-                <!-- 嘴巴（常态微抿） -->
-                <g class="mouth-rest">
-                  <path d="M165 172 Q170 175 175 172" stroke="#1E2430" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                </g>
-                <!-- 嘴巴（点击互动开心欢笑） -->
-                <g class="mouth-happy" style="display:none;">
-                  <path d="M163 169 Q170 180 177 169 Z" fill="#C76F50" stroke="#1E2430" stroke-width="1.8"/>
-                </g>
-              </g>
-            </svg>
+          <button class="doll" type="button" id="doll" aria-label="Interactive Pixel Companion">
+            <span class="zh vh">像素风开发者伙伴。点击互动</span>
+            <span class="en vh">Pixel dev companion. Click to interact</span>
+            <canvas id="pixel-canvas" width="64" height="72" style="width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;display:block;"></canvas>
           </button>
         </div>
         <figcaption class="caption">
-          <span class="zh">手作剪纸桌宠伙伴。点一下打个招呼。</span>
-          <span class="en">A hand-cut paper companion. Try clicking it.</span>
+          <span class="zh">像素风开发者伙伴 · 点击互动</span>
+          <span class="en">Pixel dev companion · Click to interact</span>
         </figcaption>
       </figure>
     </section>

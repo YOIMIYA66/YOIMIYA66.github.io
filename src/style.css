@@ -78,17 +78,21 @@ img, video { max-width: 100%; }
 .status { display: flex; align-items: center; gap: 10px; margin: 26px 0 0; font: 500 12.5px/1.5 var(--mono); color: var(--soft); }
 .status i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px var(--ok-ring); }
 
-/* ---------- 展台纸偶 ---------- */
+/* ---------- 展台像素桌宠 ---------- */
 .plate { margin: 0; display: grid; gap: 0; }
 .stage { position: relative; z-index: 3; aspect-ratio: 1 / 1.04; }
 .sun { position: absolute; left: 9%; right: 9%; top: 5%; aspect-ratio: 1; border-radius: 50%; background: var(--mist); }
 .ground { position: absolute; left: 0; right: 0; bottom: 8.6%; height: 1.5px; background: var(--ink); }
-.doll { position: absolute; left: 8%; width: 84%; bottom: 6%; aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
+.doll { position: absolute; left: 12%; width: 76%; bottom: 7.5%; aspect-ratio: 64 / 72; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
   transform-origin: 50% 90%; filter: drop-shadow(var(--sx, 4px) var(--sy, 8px) 6px var(--shadow)); }
-.doll.hop { animation: hop .55s ease-out; }
-@keyframes hop { 22% { transform: scale(1.035, .955); } 52% { transform: scale(.975, 1.04); } 78% { transform: scale(1.01, .99); } }
-.puppet-head { transform-origin: 50% 51%; transform: rotate(var(--a-head, 0deg)); transition: transform 0.05s linear; }
-.puppet-pet { transform-origin: 58% 72%; transform: rotate(var(--a-pet, 0deg)); transition: transform 0.05s linear; }
+#pixel-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
 .caption { padding-top: 10px; text-align: center; font: 500 12px/1.6 var(--mono); color: var(--muted); }
 .caption b { margin-right: 10px; color: var(--ink); }
 

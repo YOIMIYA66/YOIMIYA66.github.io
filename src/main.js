@@ -91,66 +91,13 @@
   window.addEventListener('pointermove', e => aim(e.clientX, e.clientY), { passive: true });
   window.addEventListener('scroll', () => { if (light) aim(light.x, light.y); }, { passive: true });
 
-  /* ---------- 4. 纸偶伙伴互动：跟随鼠标倾斜转头、自然眨眼、点击欢呼起跳 ---------- */
-  const doll = document.getElementById('doll');
-  if (doll) {
-    const eyeOpen = doll.querySelectorAll('.eye-open');
-    const eyeClosed = doll.querySelectorAll('.eye-closed');
-    const mouthRest = doll.querySelector('.mouth-rest');
-    const mouthHappy = doll.querySelector('.mouth-happy');
-    let curAngle = 0;
-    let targetAngle = 0;
-    let hopping = false;
-
-    window.addEventListener('pointermove', e => {
-      if (reduce.matches) return;
-      const r = doll.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const u = Math.tanh((e.clientX - cx) / (r.width * 0.7));
-      targetAngle = u * 10;
-    }, { passive: true });
-
-    function tickDoll() {
-      if (!reduce.matches) {
-        curAngle += (targetAngle - curAngle) * 0.08;
-        doll.style.setProperty('--a-head', curAngle.toFixed(2) + 'deg');
-        doll.style.setProperty('--a-pet', (-curAngle * 0.4).toFixed(2) + 'deg');
-      }
-      requestAnimationFrame(tickDoll);
-    }
-    requestAnimationFrame(tickDoll);
-
-    // 随机眨眼
-    function blink() {
-      if (hopping) return scheduleBlink();
-      eyeOpen.forEach(el => el.style.display = 'none');
-      eyeClosed.forEach(el => el.style.display = 'block');
-      setTimeout(() => {
-        eyeOpen.forEach(el => el.style.display = 'block');
-        eyeClosed.forEach(el => el.style.display = 'none');
-        scheduleBlink();
-      }, 140);
-    }
-    function scheduleBlink() {
-      setTimeout(blink, 2400 + Math.random() * 3600);
-    }
-    scheduleBlink();
-
-    // 点击起跳
-    doll.addEventListener('click', () => {
-      hopping = true;
-      if (mouthRest) mouthRest.style.display = 'none';
-      if (mouthHappy) mouthHappy.style.display = 'block';
-      if (!reduce.matches) {
-        doll.classList.remove('hop');
-        void doll.offsetWidth;
-        doll.classList.add('hop');
-      }
-      setTimeout(() => {
-        hopping = false;
-        if (mouthRest) mouthRest.style.display = 'block';
-        if (mouthHappy) mouthHappy.style.display = 'none';
-      }, 1200);
+  /* ---------- 4. 像素风桌宠伴侣 (致敬 Clawd on Desk 像素艺术) ---------- */
+  const pixelCanvas = document.getElementById('pixel-canvas');
+  if (pixelCanvas) {
+    import('./pixel-companion.js').then(({ PixelCompanion }) => {
+      window.pixelCompanion = new PixelCompanion(pixelCanvas);
+    }).catch(err => {
+      console.warn('Pixel companion load fallback:', err);
     });
   }
 
