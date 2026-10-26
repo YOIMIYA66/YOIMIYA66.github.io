@@ -947,6 +947,72 @@ body {
   letter-spacing: .04em;
 }
 
+/* 作品 01 实机运行桌面展示 (1040 × 500) */
+.clawd-showcase {
+  margin: 36px 0 0;
+  display: grid;
+  gap: 12px;
+}
+.showcase-frame.lit {
+  border: 1px solid var(--ink);
+  background: #0D1117;
+  box-shadow: var(--px3d), var(--sx, 4px) var(--sy, 8px) 30px -14px var(--shadow);
+  transition: transform .15s steps(3), box-shadow .15s steps(3);
+  overflow: hidden;
+}
+.showcase-frame.lit:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--px3d-lg), var(--sx, 4px) var(--sy, 8px) 30px -14px var(--shadow);
+}
+.showcase-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #161B22;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  font: 500 11.5px/1 var(--mono);
+  color: var(--stage-dim);
+}
+.showcase-dots {
+  display: flex;
+  gap: 6px;
+}
+.showcase-dots i {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.showcase-dots i:nth-child(1) { background: #FF5F56; }
+.showcase-dots i:nth-child(2) { background: #FFBD2E; }
+.showcase-dots i:nth-child(3) { background: #27C93F; }
+.showcase-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFFFFF;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.showcase-dim {
+  color: var(--stage-dim);
+  font-size: 10.5px;
+  letter-spacing: .05em;
+}
+.showcase-screen {
+  background: #000000;
+  line-height: 0;
+}
+.clawd-hero-img {
+  width: 100%;
+  height: auto;
+  max-width: 1040px;
+  aspect-ratio: 1040 / 500;
+  display: block;
+  object-fit: contain;
+}
+
 /* 官方成果与认证卡片 (替代虚构终端) */
 .proof-card {
   margin-top: 24px;
@@ -1236,6 +1302,9 @@ body {
   .colophon { flex-direction: column; }
 }
 @media (max-width: 680px) {
+  .showcase-bar { padding: 8px 12px; gap: 8px; }
+  .showcase-dim { display: none; }
+  .showcase-title { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .honors-table, .honors-table tbody, .honors-table tr, .honors-table td {
     display: block;
     width: 100% !important;
@@ -1300,7 +1369,7 @@ body {
     margin: 0 !important;
   }
 
-  .lit, .box, .skill-card, .frame, .contact-card, .proof-card {
+  .lit, .box, .skill-card, .frame, .showcase-frame, .contact-card, .proof-card {
     box-shadow: none !important;
     border: 1px solid rgba(0, 0, 0, .15) !important;
     background: #FFFFFF !important;
