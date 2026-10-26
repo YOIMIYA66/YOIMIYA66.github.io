@@ -132,23 +132,23 @@
     let likes = parseInt(localStorage.getItem('yoimiya_likes') || '66', 10);
     likeCountEl.textContent = likes;
 
-    // 趣味开发者感谢短语库（双语同步切换，纯粹激励，不重复显示总赞数）
+    // 趣味开发者感谢短语库（双语对应，纯粹赞赏与激励，不重复显示总数字）
     const THANK_MESSAGES = [
       { zh: '感谢你的认可与支持！♥', en: 'Thank you for your support! ♥' },
       { zh: '收到一份鼓励，更有动力了！✨', en: 'Energy recharged! Thanks for the boost! ✨' },
       { zh: '谢谢！祝你今天也是 Bug-free 的一天 ✦', en: 'Thanks! Wishing you a bug-free day ✦' },
-      { zh: '收到点赞！系统状态全绿 🚀', en: 'Like received! All systems operational 🚀' }
+      { zh: '收到点赞！系统状态全绿 🚀', en: 'Like received! All systems operational 🚀' },
+      { zh: '小吕干劲满满，继续潜心 coding 啦！☕', en: 'Fuel acquired! Lyu is heading back to code ☕' }
     ];
     let msgIndex = 0;
     let tooltipTimer = null;
 
     function resetTooltip() {
-      if (tooltipZh) tooltipZh.textContent = '给小吕点赞 +1 ♥';
-      if (tooltipEn) tooltipEn.textContent = 'Like this portfolio +1 ♥';
       egg.classList.remove('show-tooltip');
     }
 
-    function spawnFloatingSpark() {
+    function spawnFloatingSparkles() {
+      // 1. 主跳字 +1 ♥
       const spark = document.createElement('span');
       spark.className = 'like-spark';
       spark.textContent = '+1 ♥';
@@ -157,9 +157,30 @@
       spark.style.right = '24px';
       spark.style.bottom = '18px';
       egg.appendChild(spark);
-      setTimeout(() => {
-        spark.remove();
-      }, 900);
+      setTimeout(() => spark.remove(), 900);
+
+      // 2. 伴随爆发的 16-Bit 彩色微星/火花粒子 (✦, ★, ♥)
+      const stars = [
+        { char: '✦', color: '#EA580C' },
+        { char: '★', color: '#F59E0B' },
+        { char: '♥', color: '#DC2626' }
+      ];
+      stars.forEach((s, idx) => {
+        const star = document.createElement('span');
+        star.className = 'like-mini-star';
+        star.textContent = s.char;
+        star.style.color = s.color;
+        const sx = (idx - 1) * 14 + (Math.random() - 0.5) * 8;
+        const sy = -18 - Math.random() * 14;
+        const rot = (Math.random() - 0.5) * 45;
+        star.style.setProperty('--sx', `${sx}px`);
+        star.style.setProperty('--sy', `${sy}px`);
+        star.style.setProperty('--sr', `${rot}deg`);
+        star.style.right = '32px';
+        star.style.bottom = '18px';
+        egg.appendChild(star);
+        setTimeout(() => star.remove(), 800);
+      });
     }
 
     likeBtn.addEventListener('click', () => {
@@ -167,16 +188,18 @@
       localStorage.setItem('yoimiya_likes', likes);
       likeCountEl.textContent = likes;
 
-      // 1. 按钮弹性微跳动
+      // 1. 按钮弹性微跳动与心跳重触发
+      likeBtn.classList.remove('popped');
+      void likeBtn.offsetWidth; // trigger reflow
       likeBtn.classList.add('popped');
       setTimeout(() => {
         likeBtn.classList.remove('popped');
-      }, 250);
+      }, 400);
 
-      // 2. 街机像素飞字 +1 ♥
-      spawnFloatingSpark();
+      // 2. 街机像素飞字 + 彩色星芒粒子
+      spawnFloatingSparkles();
 
-      // 3. 切换双语感谢气泡（保留多语言 DOM 节点，互不影响）
+      // 3. 弹出双语感谢气泡（保留多语言 DOM 节点，互不影响）
       const item = THANK_MESSAGES[msgIndex % THANK_MESSAGES.length];
       msgIndex++;
       if (tooltipZh) tooltipZh.textContent = item.zh;
@@ -186,7 +209,7 @@
       clearTimeout(tooltipTimer);
       tooltipTimer = setTimeout(() => {
         resetTooltip();
-      }, 2400);
+      }, 2500);
     });
   }
 
