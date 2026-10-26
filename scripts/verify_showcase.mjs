@@ -35,6 +35,9 @@ async function main() {
   const work03El = await page.$('#kaggle-project');
   if (work03El) await work03El.screenshot({ path: path.join(ARTIFACT_DIR, 'desktop_work03.png') });
 
+  const expEl = await page.$('#experience');
+  if (expEl) await expEl.screenshot({ path: path.join(ARTIFACT_DIR, 'desktop_experience.png') });
+
   // Mobile Viewport Check
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(500);
@@ -52,6 +55,9 @@ async function main() {
 
   const mobileWork03El = await page.$('#kaggle-project');
   if (mobileWork03El) await mobileWork03El.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_work03.png') });
+
+  const mobileExpEl = await page.$('#experience');
+  if (mobileExpEl) await mobileExpEl.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_experience.png') });
 
   console.log('Errors:', errors);
   console.log('Mobile overflow check:', overflow);
