@@ -57,7 +57,7 @@
 
   /* ---------- 3. 台灯与动态阴影：鼠标处更亮，纸偶和卡纸的影子往远离鼠标的方向落 ---------- */
   const lamp = document.querySelector('.lamp');
-  const lit = Array.prototype.slice.call(document.querySelectorAll('.lit, .term, .doll, .stage, .pinwheel'));
+  const lit = Array.prototype.slice.call(document.querySelectorAll('.lit, .term, .doll, .stage, .floppy-btn'));
   let light = null;
   let lightQueued = false;
 
@@ -121,35 +121,39 @@
     }, { passive: true });
   }
 
-  /* ---------- 5. 版权页彩蛋：纸风车（吹气加速、角速度物理衰减） ---------- */
+  /* ---------- 5. 版权页彩蛋：16-Bit 3.5寸软盘（金属保护滑块物理回弹、读写 LED 与状态气泡） ---------- */
   const egg = document.getElementById('egg');
-  const pinwheel = document.getElementById('pinwheel');
-  if (egg && pinwheel) {
-    const bladeGroup = pinwheel.querySelector('.pw-blade-group');
-    const base = reduce.matches ? 0 : 38;
-    let w = base;
-    let a = 0;
-    let on = false;
-    let last = 0;
-    let prev = null;
+  const floppy = document.getElementById('floppy');
+  const floppyBubble = document.getElementById('floppy-bubble');
+
+  if (egg && floppy) {
     let seen = false;
+    let quoteIndex = 0;
+    let bubbleTimer = null;
 
-    function tickPw(t) {
-      if (!on) return;
-      const dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
-      last = t;
-      w = base + (w - base) * Math.exp(-dt / 1.4);
-      a = (a + w * dt) % 360;
-      if (bladeGroup) bladeGroup.style.setProperty('--pw-a', a.toFixed(2) + 'deg');
-      requestAnimationFrame(tickPw);
-    }
+    const quotesZh = [
+      '💾 1.44MB · 简历已归档',
+      '⚡ READ_OK · 随时到岗',
+      '✦ HIRE_ME.EXE · 100%',
+      '💾 软盘已就绪 · DRIVE A:',
+      '🚀 6,500+ ★ · 66 PRs'
+    ];
+    const quotesEn = [
+      '💾 1.44MB · RESUME ARCHIVED',
+      '⚡ READ_OK · AVAILABLE NOW',
+      '✦ HIRE_ME.EXE · 100%',
+      '💾 DISK READY · DRIVE A:',
+      '🚀 6,500+ ★ · 66 PRs'
+    ];
 
-    function run() {
-      if (!on) {
-        on = true;
-        last = 0;
-        requestAnimationFrame(tickPw);
-      }
+    function showBubble(text) {
+      if (!floppyBubble) return;
+      floppyBubble.innerHTML = `<span>${text}</span>`;
+      egg.classList.add('show-bubble');
+      clearTimeout(bubbleTimer);
+      bubbleTimer = setTimeout(() => {
+        egg.classList.remove('show-bubble');
+      }, 2600);
     }
 
     if ('IntersectionObserver' in window) {
@@ -158,43 +162,28 @@
           if (!seen) {
             seen = true;
             egg.classList.add('up');
-            if (!reduce.matches) w = 560;
           }
-          run();
-        } else {
-          on = false;
         }
-      }, { threshold: 0.3 }).observe(egg);
+      }, { threshold: 0.05, rootMargin: '40px' }).observe(egg);
     } else {
       egg.classList.add('up');
-      run();
     }
 
-    window.addEventListener('pointermove', e => {
-      const t = performance.now();
-      if (on && prev && t - prev.t < 150) {
-        const r = pinwheel.getBoundingClientRect();
-        const R = r.width / 2;
-        const rx = e.clientX - (r.left + R);
-        const ry = e.clientY - (r.top + R);
-        const d = Math.hypot(rx, ry);
-        if (d < R * 6) {
-          const dx = e.clientX - prev.x;
-          const dy = e.clientY - prev.y;
-          const dt = Math.max(8, t - prev.t) / 1000;
-          const speed = Math.hypot(dx, dy) / dt;
-          const fall = d < R ? 1 : Math.max(0.06, Math.exp(-(d - R) / (1.6 * R)));
-          const turn = (rx * dy - ry * dx) / (d * d + R * R * 0.15);
-          w += (turn * 57.3 * 4 * (1 + Math.min(speed, 3000) / 900) + (w >= 0 ? 1 : -1) * Math.min(speed, 3000) * 0.6 * dt) * fall;
-          w = Math.max(-1800, Math.min(1800, w));
-        }
-      }
-      prev = { x: e.clientX, y: e.clientY, t };
-    }, { passive: true });
+    floppy.addEventListener('click', () => {
+      // 1. 金属滑块滑动并弹簧复位
+      floppy.classList.add('slid', 'active');
+      setTimeout(() => {
+        floppy.classList.remove('slid');
+      }, 300);
+      setTimeout(() => {
+        floppy.classList.remove('active');
+      }, 700);
 
-    pinwheel.addEventListener('click', () => {
-      w = Math.max(-1800, Math.min(1800, w + (w >= 0 ? 1 : -1) * 780));
-      run();
+      // 2. 轮换状态语句
+      const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+      const list = isEn ? quotesEn : quotesZh;
+      quoteIndex = (quoteIndex + 1) % list.length;
+      showBubble(list[quoteIndex]);
     });
   }
 
