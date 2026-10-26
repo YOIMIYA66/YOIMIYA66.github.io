@@ -46,9 +46,9 @@ img, video { max-width: 100%; }
 .lit { background: var(--grain), var(--card); border-radius: 3px; box-shadow: var(--sx, 4px) var(--sy, 8px) 26px -10px var(--shadow), 0 1px 0 rgba(60, 40, 20, .08); transition: box-shadow .25s ease-out; }
 
 /* ---------- 刊头 ---------- */
-.mast { display: grid; grid-template-columns: auto 1fr auto auto; align-items: end; gap: 24px; padding-block: 28px 14px; border-bottom: 1.5px solid var(--rule-strong); }
+.mast { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 22px 14px; border-bottom: 1.5px solid var(--rule-strong); }
+.brand-group { display: inline-flex; align-items: center; gap: 14px; }
 .logo { font: 800 26px/1 var(--serif); letter-spacing: -.03em; text-decoration: none; }
-.issue { justify-self: center; font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
 .nav { display: flex; gap: 22px; font: 500 13px/1 var(--mono); }
 .nav a { text-decoration: none; color: var(--soft); white-space: nowrap; }
 .nav a:hover { color: var(--brand); }
@@ -174,11 +174,34 @@ img, video { max-width: 100%; }
 
 /* ---------- 展台像素桌宠 ---------- */
 .plate { margin: 0; display: grid; gap: 0; }
-.stage { position: relative; z-index: 3; aspect-ratio: 1 / 1.04; }
-.sun { position: absolute; left: 9%; right: 9%; top: 5%; aspect-ratio: 1; border-radius: 50%; background: var(--mist); }
-.ground { position: absolute; left: 0; right: 0; bottom: 8.6%; height: 1.5px; background: var(--ink); }
-.doll { position: absolute; left: 12%; width: 76%; bottom: 7.5%; aspect-ratio: 64 / 72; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
-  transform-origin: 50% 90%; filter: drop-shadow(var(--sx, 4px) var(--sy, 8px) 6px var(--shadow)); }
+.stage {
+  position: relative;
+  z-index: 3;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.doll {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 380px;
+  max-height: 380px;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  display: block;
+  filter: drop-shadow(var(--sx, 4px) var(--sy, 8px) 8px var(--shadow));
+  transition: transform .15s ease-out;
+}
+.doll:active {
+  transform: scale(0.98);
+}
 #pixel-canvas {
   width: 100%;
   height: 100%;
@@ -326,12 +349,37 @@ img, video { max-width: 100%; }
   .points div:first-child, .wins div:first-child { border-top: 0; }
 }
 @media (max-width: 860px) {
-  .mast { grid-template-columns: 1fr auto; }
-  .issue { grid-column: 1 / -1; grid-row: 2; justify-self: start; }
+  .mast { display: flex; justify-content: space-between; align-items: center; }
   .nav { display: none; }
   .cover, .about, .fgrid { grid-template-columns: minmax(0, 1fr); }
-  .plate { order: -1; max-width: 440px; margin-inline: auto; width: 100%; }
+  .plate { order: -1; max-width: 360px; margin-inline: auto; width: 100%; }
   .colophon { flex-direction: column; }
+}
+@media (max-width: 680px) {
+  .honors-table, .honors-table tbody, .honors-table tr, .honors-table td {
+    display: block;
+    width: 100% !important;
+  }
+  .honors-table tr {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .honors-table td {
+    padding: 3px 0;
+  }
+  .honors-table td.award-rank {
+    margin-bottom: 6px;
+  }
+  .honors-table td.award-name {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .honors-table td.award-date {
+    text-align: left;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+  }
 }
 @media (max-width: 560px) {
   .toc { grid-template-columns: minmax(0, 1fr); }
