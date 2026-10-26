@@ -482,6 +482,36 @@ img, video { max-width: 100%; }
   font-family: var(--mono);
 }
 
+/* 16-Bit 街机跳字与微火花动效（点击点赞飞出 +1 ♥） */
+.like-spark {
+  position: absolute;
+  pointer-events: none;
+  font: 800 12.5px/1 var(--mono);
+  color: #DC2626;
+  text-shadow: 1px 1px 0 #FAF9F5, 2px 2px 0 var(--block);
+  z-index: 25;
+  user-select: none;
+  animation: likeFloatUp .85s cubic-bezier(.18, .89, .32, 1.28) forwards;
+}
+@keyframes likeFloatUp {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.6);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(var(--dx, 0px), -12px) scale(1.25);
+  }
+  65% {
+    opacity: 1;
+    transform: translate(var(--dx, 0px), -24px) scale(1.05);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 0px), -36px) scale(.85);
+  }
+}
+
 /* =====================================================================
    主题层：Claude 式文艺（燕麦纸 · 陶土橙 · 轻衬线）× 轻 3D 像素
    规则：衬线字重放轻；可交互的“块”都带 1px 墨线 + 阶梯式硬投影（像素挤出），

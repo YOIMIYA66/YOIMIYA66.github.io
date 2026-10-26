@@ -348,15 +348,8 @@ export class PixelCompanion {
 
     // --- 7. Head, Face, Hair & Glasses (ID Photo Likeness) ---
     const headY = bodyY;
-    // Neck
+    // Clean, Defined Neck
     rect(32, 33 + headY, 5, 3, '#F5AF8B');
-
-    // Studio Headset resting around the neck (Titanium band & earcups)
-    rect(27, 32 + headY, 3, 5, '#1E2430'); // Left earcup
-    pixel(27, 34 + headY, '#EA580C');     // Orange driver accent
-    rect(40, 32 + headY, 3, 5, '#1E2430'); // Right earcup
-    pixel(42, 34 + headY, '#EA580C');     // Orange driver accent
-    rect(29, 35 + headY, 12, 1, '#334155'); // Headphone arch behind neck
 
     // Face Shape & Contour
     rect(28, 19 + headY, 16, 15, '#151821'); // Contour outline
@@ -431,6 +424,31 @@ export class PixelCompanion {
     rect(29, 19 + headY, 3, 2, '#151821');
     rect(34, 19 + headY, 3, 2, '#151821');
     rect(39, 19 + headY, 3, 2, '#151821');
+
+    // --- Sony Flagship Over-Ear Studio Headphones (索尼头戴式降噪耳机：WH-1000XM 标志性弧线头梁与耳罩) ---
+    // 1. Headband Cushion (贴合发际的皮质软垫与圆弧顶梁)
+    rect(30, 10 + headY, 12, 2, '#23262F'); // Matte black headband cushion
+    rect(32, 9 + headY, 8, 1, '#151821');  // Arch top curve outline
+    rect(31, 10 + headY, 10, 1, '#474D5C'); // Soft metallic crown reflection
+
+    // 2. Seamless Stepless Sliders / Yokes (索尼无级滑轨与旋转支架)
+    rect(26, 12 + headY, 3, 6, '#181B22'); // Left yoke
+    pixel(27, 13 + headY, '#717888');      // Brushed metallic slider highlight
+    rect(43, 12 + headY, 3, 6, '#181B22'); // Right yoke
+    pixel(44, 13 + headY, '#717888');
+
+    // 3. Ergonomic Over-Ear Earcups (两侧包耳式大耳罩与索尼标志性金铜降噪麦克风口)
+    // Left Earcup
+    rect(24, 18 + headY, 3, 9, '#151821'); // Earcup shadow & outer bevel
+    rect(25, 18 + headY, 3, 9, '#22252E'); // Main cup body
+    rect(26, 19 + headY, 2, 7, '#2F3441'); // Cylindrical cup specular reflection
+    pixel(26, 22 + headY, '#D4AF37');     // Sony iconic champagne-gold / bronze mic ring
+
+    // Right Earcup
+    rect(45, 18 + headY, 3, 9, '#151821'); // Earcup shadow & outer bevel
+    rect(44, 18 + headY, 3, 9, '#22252E'); // Main cup body
+    rect(44, 19 + headY, 2, 7, '#2F3441'); // Specular reflection
+    pixel(45, 22 + headY, '#D4AF37');     // Sony iconic champagne-gold / bronze mic ring
 
     // --- 8. Arms & Keyboard Typing (Matching Orange Plaid Sleeves) ---
     // Upper arm in orange plaid flannel

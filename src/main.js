@@ -125,21 +125,41 @@
   const egg = document.getElementById('egg');
   const likeBtn = document.getElementById('like-badge');
   const likeCountEl = document.getElementById('like-count');
-  const likeTooltip = document.getElementById('like-tooltip');
+  const tooltipZh = document.getElementById('like-tooltip-zh');
+  const tooltipEn = document.getElementById('like-tooltip-en');
 
   if (egg && likeBtn && likeCountEl) {
     let likes = parseInt(localStorage.getItem('yoimiya_likes') || '66', 10);
     likeCountEl.textContent = likes;
 
+    // 趣味开发者感谢短语库（双语同步切换，纯粹激励，不重复显示总赞数）
+    const THANK_MESSAGES = [
+      { zh: '感谢你的认可与支持！♥', en: 'Thank you for your support! ♥' },
+      { zh: '收到一份鼓励，更有动力了！✨', en: 'Energy recharged! Thanks for the boost! ✨' },
+      { zh: '谢谢！祝你今天也是 Bug-free 的一天 ✦', en: 'Thanks! Wishing you a bug-free day ✦' },
+      { zh: '收到点赞！系统状态全绿 🚀', en: 'Like received! All systems operational 🚀' }
+    ];
+    let msgIndex = 0;
     let tooltipTimer = null;
-    function flashTooltip(text) {
-      if (!likeTooltip) return;
-      likeTooltip.innerHTML = `<span>${text}</span>`;
-      egg.classList.add('show-tooltip');
-      clearTimeout(tooltipTimer);
-      tooltipTimer = setTimeout(() => {
-        egg.classList.remove('show-tooltip');
-      }, 2000);
+
+    function resetTooltip() {
+      if (tooltipZh) tooltipZh.textContent = '给小吕点赞 +1 ♥';
+      if (tooltipEn) tooltipEn.textContent = 'Like this portfolio +1 ♥';
+      egg.classList.remove('show-tooltip');
+    }
+
+    function spawnFloatingSpark() {
+      const spark = document.createElement('span');
+      spark.className = 'like-spark';
+      spark.textContent = '+1 ♥';
+      const offset = (Math.random() - 0.5) * 16;
+      spark.style.setProperty('--dx', `${offset}px`);
+      spark.style.right = '24px';
+      spark.style.bottom = '18px';
+      egg.appendChild(spark);
+      setTimeout(() => {
+        spark.remove();
+      }, 900);
     }
 
     likeBtn.addEventListener('click', () => {
@@ -147,14 +167,26 @@
       localStorage.setItem('yoimiya_likes', likes);
       likeCountEl.textContent = likes;
 
+      // 1. 按钮弹性微跳动
       likeBtn.classList.add('popped');
       setTimeout(() => {
         likeBtn.classList.remove('popped');
       }, 250);
 
-      const isEn = document.documentElement.getAttribute('data-lang') === 'en';
-      const msg = isEn ? `Thank you! +1 ♥ (${likes})` : `感谢认可！+1 ♥ (${likes})`;
-      flashTooltip(msg);
+      // 2. 街机像素飞字 +1 ♥
+      spawnFloatingSpark();
+
+      // 3. 切换双语感谢气泡（保留多语言 DOM 节点，互不影响）
+      const item = THANK_MESSAGES[msgIndex % THANK_MESSAGES.length];
+      msgIndex++;
+      if (tooltipZh) tooltipZh.textContent = item.zh;
+      if (tooltipEn) tooltipEn.textContent = item.en;
+
+      egg.classList.add('show-tooltip');
+      clearTimeout(tooltipTimer);
+      tooltipTimer = setTimeout(() => {
+        resetTooltip();
+      }, 2400);
     });
   }
 
