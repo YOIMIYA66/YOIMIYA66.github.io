@@ -285,8 +285,8 @@ img, video { max-width: 100%; }
 .honors-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-variant-numeric: tabular-nums; }
 .honors-table tr { border-bottom: 1px solid var(--rule); }
 .honors-table td { padding: 18px 16px 18px 0; vertical-align: baseline; font-size: 15px; }
-.honors-table td.award-rank { font: 700 15px/1.4 var(--serif); color: var(--brand); white-space: nowrap; width: 230px; }
-.honors-table td.award-rank b { font-weight: 700; color: var(--ink); margin-left: 4px; }
+.honors-table td.award-rank { font: 700 15px/1.4 var(--serif); color: var(--brand); white-space: nowrap; width: 260px; }
+.honors-table td.award-rank b { font-weight: 700; color: var(--ink); margin-left: 4px; white-space: nowrap; }
 .honors-table td.award-name { font: 500 15.5px/1.5 var(--serif); color: var(--ink); }
 .honors-table td.award-date { font: 500 13px/1 var(--mono); color: var(--muted); text-align: right; width: 100px; white-space: nowrap; }
 
