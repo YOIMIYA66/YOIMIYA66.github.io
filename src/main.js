@@ -3,7 +3,7 @@ import { i18n } from './i18n.js';
 class CareerPortalApp {
   constructor() {
     this.currentLang = this.detectLanguage();
-    this.initThreeBody3D();
+    this.initLantern3D();
     this.initLampEffect();
     this.initCard3DTilt();
     this.bindEvents();
@@ -21,31 +21,17 @@ class CareerPortalApp {
     return navLang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
   }
 
-  async initThreeBody3D() {
+  async initLantern3D() {
     const container = document.getElementById('hero-3d-canvas-container');
     if (!container) return;
 
     try {
-      const { ThreeBodyAstrolabe } = await import('./three-body-engine.js');
-      this.astrolabe = new ThreeBodyAstrolabe(container);
+      const { YoimiyaLanternScene } = await import('./yoimiya-lantern.js');
+      this.lanternScene = new YoimiyaLanternScene(container);
       const fallback = document.getElementById('hero-3d-fallback');
       if (fallback) fallback.style.display = 'none';
-
-      // Update telemetry display every 1.5 seconds
-      setInterval(() => {
-        if (this.astrolabe) {
-          const t = this.astrolabe.calculateTelemetry();
-          const subTag = document.getElementById('astrolabe-sub-tag');
-          if (subTag) {
-            subTag.textContent = this.currentLang === 'zh'
-              ? `第 ${this.astrolabe.civilizationEra} 号文明 · ${t.era} (${t.temp}) · 点击施加引力扰动`
-              : `Era #${this.astrolabe.civilizationEra} · ${t.era} (${t.temp}) · Click to Perturb`;
-          }
-        }
-      }, 1500);
-
     } catch (err) {
-      console.warn('Three-Body engine initialization fallback:', err);
+      console.warn('Yoimiya Lantern 3D initialization fallback:', err);
     }
   }
 
@@ -99,7 +85,7 @@ class CareerPortalApp {
     document.getElementById('nav-contact').textContent = data.nav.contact;
 
     // Hero
-    document.getElementById('hero-greeting').textContent = data.hero.greeting;
+    document.getElementById('hero-greeting').textContent = this.currentLang === 'zh' ? '宵宮の風 · 你好，我是吕炳荣' : "Yoimiya's Breeze · Hello, I'm Lyu Bingrong";
     document.getElementById('hero-head-1').textContent = this.currentLang === 'zh' ? '在确定性与边界之间，' : 'Between certainty and vulnerability,';
     document.getElementById('hero-head-2').textContent = this.currentLang === 'zh' ? '构建可度量、可落地的 AI 系统。' : 'Building measurable, reliable AI systems.';
     document.getElementById('hero-role-line').textContent = data.hero.roleLine;
@@ -108,9 +94,13 @@ class CareerPortalApp {
     document.getElementById('btn-contact-text').textContent = data.hero.downloadCv;
     document.getElementById('btn-explore-text').textContent = data.hero.exploreBtn;
 
-    const astrolabeTitle = document.getElementById('astrolabe-title-tag');
-    if (astrolabeTitle) {
-      astrolabeTitle.textContent = this.currentLang === 'zh' ? '三体混沌引力轨迹仪' : 'Three-Body Chaotic Astrolabe';
+    const lanternTitle = document.getElementById('lantern-title-tag');
+    if (lanternTitle) {
+      lanternTitle.textContent = this.currentLang === 'zh' ? '和風水行燈 · 宵宮の夏夜' : 'Washi Lantern · Yoimiya Festival Night';
+    }
+    const lanternSub = document.getElementById('lantern-sub-tag');
+    if (lanternSub) {
+      lanternSub.textContent = this.currentLang === 'zh' ? '3D Washi Lantern · 点击唤起金色花火' : '3D Interactive Lantern · Click for Sparks';
     }
 
     // Stats
@@ -216,8 +206,8 @@ class CareerPortalApp {
 
     // Footer
     document.getElementById('footer-note').textContent = this.currentLang === 'zh'
-      ? '© 2026 吕炳荣 (Lyu Bingrong) · 纸墨版式与三体星轨轻3D'
-      : '© 2026 Lyu Bingrong · Magazine Layout & Three-Body Light 3D';
+      ? '© 2026 吕炳荣 (YOIMIYA66) · 宵宮花火と和風3D水行燈'
+      : '© 2026 Lyu Bingrong (YOIMIYA66) · Yoimiya Festival & Japanese 3D Floating Lantern';
     document.getElementById('btn-scroll-top').textContent = this.currentLang === 'zh' ? '返回顶部 ↑' : 'Back to top ↑';
 
     // Rebind 3D tilt after DOM injection

@@ -1,27 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Geist+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700;900&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Shippori+Mincho:wght@400;500;600;700&display=swap');
 
 :root {
-  --paper-bg: #F5EFE6;      /* 质感暖宣纸底色 */
-  --paper-sub: #EDE5DA;     /* 衬纸微深 */
-  --ink: #222630;           /* 浓墨 */
-  --ink-soft: #424958;      /* 焦墨次要 */
-  --ink-muted: #727A8C;     /* 浅墨图注 */
-  --brand: #C85E3D;         /* 暖赤陶红 / 印泥朱砂 */
-  --brand-light: rgba(200, 94, 61, 0.08);
-  --cyan-azure: #0284C7;    /* 霁蓝 / 科技天青 */
-  --gold-amber: #D97706;    /* 琥珀金 */
-  --rule: rgba(34, 38, 48, 0.14);
-  --rule-strong: rgba(34, 38, 48, 0.38);
-  --card: #FCFAF6;          /* 米白玉扣纸卡片 */
-  --card-border: rgba(34, 38, 48, 0.12);
-  --card-shadow: 0 10px 30px rgba(34, 38, 48, 0.05);
-  --lamp: rgba(255, 252, 244, 0.96);
-  --lamp-edge: rgba(70, 48, 25, 0.25);
-  --green-ok: #3F7524;
-  --green-ok-bg: rgba(63, 117, 36, 0.12);
+  /* 日系和风 · 宵宫深宵与金箔夜色 */
+  --wa-bg: #0C0F17;            /* 深漆夜色 / 浓绀蓝 */
+  --wa-bg-sub: #121724;        /* 和室暗影 */
+  --wa-card: #161C2B;          /* 绀青和纸卡片 */
+  --wa-card-border: rgba(243, 198, 143, 0.18);
+  --wa-ink-white: #F8F6F0;     /* 牙白主文字 */
+  --wa-ink-soft: #D1CCBF;      /* 灰白副文 */
+  --wa-ink-muted: #8E95A5;     /* 幽灰图注 */
+  --wa-vermilion: #C83E2D;     /* 鸟居朱红 / 绯红印泥 */
+  --wa-vermilion-glow: rgba(200, 62, 45, 0.25);
+  --wa-gold: #F3C68F;          /* 金箔赤金 */
+  --wa-gold-soft: #E0A96D;
+  --wa-amber: #F59E0B;         /* 提灯暖焰 */
+  --wa-rule: rgba(243, 198, 143, 0.12);
+  --wa-rule-strong: rgba(243, 198, 143, 0.32);
 
-  --serif: "Fraunces", "Noto Serif SC", "Songti SC", "Source Han Serif SC", Georgia, serif;
-  --mono: "Geist Mono", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-mincho: "Shippori Mincho", "Noto Serif JP", "Noto Serif SC", "Songti SC", serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 
   --maxw: 1140px;
   --gutter: clamp(20px, 5vw, 64px);
@@ -35,39 +32,38 @@
 }
 
 html {
-  font-family: var(--mono);
-  background-color: var(--paper-bg);
-  color: var(--ink);
+  font-family: var(--font-mono);
+  background-color: var(--wa-bg);
+  color: var(--wa-ink-white);
   font-size: 15px;
-  line-height: 1.75;
+  line-height: 1.78;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
 }
 
-/* Delicate Paper Noise Texture */
+/* Summer Night Fireworks Ambient Sky */
 body {
   position: relative;
   overflow-x: hidden;
   min-height: 100vh;
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(200, 94, 61, 0.035) 0%, transparent 45%),
-    radial-gradient(circle at 85% 75%, rgba(2, 132, 199, 0.04) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.025) 0%, transparent 60%);
+    radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 55%),
+    radial-gradient(circle at 15% 75%, rgba(200, 62, 45, 0.07) 0%, transparent 60%),
+    radial-gradient(circle at 50% 50%, rgba(243, 198, 143, 0.03) 0%, transparent 70%);
 }
 
-/* Desk Lamp Ambient Glow (跟随鼠标移动的柔和台灯漫射) */
+/* Warm Lantern Light Follower */
 .lamp-glow {
   position: fixed;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(680px circle at var(--mx, 75vw) var(--my, 25vh), var(--lamp), transparent 64%, var(--lamp-edge) 100%);
-  mix-blend-mode: soft-light;
-  opacity: 0.95;
+  background: radial-gradient(700px circle at var(--mx, 75vw) var(--my, 25vh), rgba(245, 158, 11, 0.09), transparent 60%);
+  mix-blend-mode: screen;
 }
 
-/* Base Container */
+/* Page Frame */
 .page-wrap {
   position: relative;
   z-index: 3;
@@ -76,25 +72,25 @@ body {
   padding-inline: var(--gutter);
 }
 
-/* Top Notification / Coordinate Ticker */
+/* TOP TICKER BAR / 宵宫天体与节令 */
 .top-ticker-bar {
-  padding-top: 1.2rem;
-  padding-bottom: 0.4rem;
+  padding-top: 1.4rem;
+  padding-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-muted);
+  letter-spacing: 0.12em;
+  color: var(--wa-gold-soft);
   text-transform: uppercase;
-  border-bottom: 1px dotted var(--rule);
+  border-bottom: 1px dotted var(--wa-rule);
 }
 
-/* Masthead / Site Header */
+/* MASTHEAD / 刊头导航 */
 .masthead {
-  padding-top: 1.6rem;
-  padding-bottom: 1.6rem;
-  border-bottom: 1.5px solid var(--rule-strong);
+  padding-top: 1.8rem;
+  padding-bottom: 1.8rem;
+  border-bottom: 1.5px solid var(--wa-rule-strong);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -110,62 +106,62 @@ body {
 }
 
 .masthead-title {
-  font-family: var(--serif);
+  font-family: var(--font-mincho);
   font-size: 1.55rem;
   font-weight: 700;
-  letter-spacing: -0.015em;
-  color: var(--ink);
+  letter-spacing: 0.04em;
+  color: var(--wa-ink-white);
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
 }
 
 .masthead-seal {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  background: var(--brand);
+  width: 24px;
+  height: 24px;
+  background: var(--wa-vermilion);
   color: #fff;
-  border-radius: 3px;
-  font-size: 0.7rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0;
-  line-height: 1;
+  box-shadow: 0 0 10px var(--wa-vermilion-glow);
 }
 
 .masthead-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.2rem 0.65rem;
+  padding: 0.22rem 0.75rem;
   border-radius: 999px;
-  background: var(--green-ok-bg);
-  color: var(--green-ok);
+  background: rgba(200, 62, 45, 0.16);
+  color: #fca5a5;
   font-size: 0.76rem;
   font-weight: 600;
-  border: 1px solid rgba(63, 117, 36, 0.25);
+  border: 1px solid rgba(200, 62, 45, 0.4);
 }
 
 .status-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--green-ok);
-  animation: blinkDot 2.2s infinite ease-in-out;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: pulseSparks 2s infinite ease-in-out;
 }
 
-@keyframes blinkDot {
+@keyframes pulseSparks {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.35; transform: scale(0.8); }
+  50% { opacity: 0.35; transform: scale(0.7); }
 }
 
 .masthead-edition {
-  font-size: 0.78rem;
-  color: var(--ink-muted);
-  letter-spacing: 0.05em;
+  font-size: 0.76rem;
+  color: var(--wa-ink-muted);
+  letter-spacing: 0.08em;
 }
 
 .masthead-nav {
@@ -175,103 +171,106 @@ body {
 }
 
 .masthead-nav a {
-  color: var(--ink-soft);
+  color: var(--wa-ink-soft);
   text-decoration: none;
   font-size: 0.82rem;
   font-weight: 500;
   transition: color 0.15s ease;
+  letter-spacing: 0.05em;
 }
 
 .masthead-nav a:hover {
-  color: var(--brand);
+  color: var(--wa-gold);
 }
 
 .btn-lang-toggle {
   background: transparent;
-  border: 1px solid var(--rule-strong);
-  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--wa-rule-strong);
+  padding: 0.25rem 0.7rem;
   border-radius: 4px;
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  color: var(--ink);
+  color: var(--wa-gold);
   transition: all 0.2s ease;
 }
 
 .btn-lang-toggle:hover {
-  background: var(--ink);
-  color: var(--paper-bg);
+  background: var(--wa-gold);
+  color: var(--wa-bg);
 }
 
 /* SECTION: HERO (COVER STORY) */
 .hero-cover {
-  padding-block: 3.8rem 3.5rem;
+  padding-block: 4rem 3.8rem;
   display: grid;
   grid-template-columns: 1.35fr 1fr;
   gap: 3.5rem;
   align-items: center;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--wa-rule);
 }
 
 .hero-greeting {
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--brand);
-  margin-bottom: 0.8rem;
+  font-family: var(--font-mincho);
+  font-size: 0.88rem;
+  letter-spacing: 0.2em;
+  color: var(--wa-gold);
+  margin-bottom: 0.9rem;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.7rem;
 }
 
 .hero-greeting::after {
   content: "";
   display: inline-block;
-  width: 36px;
+  width: 44px;
   height: 1px;
-  background: var(--brand);
+  background: var(--wa-gold);
 }
 
 .hero-headline {
-  font-family: var(--serif);
+  font-family: var(--font-mincho);
   font-size: clamp(2.35rem, 4.4vw, 3.6rem);
-  font-weight: 500;
-  line-height: 1.18;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  margin-bottom: 1.3rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: var(--wa-ink-white);
+  margin-bottom: 1.4rem;
 }
 
 .hero-headline em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--brand);
+  font-style: normal;
+  font-weight: 600;
+  color: var(--wa-gold);
+  background: linear-gradient(135deg, #F3C68F 0%, #E0A96D 50%, #C83E2D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .hero-role-line {
-  font-size: 0.98rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 1.4rem;
-  letter-spacing: -0.01em;
+  color: #fef08a;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.03em;
 }
 
 .hero-bio-para {
-  font-size: 0.96rem;
-  line-height: 1.82;
-  color: var(--ink-soft);
-  margin-bottom: 1.6rem;
+  font-size: 0.98rem;
+  line-height: 1.88;
+  color: var(--wa-ink-soft);
+  margin-bottom: 1.8rem;
 }
 
 .hero-target-box {
-  background: var(--brand-light);
-  border-left: 3px solid var(--brand);
-  padding: 0.85rem 1.2rem;
-  font-size: 0.86rem;
-  color: var(--ink);
-  margin-bottom: 2rem;
+  background: rgba(243, 198, 143, 0.06);
+  border-left: 3px solid var(--wa-gold);
+  padding: 0.9rem 1.3rem;
+  font-size: 0.88rem;
+  color: var(--wa-ink-white);
+  margin-bottom: 2.2rem;
   border-radius: 0 4px 4px 0;
 }
 
@@ -286,29 +285,32 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--ink);
-  color: var(--paper-bg);
+  padding: 0.8rem 1.6rem;
+  background: var(--wa-vermilion);
+  color: #ffffff;
   text-decoration: none;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   border-radius: 4px;
-  transition: transform 0.15s ease, background 0.15s ease;
+  box-shadow: 0 4px 16px var(--wa-vermilion-glow);
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn-solid-ink:hover {
-  background: var(--brand);
-  transform: translateY(-1px);
+  background: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--wa-vermilion-glow);
 }
 
 .btn-outline-ink {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.4rem;
+  padding: 0.78rem 1.5rem;
   background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--rule-strong);
+  color: var(--wa-gold);
+  border: 1px solid var(--wa-gold-soft);
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 500;
@@ -317,11 +319,11 @@ body {
 }
 
 .btn-outline-ink:hover {
-  border-color: var(--ink);
-  background: rgba(34, 38, 48, 0.04);
+  background: rgba(243, 198, 143, 0.1);
+  transform: translateY(-2px);
 }
 
-/* THREE-BODY ASTROLABE (三体混沌星仪 3D 视口) */
+/* 3D YOIMIYA LANTERN VIEWPORT */
 .hero-3d-wrapper {
   position: relative;
   display: flex;
@@ -330,36 +332,33 @@ body {
   justify-content: center;
 }
 
-.astrolabe-viewport {
+.lantern-viewport {
   width: 100%;
   max-width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, #FCFAF6 0%, rgba(245, 239, 230, 0.4) 75%, transparent 100%);
-  border: 1px solid var(--rule);
-  border-radius: 50%;
+  height: 400px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(22, 28, 43, 0.4) 65%, transparent 100%);
+  border: 1px solid var(--wa-card-border);
+  border-radius: 20px;
   position: relative;
   overflow: hidden;
   box-shadow: 
-    0 16px 40px rgba(34, 38, 48, 0.06),
-    inset 0 0 24px rgba(200, 94, 61, 0.05);
-  cursor: crosshair;
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    inset 0 0 40px rgba(245, 158, 11, 0.08);
+  cursor: pointer;
+  transition: transform 0.3s var(--ease), border-color 0.3s ease;
 }
 
-.astrolabe-viewport:hover {
-  box-shadow: 
-    0 24px 50px rgba(34, 38, 48, 0.1),
-    inset 0 0 32px rgba(2, 132, 199, 0.08);
+.lantern-viewport:hover {
+  border-color: rgba(243, 198, 143, 0.4);
   transform: scale(1.02);
 }
 
 #hero-3d-canvas-container {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
 }
 
-.astrolabe-caption-box {
+.lantern-caption-box {
   margin-top: 1.2rem;
   display: flex;
   flex-direction: column;
@@ -367,28 +366,27 @@ body {
   gap: 0.25rem;
 }
 
-.astrolabe-title-tag {
-  font-family: var(--serif);
-  font-size: 0.92rem;
+.lantern-title-tag {
+  font-family: var(--font-mincho);
+  font-size: 0.95rem;
   font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.06em;
+  color: var(--wa-gold);
+  letter-spacing: 0.12em;
 }
 
-.astrolabe-sub-tag {
+.lantern-sub-tag {
   font-size: 0.72rem;
-  color: var(--ink-muted);
+  color: var(--wa-ink-muted);
   letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
-/* QUICK STATS TICKER */
+/* STATS TICKER */
 .stats-banner {
   padding-block: 2.2rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5rem;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--wa-rule);
 }
 
 .stat-item {
@@ -398,23 +396,23 @@ body {
 }
 
 .stat-number {
-  font-family: var(--serif);
-  font-size: 2rem;
+  font-family: var(--font-mincho);
+  font-size: 2.1rem;
   font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.02em;
+  color: var(--wa-gold);
+  letter-spacing: -0.01em;
 }
 
 .stat-label {
   font-size: 0.78rem;
-  color: var(--ink-muted);
+  color: var(--wa-ink-muted);
   line-height: 1.4;
 }
 
-/* SECTION SHARED LAYOUT */
+/* EDITORIAL SECTIONS */
 .editorial-section {
-  padding-block: 4.5rem 4rem;
-  border-bottom: 1px solid var(--rule);
+  padding-block: 4.8rem 4.2rem;
+  border-bottom: 1px solid var(--wa-rule);
 }
 
 .section-head-bar {
@@ -429,39 +427,39 @@ body {
 .section-num-tag {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--brand);
-  letter-spacing: 0.12em;
+  color: var(--wa-vermilion);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   margin-bottom: 0.4rem;
 }
 
 .section-title {
-  font-family: var(--serif);
-  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
-  font-weight: 500;
-  color: var(--ink);
-  letter-spacing: -0.015em;
+  font-family: var(--font-mincho);
+  font-size: clamp(1.85rem, 3.2vw, 2.6rem);
+  font-weight: 600;
+  color: var(--wa-ink-white);
+  letter-spacing: 0.02em;
 }
 
 .section-subtitle {
   font-size: 0.88rem;
-  color: var(--ink-soft);
+  color: var(--wa-ink-soft);
   max-width: 580px;
 }
 
-/* SECTION: EXPERIENCE (实习经历) */
+/* SECTION: EXPERIENCE */
 .exp-card {
-  background: var(--card);
-  border: 1px solid var(--card-border);
+  background: var(--wa-card);
+  border: 1px solid var(--wa-card-border);
   border-radius: 12px;
   padding: clamp(1.8rem, 3vw, 2.6rem);
-  box-shadow: var(--card-shadow);
-  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s var(--ease), border-color 0.2s ease;
 }
 
 .exp-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 36px rgba(34, 38, 48, 0.08);
+  border-color: rgba(243, 198, 143, 0.4);
 }
 
 .exp-header {
@@ -471,30 +469,31 @@ body {
   flex-wrap: wrap;
   gap: 1rem;
   padding-bottom: 1.4rem;
-  border-bottom: 1px dashed var(--rule);
+  border-bottom: 1px dashed var(--wa-rule);
   margin-bottom: 1.6rem;
 }
 
 .exp-company {
-  font-family: var(--serif);
+  font-family: var(--font-mincho);
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--ink);
+  color: var(--wa-ink-white);
 }
 
 .exp-dept-role {
   font-size: 0.88rem;
-  color: var(--brand);
+  color: var(--wa-gold);
   font-weight: 500;
   margin-top: 0.2rem;
 }
 
 .exp-period-pill {
   font-size: 0.78rem;
-  background: rgba(34, 38, 48, 0.06);
+  background: rgba(243, 198, 143, 0.08);
+  border: 1px solid var(--wa-rule);
   padding: 0.25rem 0.65rem;
   border-radius: 4px;
-  color: var(--ink-muted);
+  color: var(--wa-gold);
   white-space: nowrap;
 }
 
@@ -513,26 +512,26 @@ body {
 .duty-title {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--ink);
+  color: var(--wa-gold);
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .duty-title::before {
-  content: "•";
-  color: var(--brand);
-  font-size: 1.2rem;
+  content: "✦";
+  color: var(--wa-vermilion);
+  font-size: 0.8rem;
 }
 
 .duty-desc {
   font-size: 0.92rem;
-  color: var(--ink-soft);
-  line-height: 1.72;
-  padding-left: 1.1rem;
+  color: var(--wa-ink-soft);
+  line-height: 1.75;
+  padding-left: 1.2rem;
 }
 
-/* SECTION: PROJECTS (代表作品，带轻3D卡片倾斜视差) */
+/* SECTION: PROJECTS */
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -540,19 +539,19 @@ body {
 }
 
 .project-card-tilt {
-  background: var(--card);
-  border: 1px solid var(--card-border);
+  background: var(--wa-card);
+  border: 1px solid var(--wa-card-border);
   border-radius: 12px;
   padding: clamp(1.8rem, 3.2vw, 2.5rem);
-  box-shadow: var(--card-shadow);
-  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s ease;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s var(--ease), border-color 0.2s ease, box-shadow 0.2s ease;
   transform-style: preserve-3d;
   perspective: 1000px;
 }
 
 .project-card-tilt:hover {
-  border-color: rgba(200, 94, 61, 0.45);
-  box-shadow: 0 18px 44px rgba(34, 38, 48, 0.09);
+  border-color: rgba(243, 198, 143, 0.45);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
 }
 
 .project-meta-bar {
@@ -566,30 +565,30 @@ body {
 
 .project-role-badge {
   font-size: 0.78rem;
-  color: var(--brand);
+  color: var(--wa-gold);
   font-weight: 600;
 }
 
 .project-star-badge {
   font-size: 0.74rem;
-  background: rgba(200, 94, 61, 0.12);
-  color: var(--brand);
+  background: rgba(243, 198, 143, 0.12);
+  color: var(--wa-gold);
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
   font-weight: 600;
 }
 
 .project-title {
-  font-family: var(--serif);
+  font-family: var(--font-mincho);
   font-size: 1.55rem;
   font-weight: 600;
-  color: var(--ink);
+  color: var(--wa-ink-white);
   margin-bottom: 0.6rem;
 }
 
 .project-oneliner {
   font-size: 0.96rem;
-  color: var(--ink);
+  color: #fde68a;
   font-weight: 500;
   margin-bottom: 1.2rem;
   line-height: 1.6;
@@ -605,8 +604,8 @@ body {
 
 .project-bullets-list li {
   font-size: 0.88rem;
-  color: var(--ink-soft);
-  line-height: 1.65;
+  color: var(--wa-ink-soft);
+  line-height: 1.68;
   position: relative;
   padding-left: 1.2rem;
 }
@@ -615,7 +614,7 @@ body {
   content: "—";
   position: absolute;
   left: 0;
-  color: var(--ink-muted);
+  color: var(--wa-gold-soft);
 }
 
 .project-bottom-row {
@@ -625,7 +624,7 @@ body {
   flex-wrap: wrap;
   gap: 1.2rem;
   padding-top: 1.2rem;
-  border-top: 1px dashed var(--rule);
+  border-top: 1px dashed var(--wa-rule);
 }
 
 .project-tags-wrap {
@@ -636,8 +635,9 @@ body {
 
 .tag-badge {
   font-size: 0.72rem;
-  background: rgba(34, 38, 48, 0.05);
-  color: var(--ink-muted);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--wa-ink-muted);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 0.2rem 0.55rem;
   border-radius: 3px;
 }
@@ -645,22 +645,22 @@ body {
 .project-link-cta {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--ink);
+  color: var(--wa-gold);
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .project-link-cta:hover {
-  color: var(--brand);
+  color: #ffffff;
 }
 
-/* SECTION: HONORS (竞赛与奖项表格) */
+/* SECTION: HONORS */
 .honors-table-card {
-  background: var(--card);
-  border: 1px solid var(--card-border);
+  background: var(--wa-card);
+  border: 1px solid var(--wa-card-border);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
 }
 
 .honors-table {
@@ -673,15 +673,15 @@ body {
   padding: 1rem 1.4rem;
   font-size: 0.74rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-muted);
-  background: rgba(34, 38, 48, 0.03);
-  border-bottom: 1px solid var(--rule);
+  letter-spacing: 0.1em;
+  color: var(--wa-gold);
+  background: rgba(243, 198, 143, 0.05);
+  border-bottom: 1px solid var(--wa-rule);
 }
 
 .honors-table td {
   padding: 1.1rem 1.4rem;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--wa-rule);
   font-size: 0.88rem;
 }
 
@@ -690,30 +690,30 @@ body {
 }
 
 .honors-table tr:hover td {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(243, 198, 143, 0.04);
 }
 
 .award-cell {
   font-weight: 600;
-  color: var(--ink);
+  color: var(--wa-ink-white);
   white-space: nowrap;
 }
 
 .award-cell.high-rank {
-  color: var(--brand);
+  color: var(--wa-gold);
 }
 
 .event-cell {
-  color: var(--ink-soft);
+  color: var(--wa-ink-soft);
 }
 
 .date-cell {
-  color: var(--ink-muted);
+  color: var(--wa-ink-muted);
   text-align: right;
   white-space: nowrap;
 }
 
-/* SECTION: SKILLS (技术储备) */
+/* SECTION: SKILLS */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -721,21 +721,20 @@ body {
 }
 
 .skill-card {
-  background: var(--card);
-  border: 1px solid var(--card-border);
+  background: var(--wa-card);
+  border: 1px solid var(--wa-card-border);
   border-radius: 8px;
   padding: 1.4rem;
-  box-shadow: 0 4px 16px rgba(34, 38, 48, 0.03);
 }
 
 .skill-cat-title {
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--brand);
+  letter-spacing: 0.1em;
+  color: var(--wa-gold);
   margin-bottom: 0.9rem;
-  border-bottom: 1px dashed var(--rule);
+  border-bottom: 1px dashed var(--wa-rule);
   padding-bottom: 0.4rem;
 }
 
@@ -747,53 +746,39 @@ body {
 
 .skill-item-tag {
   font-size: 0.78rem;
-  background: rgba(34, 38, 48, 0.04);
-  border: 1px solid rgba(34, 38, 48, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(243, 198, 143, 0.12);
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
-  color: var(--ink);
+  color: var(--wa-ink-white);
 }
 
-/* SECTION: PHILOSOPHY (知行合一 · 太极八卦印记) */
+/* SECTION: PHILOSOPHY */
 .philosophy-banner {
-  background: var(--card);
-  border: 1px solid var(--card-border);
+  background: var(--wa-card);
+  border: 1px solid var(--wa-card-border);
   border-radius: 16px;
   padding: clamp(2.8rem, 4.5vw, 4.2rem) 2.2rem;
   text-align: center;
-  box-shadow: var(--card-shadow);
   position: relative;
   overflow: hidden;
-}
-
-/* Dynamic Tai Chi Bagua Seal */
-.taiji-bagua-emblem {
-  width: 90px;
-  height: 90px;
-  margin: 0 auto 1.6rem auto;
-  position: relative;
-  animation: slowSpinTaiji 24s linear infinite;
-}
-
-@keyframes slowSpinTaiji {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
 }
 
 .quote-title {
-  font-family: var(--serif);
+  font-family: var(--font-mincho);
   font-size: clamp(2.6rem, 5vw, 3.8rem);
   font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.1em;
+  color: var(--wa-ink-white);
+  letter-spacing: 0.12em;
   margin-bottom: 0.4rem;
 }
 
 .quote-en-sub {
   font-size: 0.82rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink-muted);
+  color: var(--wa-gold);
   margin-bottom: 1.6rem;
 }
 
@@ -801,26 +786,25 @@ body {
   max-width: 680px;
   margin: 0 auto;
   font-size: 0.98rem;
-  line-height: 1.88;
-  color: var(--ink-soft);
+  line-height: 1.9;
+  color: var(--wa-ink-soft);
 }
 
-/* Red Vermilion Seal Stamp */
 .quote-stamp-seal {
   display: inline-block;
   margin-top: 1.8rem;
   padding: 0.4rem 0.9rem;
-  border: 1.5px solid var(--brand);
+  border: 1.5px solid var(--wa-vermilion);
   border-radius: 4px;
-  font-family: var(--serif);
+  font-family: var(--font-mincho);
   font-size: 0.82rem;
   font-weight: 700;
-  color: var(--brand);
-  letter-spacing: 0.15em;
-  transform: rotate(-2deg);
+  color: var(--wa-vermilion);
+  letter-spacing: 0.18em;
+  box-shadow: 0 0 12px var(--wa-vermilion-glow);
 }
 
-/* SECTION: CONTACT (联系我) */
+/* SECTION: CONTACT */
 .contact-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -835,23 +819,23 @@ body {
 }
 
 .contact-email-large {
-  font-family: var(--serif);
+  font-family: var(--font-mincho);
   font-size: clamp(1.4rem, 2.6vw, 2.2rem);
   font-weight: 600;
-  color: var(--ink);
+  color: var(--wa-gold);
   text-decoration: none;
   transition: color 0.15s ease;
   word-break: break-all;
 }
 
 .contact-email-large:hover {
-  color: var(--brand);
+  color: #ffffff;
 }
 
 .contact-desc-text {
   font-size: 0.94rem;
-  color: var(--ink-soft);
-  line-height: 1.75;
+  color: var(--wa-ink-soft);
+  line-height: 1.78;
 }
 
 .contact-links-col {
@@ -864,19 +848,19 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--card);
-  border: 1px solid var(--card-border);
+  background: var(--wa-card);
+  border: 1px solid var(--wa-card-border);
   padding: 0.9rem 1.2rem;
   border-radius: 6px;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--wa-ink-white);
   transition: all 0.15s ease;
 }
 
 .contact-link-row:hover {
-  border-color: var(--brand);
+  border-color: var(--wa-gold);
   transform: translateX(4px);
-  background: #ffffff;
+  background: #1c2336;
 }
 
 .contact-network-name {
@@ -886,7 +870,7 @@ body {
 
 .contact-network-val {
   font-size: 0.8rem;
-  color: var(--ink-muted);
+  color: var(--wa-gold);
 }
 
 /* FOOTER */
@@ -898,24 +882,24 @@ body {
   flex-wrap: wrap;
   gap: 1.2rem;
   font-size: 0.78rem;
-  color: var(--ink-muted);
+  color: var(--wa-ink-muted);
 }
 
 .btn-scroll-top {
   background: transparent;
-  border: 1px solid var(--rule-strong);
+  border: 1px solid var(--wa-rule-strong);
   padding: 0.35rem 0.8rem;
   border-radius: 4px;
-  font-family: var(--mono);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   cursor: pointer;
-  color: var(--ink);
+  color: var(--wa-gold);
   transition: all 0.2s ease;
 }
 
 .btn-scroll-top:hover {
-  background: var(--ink);
-  color: var(--paper-bg);
+  background: var(--wa-gold);
+  color: var(--wa-bg);
 }
 
 /* RESPONSIVE BREAKPOINTS */
@@ -924,9 +908,9 @@ body {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  .astrolabe-viewport {
-    max-width: 300px;
-    height: 300px;
+  .lantern-viewport {
+    max-width: 320px;
+    height: 340px;
   }
   .contact-grid {
     grid-template-columns: 1fr;
