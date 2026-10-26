@@ -390,7 +390,7 @@ img, video { max-width: 100%; }
 .mail:hover .addr { color: var(--brand); }
 .contact-note { margin: 22px 0 0; max-width: 36em; font: 400 16.5px/1.9 var(--serif); color: var(--soft); text-wrap: pretty; }
 .mail .note { font: 500 12.5px/1 var(--mono); letter-spacing: 0; color: var(--muted); text-decoration: none; }
-.mail.copied .note { color: var(--ok); }
+.mail.copied .note { color: #FFFFFF !important; background: var(--ok) !important; }
 .social { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 30px; font: 500 13.5px/1.6 var(--mono); }
 .social a { text-decoration: underline; text-underline-offset: 5px; }
 
@@ -816,14 +816,15 @@ body {
   gap: 8px;
 }
 .skill-tags li {
-  font: 500 12px/1.35 var(--mono);
-  padding: 6px 9px;
+  font: 500 11.5px/1.35 var(--mono);
+  padding: 5px 8px;
   background: var(--paper-bg);
   border: 1px solid var(--ink);
   box-shadow: var(--px3d-sm);
   color: var(--ink);
-  white-space: normal;
-  word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: transform .12s steps(2), box-shadow .12s steps(2), background .12s;
   cursor: default;
 }
@@ -1130,7 +1131,8 @@ body {
   letter-spacing: .04em;
 }
 .mail.copied .note {
-  background: var(--ok);
+  background: var(--ok) !important;
+  color: #FFFFFF !important;
 }
 .contact-note {
   font: 400 16px/1.85 var(--serif);

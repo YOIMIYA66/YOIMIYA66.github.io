@@ -34,18 +34,26 @@
         btn.classList.add('copied');
         const note = btn.querySelector('.note') || btn;
         const keep = note.innerHTML;
-        note.innerHTML = '<span class="zh">已复制</span><span class="en">copied</span>';
+        note.innerHTML = '<span class="zh">复制成功</span><span class="en">Copied!</span>';
         setTimeout(() => {
           btn.classList.remove('copied');
           note.innerHTML = keep;
-        }, 1600);
+        }, 2000);
       }
       function fallback() {
-        const r = document.createRange();
-        r.selectNodeContents(btn.querySelector('.addr') || btn);
-        const s = getSelection();
-        s.removeAllRanges();
-        s.addRange(r);
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          done();
+        } catch (e) {
+          done();
+        }
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done, fallback);
