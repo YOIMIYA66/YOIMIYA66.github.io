@@ -31,111 +31,10 @@ def get_fonts():
         'zh_micro': font_zh_micro
     }
 
-def create_work02():
-    f = get_fonts()
-    eye_img = Image.open('public/assets/eye-detection-architecture.png').convert('RGBA')
-    weather_img = Image.open('public/assets/weather-system-ui.png').convert('RGBA')
-    samples_img = Image.open('public/assets/eye-detection-samples.png').convert('RGBA')
-    
-    # Crop row of retinal samples (y: 195 to 370)
-    samples_crop = samples_img.crop((40, 195, 1227, 365))
-    
-    canvas_w, canvas_h = 1200, 720
-    canvas = Image.new('RGBA', (canvas_w, canvas_h), (13, 17, 23, 255))
-    draw = ImageDraw.Draw(canvas)
-    
-    # Top header bar (40px)
-    draw.rectangle([0, 0, canvas_w, 40], fill=(22, 27, 34, 255))
-    draw.line([0, 40, canvas_w, 40], fill=(38, 53, 74, 255), width=1)
-    
-    # Traffic dots
-    draw.ellipse([16, 14, 26, 24], fill=(255, 95, 86, 255))
-    draw.ellipse([34, 14, 44, 24], fill=(255, 189, 46, 255))
-    draw.ellipse([52, 14, 62, 24], fill=(39, 201, 63, 255))
-    
-    draw.text((78, 13), "VISION_PERCEPTION :: CLINICAL_OPHTHALMIC x AGRI_WEATHER_SYS", fill=(148, 163, 184, 255), font=f['title'])
-    draw.rectangle([canvas_w - 200, 10, canvas_w - 16, 30], fill=(3, 105, 161, 255))
-    draw.text((canvas_w - 190, 13), "2x NATIONAL AWARDS", fill=(255, 255, 255, 255), font=f['sm'])
-    
-    p_w = 574
-    p_h = 654
-    p_top = 50
-    
-    # ================= LEFT: Eye Disease System =================
-    left_x = 18
-    draw.rectangle([left_x, p_top, left_x + p_w, p_top + p_h], fill=(16, 24, 39, 255), outline=(34, 47, 67, 255), width=1)
-    # Header
-    draw.rectangle([left_x, p_top, left_x + p_w, p_top + 34], fill=(24, 34, 53, 255))
-    draw.text((left_x + 14, p_top + 8), "01 · 明眸八极 · 眼底多病种智能辅助诊断系统", fill=(56, 189, 248, 255), font=f['zh_title'])
-    draw.rectangle([left_x + p_w - 116, p_top + 7, left_x + p_w - 12, p_top + 27], fill=(180, 83, 9, 255))
-    draw.text((left_x + p_w - 108, p_top + 9), "挑战杯国赛一等奖", fill=(255, 255, 255, 255), font=f['zh_tag'])
-    
-    # Eye diagram
-    target_eye_w = p_w - 24
-    target_eye_h = int(eye_img.height * (target_eye_w / eye_img.width))
-    eye_resized = eye_img.resize((target_eye_w, target_eye_h), Image.Resampling.LANCZOS)
-    
-    img1_y = p_top + 42
-    draw.rectangle([left_x + 12, img1_y, left_x + 12 + target_eye_w, img1_y + target_eye_h], fill=(255, 255, 255, 255), outline=(203, 213, 225, 255), width=1)
-    canvas.paste(eye_resized, (left_x + 12, img1_y), eye_resized if eye_resized.mode == 'RGBA' else None)
-    
-    # Retinal Ribbon
-    ribbon_y = img1_y + target_eye_h + 10
-    ribbon_w = target_eye_w
-    ribbon_h = int(samples_crop.height * (ribbon_w / samples_crop.width))
-    ribbon_resized = samples_crop.resize((ribbon_w, ribbon_h), Image.Resampling.LANCZOS)
-    
-    draw.rectangle([left_x + 12, ribbon_y, left_x + 12 + ribbon_w, ribbon_y + ribbon_h], fill=(0, 0, 0, 255), outline=(34, 47, 67, 255), width=1)
-    canvas.paste(ribbon_resized, (left_x + 12, ribbon_y), ribbon_resized if ribbon_resized.mode == 'RGBA' else None)
-    
-    # Ribbon labels
-    label_y = ribbon_y + ribbon_h + 4
-    labels = ["正常(N)", "糖尿病(D)", "青光眼(G)", "白内障(C)", "AMD(A)", "高血压(H)", "近视(M)", "其他(O)"]
-    step = ribbon_w / 8
-    for i, lbl in enumerate(labels):
-        lx = left_x + 12 + int(i * step + step / 2) - 18
-        draw.text((lx, label_y), lbl, fill=(148, 163, 184, 255), font=f['zh_micro'])
-        
-    # Technical box
-    box_y = label_y + 18
-    draw.rectangle([left_x + 12, box_y, left_x + p_w - 12, p_top + p_h - 14], fill=(11, 17, 28, 255), outline=(30, 41, 59, 255), width=1)
-    draw.text((left_x + 22, box_y + 12), "• 双眼孪生网络 (Weight-shared Backbone) 左右眼对称性交叉融合建模", fill=(226, 232, 240, 255), font=f['zh_body'])
-    draw.text((left_x + 22, box_y + 36), "• 解耦多任务 Softmax：青光眼/糖尿病/黄斑变性/白内障等 8 病种联合预测", fill=(226, 232, 240, 255), font=f['zh_body'])
-    draw.text((left_x + 22, box_y + 60), "• 攻克临床长尾分布与细微病灶漏检 · 综合多病种 AUC 达 98.4%", fill=(56, 189, 248, 255), font=f['zh_body'])
-    draw.text((left_x + 22, box_y + 84), "• 研发成果已形成发明专利与软件著作权，落地智能辅助筛查系统", fill=(148, 163, 184, 255), font=f['zh_body'])
-    
-    # ================= RIGHT: Weather System =================
-    right_x = left_x + p_w + 16
-    draw.rectangle([right_x, p_top, right_x + p_w, p_top + p_h], fill=(16, 24, 39, 255), outline=(34, 47, 67, 255), width=1)
-    # Header
-    draw.rectangle([right_x, p_top, right_x + p_w, p_top + 34], fill=(24, 34, 53, 255))
-    draw.text((right_x + 14, p_top + 8), "02 · 云农四象 · 智慧农业视觉天气识别系统", fill=(52, 211, 153, 255), font=f['zh_title'])
-    draw.rectangle([right_x + p_w - 116, p_top + 7, right_x + p_w - 12, p_top + 27], fill=(5, 150, 105, 255))
-    draw.text((right_x + p_w - 108, p_top + 9), "RAICOM国赛二等奖", fill=(255, 255, 255, 255), font=f['zh_tag'])
-    
-    # Weather UI image
-    w_target_w = p_w - 24
-    w_target_h = int(weather_img.height * (w_target_w / weather_img.width))
-    max_w_h = 360
-    if w_target_h > max_w_h:
-        w_target_h = max_w_h
-        w_target_w = int(weather_img.width * (w_target_h / weather_img.height))
-    weather_resized = weather_img.resize((w_target_w, w_target_h), Image.Resampling.LANCZOS)
-    
-    w_offset_x = right_x + (p_w - w_target_w) // 2
-    draw.rectangle([w_offset_x - 1, img1_y - 1, w_offset_x + w_target_w + 1, img1_y + w_target_h + 1], outline=(30, 41, 59, 255), width=1)
-    canvas.paste(weather_resized, (w_offset_x, img1_y), weather_resized if weather_resized.mode == 'RGBA' else None)
-    
-    # Weather Technical Box
-    w_box_y = box_y
-    draw.rectangle([right_x + 12, w_box_y, right_x + p_w - 12, p_top + p_h - 14], fill=(11, 17, 28, 255), outline=(30, 41, 59, 255), width=1)
-    draw.text((right_x + 22, w_box_y + 12), "• 晴/多云/雨/雪 (Sunny/Cloudy/Rainy/Snowy) 四象田间微气象视觉感知", fill=(226, 232, 240, 255), font=f['zh_body'])
-    draw.text((right_x + 22, w_box_y + 36), "• 实时多通道环境融合：光照(1200Lux)、温湿度、降水颗粒自适应感知", fill=(226, 232, 240, 255), font=f['zh_body'])
-    draw.text((right_x + 22, w_box_y + 60), "• 实时识别置信度达 98.21% · 智能联动植保无人机返航避险与精准作业", fill=(52, 211, 153, 255), font=f['zh_body'])
-    draw.text((right_x + 22, w_box_y + 84), "• 今日诊断架次 1,248 · 端到端 V1.0 LIVE 智慧农业生产控制台落地", fill=(148, 163, 184, 255), font=f['zh_body'])
-    
-    canvas.save('public/assets/work02-vision-showcase.png', 'PNG', optimize=True)
-    print("Created work02-vision-showcase.png successfully!")
+try:
+    from scripts.generate_eye_showcase import create_work02_eye_showcase as create_work02
+except ImportError:
+    from generate_eye_showcase import create_work02_eye_showcase as create_work02
 
 def create_work03():
     f = get_fonts()
@@ -154,8 +53,15 @@ def create_work03():
     draw.ellipse([52, 14, 62, 24], fill=(39, 201, 63, 255))
     
     draw.text((78, 13), "KAGGLE_STANDINGS :: FRONTIER_REASONING & LOW_RESOURCE_NLP", fill=(148, 163, 184, 255), font=f['title'])
-    draw.rectangle([canvas_w - 200, 10, canvas_w - 16, 30], fill=(180, 83, 9, 255))
-    draw.text((canvas_w - 190, 13), "2x BRONZE MEDALS · VERIFIED", fill=(255, 255, 255, 255), font=f['sm'])
+    badge_text = "2x BRONZE MEDALS · VERIFIED"
+    badge_bbox = f['sm'].getbbox(badge_text)
+    badge_w = badge_bbox[2] - badge_bbox[0]
+    badge_pad_x = 16
+    badge_total_w = badge_w + (badge_pad_x * 2)
+    badge_right = canvas_w - 16
+    badge_left = badge_right - badge_total_w
+    draw.rectangle([badge_left, 10, badge_right, 30], fill=(180, 83, 9, 255))
+    draw.text((badge_left + badge_pad_x, 13), badge_text, fill=(255, 255, 255, 255), font=f['sm'])
     
     # Real Kaggle Card
     card_margin = 20
