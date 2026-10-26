@@ -46,6 +46,21 @@ export class PixelCompanion {
     this.bindEvents();
     this.scheduleBlink();
 
+    this.isVisible = true;
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const wasVisible = this.isVisible;
+          this.isVisible = entry.isIntersecting;
+          if (this.isVisible && !wasVisible && !this.rafId) {
+            this.lastTime = performance.now();
+            this.rafId = requestAnimationFrame(this.animate);
+          }
+        });
+      }, { threshold: 0.05 });
+      this.observer.observe(this.canvas);
+    }
+
     this.lastTime = performance.now();
     this.animate = this.animate.bind(this);
     this.rafId = requestAnimationFrame(this.animate);
@@ -639,6 +654,10 @@ export class PixelCompanion {
   }
 
   animate(currentTime) {
+    if (!this.isVisible) {
+      this.rafId = null;
+      return;
+    }
     const dt = Math.min(0.1, (currentTime - this.lastTime) / 1000);
     this.lastTime = currentTime;
 
@@ -650,5 +669,6 @@ export class PixelCompanion {
 
   destroy() {
     if (this.rafId) cancelAnimationFrame(this.rafId);
+    if (this.observer) this.observer.disconnect();
   }
 }

@@ -204,4 +204,22 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
+
+  /* ---------- 7. 顶部栏目导航高亮跟踪 (ScrollSpy) ---------- */
+  const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+  const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+  if (navLinks.length && sections.length && 'IntersectionObserver' in window) {
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = '#' + entry.target.id;
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === id);
+          });
+        }
+      });
+    }, { rootMargin: '-15% 0px -70% 0px' });
+    sections.forEach(sec => navObserver.observe(sec));
+  }
 })();

@@ -557,7 +557,9 @@ body {
 .logo { font: 500 26px/1 var(--serif); letter-spacing: -.02em; display: inline-flex; align-items: center; }
 .nav a { position: relative; }
 .nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -6px; height: 2px; background: var(--brand); transition: right .2s steps(4); }
-.nav a:hover::after { right: 0; }
+.nav a:hover::after,
+.nav a.active::after { right: 0; }
+.nav a.active { color: var(--brand); font-weight: 600; }
 .lang { border: 1px solid var(--ink); border-radius: 0; box-shadow: var(--px3d-sm); background: var(--card); }
 .lang button { border-radius: 0; }
 .pixel-sys-tag { background: var(--card); border: 1px solid var(--ink); box-shadow: var(--px3d-sm); }
@@ -891,15 +893,17 @@ body {
   justify-content: center;
   filter: drop-shadow(0 2px 5px rgba(0,0,0,.5));
 }
+.clawd-crab-img,
 .clawd-crab-svg {
   display: inline-block;
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
   transition: transform .22s cubic-bezier(.17, .89, .32, 1.28);
 }
+.monitor-card:hover .clawd-crab-img,
 .monitor-card:hover .clawd-crab-svg {
-  transform: translateY(-3px) scale(1.1);
+  transform: translateY(-3px) scale(1.08);
 }
 .monitor-name {
   font-weight: 700;
@@ -1269,4 +1273,52 @@ body {
   .skills-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .skill-card-desc { min-height: 0; }
   .egg { right: 12px; transform: scale(0.85); transform-origin: bottom right; }
+}
+
+/* ---------- 打印与 PDF 简历导出优化 ---------- */
+@media print {
+  .lamp,
+  .back-top,
+  .egg,
+  .lang,
+  .stage-mode,
+  .copy-btn-hero .note,
+  #copy-winget,
+  .contact-card-sub {
+    display: none !important;
+  }
+
+  body {
+    background: #FFFFFF !important;
+    color: #1F1E1D !important;
+    font-size: 13px !important;
+  }
+
+  .page {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .lit, .box, .skill-card, .frame, .contact-card, .proof-card {
+    box-shadow: none !important;
+    border: 1px solid rgba(0, 0, 0, .15) !important;
+    background: #FFFFFF !important;
+    page-break-inside: avoid;
+  }
+
+  .stage.lit {
+    background: #F8F7F4 !important;
+    color: #1F1E1D !important;
+    box-shadow: none !important;
+    border: 1px solid #DDDDDD !important;
+  }
+
+  .sec, .feature, .cv > li, .honors-table tr {
+    page-break-inside: avoid;
+  }
+
+  a {
+    text-decoration: underline !important;
+  }
 }
