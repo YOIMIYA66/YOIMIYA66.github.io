@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="92" viewBox="0 0 1000 92" role="img" aria-labelledby="title">
+  <title id="title">Clawd on Desk — Cross-platform desktop companion for AI coding agents</title>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="45%" stop-color="#DBEAFE" />
+      <stop offset="100%" stop-color="#93C5FD" />
+    </linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="999" height="91" rx="8" fill="url(#bg)" stroke="#BFDBFE" />
+  <text x="500" y="48" text-anchor="middle" font-family="'Segoe UI', -apple-system, Roboto, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#0F172A">Clawd on Desk</text>
+  <text x="500" y="74" text-anchor="middle" font-family="'Segoe UI', -apple-system, Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#1E3A8A">Cross-platform desktop companion for AI coding agents</text>
+</svg>

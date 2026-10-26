@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="44" viewBox="0 0 720 44" role="img" aria-labelledby="title">
+  <title id="title">Software Engineering · LLM Evaluation · AI Applications / Open-Source Maintainer · Product-Minded Builder</title>
+  <style>
+    .t { font-family: 'Fira Code', 'Cascadia Code', Consolas, 'SFMono-Regular', Menlo, monospace; font-size: 20px; font-weight: 500; fill: #58A6FF; }
+  </style>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.06;0.44;0.5;1" dur="8s" repeatCount="indefinite" />
+    <text class="t" x="360" y="28" text-anchor="middle">Software Engineering · LLM Evaluation · AI Applications</text>
+  </g>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.5;0.56;0.94;1" dur="8s" repeatCount="indefinite" />
+    <text class="t" x="360" y="28" text-anchor="middle">Open-Source Maintainer · Product-Minded Builder</text>
+  </g>
+</svg>
