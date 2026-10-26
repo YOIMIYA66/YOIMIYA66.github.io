@@ -1,5 +1,7 @@
-// Pixel Art Developer Companion (No cats, authentic Clawd on Desk pixel aesthetic)
-// Interactive 64x72 retro pixel art with pupil tracking, idle breathing, and click particles
+// Lyu Bingrong (YOIMIYA66) Custom Pixel Art Avatar
+// Designed to match actual ID photo: neat black hair, thick distinct eyebrows,
+// silver rectangular wireframe glasses, tailored dark suit with crisp royal blue tie,
+// holding a retro cyberdeck with real-time code scanning.
 
 export class PixelCompanion {
   constructor(canvas) {
@@ -18,12 +20,15 @@ export class PixelCompanion {
 
     this.isBlinking = false;
     this.isHappy = false;
+    this.isHovered = false;
     this.hopY = 0;
     this.hopVy = 0;
 
     this.breathTimer = 0;
     this.codeTimer = 0;
     this.particles = [];
+    this.bubbleText = 'HELLO!';
+    this.bubbleTimer = 0;
 
     this.bindEvents();
     this.scheduleBlink();
@@ -43,11 +48,24 @@ export class PixelCompanion {
       this.hop();
     });
 
-    // Also allow parent button click to trigger
+    this.canvas.addEventListener('mouseenter', () => {
+      this.isHovered = true;
+    });
+
+    this.canvas.addEventListener('mouseleave', () => {
+      this.isHovered = false;
+    });
+
     const parentBtn = this.canvas.closest('#doll');
     if (parentBtn && parentBtn !== this.canvas) {
       parentBtn.addEventListener('click', () => {
         this.hop();
+      });
+      parentBtn.addEventListener('mouseenter', () => {
+        this.isHovered = true;
+      });
+      parentBtn.addEventListener('mouseleave', () => {
+        this.isHovered = false;
       });
     }
   }
@@ -67,19 +85,25 @@ export class PixelCompanion {
   }
 
   hop() {
-    this.hopVy = -4.2;
+    this.hopVy = -4.5;
     this.isHappy = true;
+    
+    // Cycle celebratory developer quotes on click
+    const quotes = ['6.5K★', 'SHIP!', 'PASS✓', 'READY!'];
+    this.bubbleText = quotes[Math.floor(Math.random() * quotes.length)];
+    this.bubbleTimer = 2.0;
+
     setTimeout(() => {
       this.isHappy = false;
-    }, 1200);
+    }, 1500);
 
-    // Burst 6-8 pixel stars
-    const colors = ['#F59E0B', '#EF4444', '#38BDF8', '#10B981', '#FCD34D'];
-    for (let i = 0; i < 7; i++) {
-      const angle = (i / 7) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
-      const speed = 1.2 + Math.random() * 1.8;
+    // Burst 16-bit glowing particle sparks (blue, gold, cyan, red)
+    const colors = ['#2563EB', '#F59E0B', '#38BDF8', '#10B981', '#C76F50', '#FCD34D'];
+    for (let i = 0; i < 8; i++) {
+      const angle = (i / 8) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
+      const speed = 1.3 + Math.random() * 2.0;
       this.particles.push({
-        x: 32 + (Math.random() - 0.5) * 8,
+        x: 32 + (Math.random() - 0.5) * 6,
         y: 28,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed - 1.2,
@@ -98,8 +122,8 @@ export class PixelCompanion {
     const dx = this.mouseX - centerX;
     const dy = this.mouseY - centerY;
 
-    this.lookX = dx > 80 ? 1 : (dx < -80 ? -1 : 0);
-    this.lookY = dy > 60 ? 1 : (dy < -60 ? -1 : 0);
+    this.lookX = dx > 70 ? 1 : (dx < -70 ? -1 : 0);
+    this.lookY = dy > 50 ? 1 : (dy < -50 ? -1 : 0);
 
     // 2. Hop physics
     if (this.hopY < 0 || this.hopVy !== 0) {
@@ -114,13 +138,16 @@ export class PixelCompanion {
     // 3. Timers
     this.breathTimer += dt * 3.0;
     this.codeTimer += dt * 8.0;
+    if (this.bubbleTimer > 0) {
+      this.bubbleTimer -= dt;
+    }
 
     // 4. Particles
     for (let i = this.particles.length - 1; i >= 0; i--) {
       const p = this.particles[i];
       p.x += p.vx;
       p.y += p.vy;
-      p.vy += 0.06; // slight gravity
+      p.vy += 0.06;
       p.life -= p.decay;
       if (p.life <= 0) {
         this.particles.splice(i, 1);
@@ -132,11 +159,10 @@ export class PixelCompanion {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, this.width, this.height);
 
-    // Idle breathing offset (0 or 1 pixel vertical shift)
+    // Idle breathing offset
     const breath = Math.sin(this.breathTimer) > 0.4 ? 1 : 0;
     const curHop = Math.round(this.hopY);
 
-    // Draw helper
     const rect = (x, y, w, h, col) => {
       ctx.fillStyle = col;
       ctx.fillRect(Math.floor(x), Math.floor(y), Math.floor(w), Math.floor(h));
@@ -148,174 +174,214 @@ export class PixelCompanion {
 
     // --- 1. Soft Floor Shadow ---
     const shadowScale = Math.max(0.6, 1 - Math.abs(curHop) / 16);
-    const shadowW = Math.round(26 * shadowScale);
-    rect(32 - shadowW / 2, 63, shadowW, 3, 'rgba(42, 48, 64, 0.2)');
+    const shadowW = Math.round(28 * shadowScale);
+    rect(32 - shadowW / 2, 63, shadowW, 3, 'rgba(42, 48, 64, 0.22)');
 
     const baseY = curHop;
 
-    // --- 2. Shoes (Sneakers) ---
-    // Left shoe
-    rect(23, 59 + baseY, 7, 4, '#1A202C');
-    rect(23, 59 + baseY, 6, 3, '#FFFDF8');
-    pixel(24, 60 + baseY, '#E2E8F0');
-    // Right shoe
-    rect(34, 59 + baseY, 7, 4, '#1A202C');
-    rect(34, 59 + baseY, 6, 3, '#FFFDF8');
-    pixel(35, 60 + baseY, '#E2E8F0');
+    // --- 2. Formal Dark Leather Shoes ---
+    rect(23, 59 + baseY, 7, 4, '#10141D');
+    rect(23, 59 + baseY, 6, 2, '#232938');
+    rect(34, 59 + baseY, 7, 4, '#10141D');
+    rect(34, 59 + baseY, 6, 2, '#232938');
 
-    // --- 3. Legs (Dark Denim / Slacks) ---
-    rect(24, 51 + baseY, 5, 8, '#242C3A');
-    rect(35, 51 + baseY, 5, 8, '#242C3A');
-    rect(25, 52 + baseY, 3, 6, '#2D3748');
-    rect(36, 52 + baseY, 3, 6, '#2D3748');
+    // --- 3. Suit Trousers (Dark Charcoal) ---
+    rect(24, 50 + baseY, 5, 9, '#181C26');
+    rect(35, 50 + baseY, 5, 9, '#181C26');
+    rect(25, 51 + baseY, 3, 7, '#232938');
+    rect(36, 51 + baseY, 3, 7, '#232938');
 
-    // --- 4. Torso & Jacket (with breathing offset) ---
+    // --- 4. Tailored Suit Jacket & Royal Blue Tie (Photo Likeness!) ---
     const bodyY = baseY - breath;
 
-    // Outer Jacket (Deep Slate / Navy)
-    rect(20, 36 + bodyY, 24, 16, '#1A202C');
-    rect(21, 37 + bodyY, 22, 14, '#2B3545');
-    rect(22, 38 + bodyY, 20, 12, '#333F52');
+    // Dark Suit Jacket Base
+    rect(20, 36 + bodyY, 24, 15, '#10141D');
+    rect(21, 37 + bodyY, 22, 13, '#1C212D');
+    // Suit Lapels
+    rect(22, 38 + bodyY, 4, 10, '#242B3A');
+    rect(38, 38 + bodyY, 4, 10, '#242B3A');
 
-    // White Shirt Inner Collar
-    rect(30, 36 + bodyY, 4, 3, '#FFFDF8');
-    pixel(31, 38 + bodyY, '#E2E8F0');
+    // Crisp Light Blue / White Collared Shirt
+    rect(29, 36 + bodyY, 6, 8, '#F0F4F8');
+    rect(28, 36 + bodyY, 2, 3, '#FFFDF8');
+    rect(34, 36 + bodyY, 2, 3, '#FFFDF8');
 
-    // Zipper line
-    rect(31, 39 + bodyY, 2, 12, '#1A202C');
+    // Royal Blue Silk Tie (Exact Match with ID Photo!)
+    rect(31, 37 + bodyY, 2, 2, '#3B82F6'); // Tie knot
+    rect(30, 39 + bodyY, 4, 6, '#2563EB'); // Tie body
+    rect(31, 45 + bodyY, 2, 2, '#1D4ED8'); // Tie lower tip
+    pixel(31, 38 + bodyY, '#60A5FA'); // Tie specular knot shine
 
-    // Pocket Terracotta Red Seal Badge (荣)
+    // Breast pocket terracotta badge (Chinese seal "荣")
     rect(23, 40 + bodyY, 4, 4, '#C76F50');
     pixel(24, 41 + bodyY, '#FFFDF8');
     pixel(25, 42 + bodyY, '#FFFDF8');
 
-    // --- 5. Retro Cyberdeck / Laptop in Hands ---
-    // Outer casing (matte titanium)
-    rect(25, 46 + bodyY, 14, 9, '#1E293B');
-    rect(26, 47 + bodyY, 12, 7, '#475569');
-    // Glowing Screen (Deep Navy/Black Terminal)
-    rect(27, 48 + bodyY, 10, 5, '#090D16');
+    // --- 5. Cyberdeck / Mini Developer Terminal in Hands ---
+    // Outer casing (titanium slate)
+    rect(24, 47 + bodyY, 16, 8, '#0F172A');
+    rect(25, 48 + bodyY, 14, 6, '#334155');
+    // Glowing Terminal Screen
+    rect(26, 49 + bodyY, 12, 4, '#020617');
 
-    // Blinking animated code lines
+    // Animated scrolling code scanlines (cyan & green)
     const codeTick = Math.floor(this.codeTimer) % 4;
-    rect(28, 49 + bodyY, 8, 1, '#38BDF8'); // cyan line
+    rect(27, 50 + bodyY, 10, 1, '#38BDF8'); // Cyan data line
     if (codeTick % 2 === 0) {
-      rect(28, 51 + bodyY, 5, 1, '#4ADE80'); // green line
+      rect(27, 51 + bodyY, 7, 1, '#4ADE80'); // Green active line
     } else {
-      rect(30, 51 + bodyY, 6, 1, '#F59E0B'); // amber line
+      rect(29, 51 + bodyY, 6, 1, '#F59E0B'); // Amber compilation line
     }
-    pixel(28 + (codeTick % 4), 50 + bodyY, '#FCD34D'); // blinking cursor
+    pixel(27 + (codeTick % 6), 50 + bodyY, '#FDE047'); // Blinking caret
 
-    // Hands holding the laptop
-    rect(23, 47 + bodyY, 3, 4, '#1A202C');
-    rect(23, 47 + bodyY, 2, 3, '#FCD5B5');
-    rect(38, 47 + bodyY, 3, 4, '#1A202C');
-    rect(39, 47 + bodyY, 2, 3, '#FCD5B5');
+    // Hands resting on deck
+    rect(22, 48 + bodyY, 3, 4, '#FCD5B5');
+    rect(39, 48 + bodyY, 3, 4, '#FCD5B5');
 
-    // --- 6. Head & Face (with breathing offset) ---
+    // --- 6. Head & Face (Photo Likeness!) ---
     const headY = bodyY;
 
     // Neck
-    rect(29, 34 + headY, 6, 4, '#E89D7D');
+    rect(29, 34 + headY, 6, 3, '#F5AF8B');
 
-    // Face Canvas
-    rect(21, 20 + headY, 22, 15, '#1A202C'); // head outline
-    rect(22, 21 + headY, 20, 13, '#FCD5B5');
-    rect(23, 20 + headY, 18, 15, '#FCD5B5');
-    // Chin shadow
-    rect(26, 33 + headY, 12, 1, '#F6B28B');
+    // Symmetrical Face Shape
+    rect(22, 20 + headY, 20, 15, '#151821'); // Contour outline
+    rect(23, 21 + headY, 18, 13, '#FCD5B5');
+    rect(24, 20 + headY, 16, 15, '#FCD5B5');
+    // Chin & jaw definition
+    rect(27, 33 + headY, 10, 1, '#F6B28B');
 
-    // Natural Blush
+    // Subtle Natural Blush
     rect(23, 29 + headY, 3, 2, '#F4978E');
     rect(38, 29 + headY, 3, 2, '#F4978E');
 
-    // --- 7. Eyes & Eyebrows (Dynamic Gaze & Blinking) ---
-    // Eyebrows
-    rect(25, 23 + headY, 5, 1, '#1A202C');
-    rect(34, 23 + headY, 5, 1, '#1A202C');
+    // Thick, Defined Dark Eyebrows (Prominent Feature in Photo!)
+    rect(25, 23 + headY, 5, 2, '#151821');
+    rect(34, 23 + headY, 5, 2, '#151821');
 
+    // Eyes Behind Glasses
     if (this.isBlinking) {
-      // Blink lines
-      rect(26, 27 + headY, 4, 1, '#1A202C');
-      rect(34, 27 + headY, 4, 1, '#1A202C');
+      rect(26, 27 + headY, 4, 1, '#151821');
+      rect(34, 27 + headY, 4, 1, '#151821');
     } else if (this.isHappy) {
-      // Cheerful happy squint curves (^^)
-      pixel(25, 27 + headY, '#1A202C');
-      rect(26, 26 + headY, 2, 1, '#1A202C');
-      pixel(28, 27 + headY, '#1A202C');
+      pixel(25, 27 + headY, '#151821');
+      rect(26, 26 + headY, 2, 1, '#151821');
+      pixel(28, 27 + headY, '#151821');
 
-      pixel(35, 27 + headY, '#1A202C');
-      rect(36, 26 + headY, 2, 1, '#1A202C');
-      pixel(38, 27 + headY, '#1A202C');
+      pixel(35, 27 + headY, '#151821');
+      rect(36, 26 + headY, 2, 1, '#151821');
+      pixel(38, 27 + headY, '#151821');
     } else {
-      // Sclera (White base)
-      rect(25, 25 + headY, 5, 3, '#FFFDF8');
-      rect(34, 25 + headY, 5, 3, '#FFFDF8');
+      rect(25, 26 + headY, 5, 3, '#FFFDF8');
+      rect(34, 26 + headY, 5, 3, '#FFFDF8');
 
       // Pupils with mouse gaze offset (-1, 0, +1)
       const pxL = 26 + this.lookX;
-      const py = 25 + headY + Math.max(0, this.lookY);
+      const py = 26 + headY + Math.max(0, this.lookY);
       const pxR = 35 + this.lookX;
 
-      rect(pxL, py, 2, 3, '#1A202C');
-      rect(pxR, py, 2, 3, '#1A202C');
+      rect(pxL, py, 2, 3, '#151821');
+      rect(pxR, py, 2, 3, '#151821');
 
-      // Specular catchlight pixel
+      // White catchlight reflections
       pixel(pxL, py, '#FFFDF8');
       pixel(pxR, py, '#FFFDF8');
     }
 
-    // --- 8. Glasses Frame (Terracotta & Gold Bridge) ---
-    rect(24, 24 + headY, 6, 5, '#1A202C'); // Left frame outline
-    rect(34, 24 + headY, 6, 5, '#1A202C'); // Right frame outline
-    rect(25, 25 + headY, 4, 3, 'rgba(255, 255, 255, 0.12)'); // Left lens sheen
-    rect(35, 25 + headY, 4, 3, 'rgba(255, 255, 255, 0.12)'); // Right lens sheen
-    rect(30, 26 + headY, 4, 1, '#C76F50'); // Terracotta bridge
+    // Sleek Silver/Titanium Wireframe Glasses (Exact Shape from Photo!)
+    rect(24, 25 + headY, 6, 5, '#94A3B8');
+    rect(25, 26 + headY, 4, 3, 'rgba(186, 230, 253, 0.25)'); // Lens sheen
+    rect(34, 25 + headY, 6, 5, '#94A3B8');
+    rect(35, 26 + headY, 4, 3, 'rgba(186, 230, 253, 0.25)');
+    rect(30, 27 + headY, 4, 1, '#CBD5E1'); // Silver nose bridge
+    pixel(25, 25 + headY, '#FFFFFF'); // Specular corner highlight
+    pixel(35, 25 + headY, '#FFFFFF');
 
-    // --- 9. Mouth ---
+    // Composed, Polite Mouth (Photo Expression)
     if (this.isHappy) {
-      // Cheerful open smile with pink interior
-      rect(29, 30 + headY, 6, 3, '#1A202C');
+      rect(29, 30 + headY, 6, 3, '#151821');
       rect(30, 31 + headY, 4, 2, '#EF4444');
-      pixel(31, 31 + headY, '#FFFDF8'); // tooth shine
+      pixel(31, 31 + headY, '#FFFDF8');
     } else {
-      // Confident smirk
       rect(30, 31 + headY, 4, 1, '#B91C1C');
       pixel(33, 30 + headY, '#B91C1C');
     }
 
-    // --- 10. Layered Hair & Bangs (Cool Dark Charcoal) ---
-    // Main hair volume
-    rect(20, 15 + headY, 24, 7, '#1E2430');
-    rect(22, 13 + headY, 20, 5, '#1E2430');
-    rect(25, 11 + headY, 14, 4, '#1E2430');
+    // Clean, Neat Short Black Haircut with Forward Fringe (From Photo!)
+    rect(21, 15 + headY, 22, 6, '#151821');
+    rect(23, 13 + headY, 18, 4, '#151821');
+    rect(26, 12 + headY, 12, 3, '#151821');
+    // Neat short sides
+    rect(21, 19 + headY, 2, 8, '#151821');
+    rect(41, 19 + headY, 2, 8, '#151821');
+    // Subtle crown highlight
+    rect(27, 14 + headY, 8, 2, '#2D3748');
+    // Short textured bangs across forehead (like in ID photo)
+    rect(23, 20 + headY, 3, 2, '#151821');
+    rect(28, 20 + headY, 4, 2, '#151821');
+    rect(34, 20 + headY, 4, 2, '#151821');
+    rect(39, 20 + headY, 2, 2, '#151821');
 
-    // Sideburns
-    rect(19, 19 + headY, 3, 11, '#1E2430');
-    rect(42, 19 + headY, 3, 11, '#1E2430');
+    // --- 7. Interactive Speech Bubble with 3x5 Pixel Font Engine ---
+    const showBubble = (this.isHovered && !this.isHappy) || this.bubbleTimer > 0;
+    const textToShow = this.bubbleTimer > 0 ? this.bubbleText : (this.isHovered ? 'HELLO!' : '');
+    if (showBubble && textToShow) {
+      const charWidth = 4;
+      const totalTextW = textToShow.length * charWidth - 1;
+      const bubbleW = Math.max(26, totalTextW + 8);
+      const bubbleX = Math.round(32 - bubbleW / 2);
 
-    // Highlights
-    rect(26, 14 + headY, 9, 2, '#475569');
-    rect(28, 12 + headY, 6, 2, '#64748B');
+      // Bubble outline & card fill
+      rect(bubbleX, 3, bubbleW, 10, '#151821');
+      rect(bubbleX + 1, 4, bubbleW - 2, 8, '#FFFDF8');
+      // Bubble tail
+      rect(30, 13, 4, 1, '#151821');
+      rect(31, 14, 2, 1, '#151821');
 
-    // Spiky Bangs over forehead
-    rect(23, 20 + headY, 3, 4, '#1E2430');
-    rect(29, 20 + headY, 4, 3, '#1E2430');
-    rect(36, 20 + headY, 4, 4, '#1E2430');
-    pixel(25, 24 + headY, '#1E2430');
-    pixel(32, 23 + headY, '#1E2430');
-    pixel(38, 24 + headY, '#1E2430');
+      // 3x5 Pixel Font Dictionary
+      const GLYPHS = {
+        'H': [0b101, 0b101, 0b111, 0b101, 0b101],
+        'E': [0b111, 0b100, 0b110, 0b100, 0b111],
+        'L': [0b100, 0b100, 0b100, 0b100, 0b111],
+        'O': [0b111, 0b101, 0b101, 0b101, 0b111],
+        '!': [0b010, 0b010, 0b010, 0b000, 0b010],
+        '6': [0b111, 0b100, 0b111, 0b101, 0b111],
+        '.': [0b000, 0b000, 0b000, 0b000, 0b010],
+        '5': [0b111, 0b100, 0b111, 0b001, 0b111],
+        'K': [0b101, 0b110, 0b100, 0b110, 0b101],
+        '★': [0b010, 0b111, 0b010, 0b101, 0b000],
+        'S': [0b111, 0b100, 0b111, 0b001, 0b111],
+        'I': [0b111, 0b010, 0b010, 0b010, 0b111],
+        'P': [0b111, 0b101, 0b111, 0b100, 0b100],
+        'A': [0b111, 0b101, 0b111, 0b101, 0b101],
+        'R': [0b110, 0b101, 0b110, 0b101, 0b101],
+        'D': [0b110, 0b101, 0b101, 0b101, 0b110],
+        'Y': [0b101, 0b101, 0b010, 0b010, 0b010],
+        '✓': [0b000, 0b001, 0b001, 0b101, 0b010],
+        '+': [0b000, 0b010, 0b111, 0b010, 0b000],
+        ' ': [0b000, 0b000, 0b000, 0b000, 0b000]
+      };
 
-    // Spiky Ahoge / Stray Hair Strand
-    rect(33, 8 + headY, 2, 4, '#1E2430');
-    rect(34, 7 + headY, 3, 2, '#1E2430');
+      const startX = bubbleX + Math.round((bubbleW - totalTextW) / 2);
+      for (let i = 0; i < textToShow.length; i++) {
+        const char = textToShow[i].toUpperCase();
+        const rows = GLYPHS[char] || GLYPHS[' '];
+        const cx = startX + i * charWidth;
+        const color = (char === '★' || char === '✓') ? '#C76F50' : (char === '!' ? '#2563EB' : '#151821');
+        for (let r = 0; r < 5; r++) {
+          const rowVal = rows[r];
+          if ((rowVal & 0b100) !== 0) pixel(cx, 5 + r, color);
+          if ((rowVal & 0b010) !== 0) pixel(cx + 1, 5 + r, color);
+          if ((rowVal & 0b001) !== 0) pixel(cx + 2, 5 + r, color);
+        }
+      }
+    }
 
-    // --- 11. Sparks / Star Particles on Click ---
+    // --- 8. Particle Sparks on Click ---
     for (const p of this.particles) {
       const alpha = Math.max(0, p.life);
       ctx.fillStyle = p.color;
       ctx.globalAlpha = alpha;
-      // Cross star shape (3x3)
       pixel(p.x, p.y, p.color);
       pixel(p.x - 1, p.y, p.color);
       pixel(p.x + 1, p.y, p.color);

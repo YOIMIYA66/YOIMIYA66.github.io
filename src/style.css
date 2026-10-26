@@ -76,7 +76,101 @@ img, video { max-width: 100%; }
 .copy .note { margin-left: 8px; font-weight: 500; font-size: 12px; color: var(--muted); text-decoration: none; display: inline-block; white-space: nowrap; }
 .copy.copied .note { color: var(--ok); }
 .status { display: flex; align-items: center; gap: 10px; margin: 26px 0 0; font: 500 12.5px/1.5 var(--mono); color: var(--soft); white-space: nowrap; }
-.status i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px var(--ok-ring); }
+.status i { display: none; }
+
+/* 16-bit 像素程序员细节美学 */
+.pixel-led {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #10B981;
+  border: 1px solid var(--ink);
+  box-shadow: 1.5px 1.5px 0 var(--ink), 0 0 6px rgba(16, 185, 129, 0.65);
+  animation: pixelPulse 1.4s steps(2, start) infinite;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+.pixel-led-sm {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #10B981;
+  border: 1px solid var(--ink);
+  box-shadow: 1px 1px 0 var(--ink);
+  animation: pixelPulse 1.4s steps(2, start) infinite;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+@keyframes pixelPulse {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 3px rgba(16, 185, 129, 0.8)); }
+  50% { opacity: 0.35; filter: none; }
+}
+
+.pixel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  background: var(--card);
+  color: var(--ink);
+  font: 700 11.5px/1 var(--mono);
+  letter-spacing: .08em;
+  border: 1.5px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  white-space: nowrap;
+  vertical-align: middle;
+  image-rendering: pixelated;
+  user-select: none;
+}
+.pixel-badge.star-badge {
+  background: #FFFBEB;
+  border-color: var(--ink);
+  color: #92400E;
+}
+
+.pixel-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;
+  font: 600 11px/1.4 var(--mono);
+  background: rgba(42, 48, 64, 0.06);
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  color: var(--ink);
+  letter-spacing: .04em;
+  white-space: nowrap;
+  image-rendering: pixelated;
+  vertical-align: middle;
+}
+
+.pixel-sys-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  font: 600 11px/1 var(--mono);
+  color: var(--ink);
+  background: #E8EEF3;
+  border: 1.5px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  letter-spacing: .08em;
+  white-space: nowrap;
+  image-rendering: pixelated;
+}
+
+.p-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: var(--ink);
+  image-rendering: pixelated;
+}
+.p-dot.green { background: #10B981; }
+.p-dot.cyan { background: #0284C7; }
+.p-dot.amber { background: #D97706; }
+.p-dot.gold { background: #EAB308; }
+.p-dot.red { background: var(--brand); }
 
 /* ---------- 展台像素桌宠 ---------- */
 .plate { margin: 0; display: grid; gap: 0; }
@@ -191,7 +285,8 @@ img, video { max-width: 100%; }
 .honors-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-variant-numeric: tabular-nums; }
 .honors-table tr { border-bottom: 1px solid var(--rule); }
 .honors-table td { padding: 18px 16px 18px 0; vertical-align: baseline; font-size: 15px; }
-.honors-table td.award-rank { font: 700 16px/1.4 var(--serif); color: var(--brand); white-space: nowrap; width: 140px; }
+.honors-table td.award-rank { font: 700 15px/1.4 var(--serif); color: var(--brand); white-space: nowrap; width: 230px; }
+.honors-table td.award-rank b { font-weight: 700; color: var(--ink); margin-left: 4px; }
 .honors-table td.award-name { font: 500 15.5px/1.5 var(--serif); color: var(--ink); }
 .honors-table td.award-date { font: 500 13px/1 var(--mono); color: var(--muted); text-align: right; width: 100px; white-space: nowrap; }
 
