@@ -87,7 +87,8 @@ img, video { max-width: 100%; }
   transform-origin: 50% 90%; filter: drop-shadow(var(--sx, 4px) var(--sy, 8px) 6px var(--shadow)); }
 .doll.hop { animation: hop .55s ease-out; }
 @keyframes hop { 22% { transform: scale(1.035, .955); } 52% { transform: scale(.975, 1.04); } 78% { transform: scale(1.01, .99); } }
-.puppet-head { transform-origin: 50% 68%; transform: rotate(var(--a-head, 0deg)); }
+.puppet-head { transform-origin: 50% 51%; transform: rotate(var(--a-head, 0deg)); transition: transform 0.05s linear; }
+.puppet-pet { transform-origin: 58% 72%; transform: rotate(var(--a-pet, 0deg)); transition: transform 0.05s linear; }
 .caption { padding-top: 10px; text-align: center; font: 500 12px/1.6 var(--mono); color: var(--muted); }
 .caption b { margin-right: 10px; color: var(--ink); }
 

@@ -114,6 +114,7 @@
       if (!reduce.matches) {
         curAngle += (targetAngle - curAngle) * 0.08;
         doll.style.setProperty('--a-head', curAngle.toFixed(2) + 'deg');
+        doll.style.setProperty('--a-pet', (-curAngle * 0.4).toFixed(2) + 'deg');
       }
       requestAnimationFrame(tickDoll);
     }
