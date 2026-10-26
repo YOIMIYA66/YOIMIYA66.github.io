@@ -967,7 +967,8 @@ body {
 .showcase-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 12px;
   padding: 10px 16px;
   background: #161B22;
   border-bottom: 1px solid rgba(255, 255, 255, .1);
@@ -995,11 +996,6 @@ body {
   font-weight: 600;
   letter-spacing: .02em;
 }
-.showcase-dim {
-  color: var(--stage-dim);
-  font-size: 10.5px;
-  letter-spacing: .05em;
-}
 .showcase-screen {
   background: #000000;
   line-height: 0;
@@ -1007,10 +1003,8 @@ body {
 .clawd-hero-img {
   width: 100%;
   height: auto;
-  max-width: 1040px;
   aspect-ratio: 1040 / 500;
   display: block;
-  object-fit: contain;
 }
 
 /* 官方成果与认证卡片 (替代虚构终端) */
@@ -1303,7 +1297,6 @@ body {
 }
 @media (max-width: 680px) {
   .showcase-bar { padding: 8px 12px; gap: 8px; }
-  .showcase-dim { display: none; }
   .showcase-title { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .honors-table, .honors-table tbody, .honors-table tr, .honors-table td {
     display: block;
