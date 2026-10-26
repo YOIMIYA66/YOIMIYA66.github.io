@@ -117,8 +117,8 @@
           </button>
         </div>
         <figcaption class="caption">
-          <span class="zh"><span class="pixel-chip">16-BIT DEV</span> 像素风开发者工作台 · 沉浸 Coding 中</span>
-          <span class="en"><span class="pixel-chip">16-BIT DEV</span> Pixel developer workstation · Coding in flow</span>
+          <span class="zh"><span class="pixel-chip"><span class="pixel-led-sm" style="background:#10B981;"></span>小吕正在coding</span></span>
+          <span class="en"><span class="pixel-chip"><span class="pixel-led-sm" style="background:#10B981;"></span>Lyu is coding...</span></span>
         </figcaption>
       </figure>
     </section>
@@ -785,24 +785,35 @@
   <!-- ===== 版权页与纸风车彩蛋 ===== -->
   <footer class="colophon">
     <div class="egg" id="egg">
-      <button class="pinwheel" type="button" id="pinwheel" aria-label="Paper pinwheel">
-        <span class="zh vh">纸风车，点一下吹一口气</span>
-        <span class="en vh">Paper pinwheel. Click to blow on it</span>
-        <svg viewBox="0 0 110 172" class="pw-svg">
-          <!-- 木杆 -->
-          <rect x="52" y="50" width="6" height="120" rx="3" fill="#C9A87C" stroke="#2A3040" stroke-width="1.5"/>
-          <!-- 风车叶片组（受角速度驱动旋转） -->
+      <button class="pinwheel" type="button" id="pinwheel" aria-label="Pixel paper pinwheel">
+        <span class="zh vh">像素纸风车，点一下吹一口气</span>
+        <span class="en vh">Pixel pinwheel. Click to blow on it</span>
+        <svg viewBox="0 0 110 172" class="pw-svg" shape-rendering="crispEdges">
+          <defs>
+            <!-- 16-bit 像素风车主叶片定义（纯阶梯水平/垂直像素路径，零斜线矢量） -->
+            <path id="pw-pixel-blade" d="M 55,50 L 55,10 L 51,10 L 51,13 L 47,13 L 47,16 L 43,16 L 43,19 L 39,19 L 39,23 L 35,23 L 35,27 L 31,27 L 31,31 L 26,31 L 26,35 L 30,35 L 30,38 L 34,38 L 34,41 L 39,41 L 39,44 L 44,44 L 44,47 L 49,47 L 49,50 Z" stroke="#1F1E1D" stroke-width="1.5" stroke-linejoin="miter"/>
+          </defs>
+          <!-- 16-bit 像素木杆 -->
+          <rect x="52" y="50" width="6" height="118" fill="#C9A87C" stroke="#1F1E1D" stroke-width="1.5"/>
+          <line x1="53.5" y1="52" x2="53.5" y2="166" stroke="#E2C499" stroke-width="1"/>
+          <line x1="56.5" y1="52" x2="56.5" y2="166" stroke="#A17F55" stroke-width="1"/>
+          <rect x="53" y="168" width="4" height="4" fill="#8D6E63" stroke="#1F1E1D" stroke-width="1"/>
+
+          <!-- 像素风车旋转叶片组（受角速度驱动物理旋转） -->
           <g class="pw-blade-group">
-            <!-- 叶片 1 -->
-            <polygon points="55,50 55,8 26,24" fill="#C76F50" stroke="#2A3040" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- 叶片 2 -->
-            <polygon points="55,50 97,50 81,21" fill="#FFFDF8" stroke="#2A3040" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- 叶片 3 -->
-            <polygon points="55,50 55,92 84,76" fill="#C76F50" stroke="#2A3040" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- 叶片 4 -->
-            <polygon points="55,50 13,50 29,79" fill="#FFFDF8" stroke="#2A3040" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- 中心黄铜大头钉 -->
-            <circle cx="55" cy="50" r="5" fill="#D97706" stroke="#2A3040" stroke-width="1.5"/>
+            <!-- 叶片 1: 陶土橙 (0deg) -->
+            <use href="#pw-pixel-blade" fill="#EA580C"/>
+            <!-- 叶片 2: 象牙卡纸 (90deg) -->
+            <use href="#pw-pixel-blade" fill="#FAF9F5" transform="rotate(90, 55, 50)"/>
+            <!-- 叶片 3: 陶土橙 (180deg) -->
+            <use href="#pw-pixel-blade" fill="#D97757" transform="rotate(180, 55, 50)"/>
+            <!-- 叶片 4: 象牙卡纸 (270deg) -->
+            <use href="#pw-pixel-blade" fill="#F0EEE6" transform="rotate(270, 55, 50)"/>
+
+            <!-- 中心 16-bit 像素黄铜大头钉 -->
+            <polygon points="52,46 58,46 61,49 61,53 58,56 52,56 49,53 49,49" fill="#D97706" stroke="#1F1E1D" stroke-width="1.5"/>
+            <rect x="52" y="48" width="2" height="2" fill="#FEF08A"/>
+            <rect x="54" y="50" width="2" height="2" fill="#78350F"/>
           </g>
         </svg>
       </button>
