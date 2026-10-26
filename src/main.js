@@ -26,12 +26,26 @@ class CareerPortalApp {
     if (!container) return;
 
     try {
-      const { ThreeBodyAstrolabe } = await import('./three-body.js');
+      const { ThreeBodyAstrolabe } = await import('./three-body-engine.js');
       this.astrolabe = new ThreeBodyAstrolabe(container);
       const fallback = document.getElementById('hero-3d-fallback');
       if (fallback) fallback.style.display = 'none';
+
+      // Update telemetry display every 1.5 seconds
+      setInterval(() => {
+        if (this.astrolabe) {
+          const t = this.astrolabe.calculateTelemetry();
+          const subTag = document.getElementById('astrolabe-sub-tag');
+          if (subTag) {
+            subTag.textContent = this.currentLang === 'zh'
+              ? `第 ${this.astrolabe.civilizationEra} 号文明 · ${t.era} (${t.temp}) · 点击施加引力扰动`
+              : `Era #${this.astrolabe.civilizationEra} · ${t.era} (${t.temp}) · Click to Perturb`;
+          }
+        }
+      }, 1500);
+
     } catch (err) {
-      console.warn('Three-Body Astrolabe initialization fallback:', err);
+      console.warn('Three-Body engine initialization fallback:', err);
     }
   }
 
@@ -96,11 +110,7 @@ class CareerPortalApp {
 
     const astrolabeTitle = document.getElementById('astrolabe-title-tag');
     if (astrolabeTitle) {
-      astrolabeTitle.textContent = this.currentLang === 'zh' ? '三体混沌引力轨迹仪' : 'Three-Body Astrolabe';
-    }
-    const astrolabeSub = document.getElementById('astrolabe-sub-tag');
-    if (astrolabeSub) {
-      astrolabeSub.textContent = this.currentLang === 'zh' ? 'Three-Body Chaotic Astrolabe · 点击施加引力摄动' : 'Chaotic Celestial Orbit · Click to Perturb';
+      astrolabeTitle.textContent = this.currentLang === 'zh' ? '三体混沌引力轨迹仪' : 'Three-Body Chaotic Astrolabe';
     }
 
     // Stats
