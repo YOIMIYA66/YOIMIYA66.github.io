@@ -1,23 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Geist+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Geist+Mono:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap');
 
 :root {
-  --paper-bg: #F6EFE3;      /* 质感暖纸面 */
-  --ink: #2A3040;           /* 沉郁墨色 */
-  --brand: #C76F50;         /* 暖赤陶色 */
-  --mist: #CBD7E1;          /* 雾霭蓝 */
-  --slate: #8DA2B6;         /* 石板灰 */
-  --soft: #5E564B;          /* 正文次色 */
-  --muted: #776B59;         /* 标注与图注 */
-  --rule: rgba(42, 48, 64, 0.16);
-  --rule-strong: rgba(42, 48, 64, 0.4);
-  --card: #FFFDF8;          /* 浅米白卡纸 */
-  --card-hover: #FFFFFF;
-  --lamp: rgba(255, 250, 240, 0.95);
-  --lamp-edge: rgba(65, 45, 25, 0.28);
-  --green-ok: #4E7D2C;
-  --green-ok-bg: rgba(78, 125, 44, 0.12);
+  --paper-bg: #F5EFE6;      /* 质感暖宣纸底色 */
+  --paper-sub: #EDE5DA;     /* 衬纸微深 */
+  --ink: #222630;           /* 浓墨 */
+  --ink-soft: #424958;      /* 焦墨次要 */
+  --ink-muted: #727A8C;     /* 浅墨图注 */
+  --brand: #C85E3D;         /* 暖赤陶红 / 印泥朱砂 */
+  --brand-light: rgba(200, 94, 61, 0.08);
+  --cyan-azure: #0284C7;    /* 霁蓝 / 科技天青 */
+  --gold-amber: #D97706;    /* 琥珀金 */
+  --rule: rgba(34, 38, 48, 0.14);
+  --rule-strong: rgba(34, 38, 48, 0.38);
+  --card: #FCFAF6;          /* 米白玉扣纸卡片 */
+  --card-border: rgba(34, 38, 48, 0.12);
+  --card-shadow: 0 10px 30px rgba(34, 38, 48, 0.05);
+  --lamp: rgba(255, 252, 244, 0.96);
+  --lamp-edge: rgba(70, 48, 25, 0.25);
+  --green-ok: #3F7524;
+  --green-ok-bg: rgba(63, 117, 36, 0.12);
 
-  --serif: "Fraunces", "Noto Serif SC", "Songti SC", Georgia, serif;
+  --serif: "Fraunces", "Noto Serif SC", "Songti SC", "Source Han Serif SC", Georgia, serif;
   --mono: "Geist Mono", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --maxw: 1140px;
@@ -42,25 +45,26 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Subtle Paper Texture Noise Overlay */
+/* Delicate Paper Noise Texture */
 body {
   position: relative;
   overflow-x: hidden;
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(199, 111, 80, 0.03) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(203, 215, 225, 0.05) 0%, transparent 50%);
   min-height: 100vh;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(200, 94, 61, 0.035) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(2, 132, 199, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.025) 0%, transparent 60%);
 }
 
-/* Desk Lamp Ambient Glow (跟着鼠标移动的柔和台灯漫射) */
+/* Desk Lamp Ambient Glow (跟随鼠标移动的柔和台灯漫射) */
 .lamp-glow {
   position: fixed;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(640px circle at var(--mx, 75vw) var(--my, 25vh), var(--lamp), transparent 65%, var(--lamp-edge) 100%);
+  background: radial-gradient(680px circle at var(--mx, 75vw) var(--my, 25vh), var(--lamp), transparent 64%, var(--lamp-edge) 100%);
   mix-blend-mode: soft-light;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 /* Base Container */
@@ -72,10 +76,24 @@ body {
   padding-inline: var(--gutter);
 }
 
+/* Top Notification / Coordinate Ticker */
+.top-ticker-bar {
+  padding-top: 1.2rem;
+  padding-bottom: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  border-bottom: 1px dotted var(--rule);
+}
+
 /* Masthead / Site Header */
 .masthead {
-  padding-top: 2.4rem;
-  padding-bottom: 1.8rem;
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
   border-bottom: 1.5px solid var(--rule-strong);
   display: flex;
   justify-content: space-between;
@@ -93,11 +111,29 @@ body {
 
 .masthead-title {
   font-family: var(--serif);
-  font-size: 1.45rem;
+  font-size: 1.55rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   color: var(--ink);
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.masthead-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
 }
 
 .masthead-badge {
@@ -110,7 +146,7 @@ body {
   color: var(--green-ok);
   font-size: 0.76rem;
   font-weight: 600;
-  border: 1px solid rgba(78, 125, 44, 0.25);
+  border: 1px solid rgba(63, 117, 36, 0.25);
 }
 
 .status-dot {
@@ -128,18 +164,18 @@ body {
 
 .masthead-edition {
   font-size: 0.78rem;
-  color: var(--muted);
+  color: var(--ink-muted);
   letter-spacing: 0.05em;
 }
 
 .masthead-nav {
   display: flex;
   align-items: center;
-  gap: 1.4rem;
+  gap: 1.5rem;
 }
 
 .masthead-nav a {
-  color: var(--soft);
+  color: var(--ink-soft);
   text-decoration: none;
   font-size: 0.82rem;
   font-weight: 500;
@@ -170,7 +206,7 @@ body {
 
 /* SECTION: HERO (COVER STORY) */
 .hero-cover {
-  padding-block: 4rem 3.5rem;
+  padding-block: 3.8rem 3.5rem;
   display: grid;
   grid-template-columns: 1.35fr 1fr;
   gap: 3.5rem;
@@ -181,7 +217,7 @@ body {
 .hero-greeting {
   font-family: var(--mono);
   font-size: 0.85rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--brand);
   margin-bottom: 0.8rem;
@@ -193,19 +229,19 @@ body {
 .hero-greeting::after {
   content: "";
   display: inline-block;
-  width: 32px;
+  width: 36px;
   height: 1px;
   background: var(--brand);
 }
 
 .hero-headline {
   font-family: var(--serif);
-  font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+  font-size: clamp(2.35rem, 4.4vw, 3.6rem);
   font-weight: 500;
-  line-height: 1.15;
+  line-height: 1.18;
   letter-spacing: -0.025em;
   color: var(--ink);
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.3rem;
 }
 
 .hero-headline em {
@@ -215,27 +251,27 @@ body {
 }
 
 .hero-role-line {
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 600;
   color: var(--ink);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.4rem;
   letter-spacing: -0.01em;
 }
 
 .hero-bio-para {
   font-size: 0.96rem;
-  line-height: 1.8;
-  color: var(--soft);
-  margin-bottom: 1.8rem;
+  line-height: 1.82;
+  color: var(--ink-soft);
+  margin-bottom: 1.6rem;
 }
 
 .hero-target-box {
-  background: rgba(199, 111, 80, 0.08);
+  background: var(--brand-light);
   border-left: 3px solid var(--brand);
   padding: 0.85rem 1.2rem;
   font-size: 0.86rem;
   color: var(--ink);
-  margin-bottom: 2.2rem;
+  margin-bottom: 2rem;
   border-radius: 0 4px 4px 0;
 }
 
@@ -282,10 +318,10 @@ body {
 
 .btn-outline-ink:hover {
   border-color: var(--ink);
-  background: rgba(42, 48, 64, 0.04);
+  background: rgba(34, 38, 48, 0.04);
 }
 
-/* 3D Visual Frame in Hero */
+/* THREE-BODY ASTROLABE (三体混沌星仪 3D 视口) */
 .hero-3d-wrapper {
   position: relative;
   display: flex;
@@ -294,29 +330,55 @@ body {
   justify-content: center;
 }
 
-.hero-3d-frame {
+.astrolabe-viewport {
   width: 100%;
-  max-width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, #FFFDF8 0%, rgba(255, 253, 248, 0.2) 70%, transparent 100%);
+  max-width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #FCFAF6 0%, rgba(245, 239, 230, 0.4) 75%, transparent 100%);
   border: 1px solid var(--rule);
-  border-radius: 24px;
+  border-radius: 50%;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 16px 36px rgba(42, 48, 64, 0.06);
+  box-shadow: 
+    0 16px 40px rgba(34, 38, 48, 0.06),
+    inset 0 0 24px rgba(200, 94, 61, 0.05);
+  cursor: crosshair;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.astrolabe-viewport:hover {
+  box-shadow: 
+    0 24px 50px rgba(34, 38, 48, 0.1),
+    inset 0 0 32px rgba(2, 132, 199, 0.08);
+  transform: scale(1.02);
 }
 
 #hero-3d-canvas-container {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
-.hero-3d-caption {
-  margin-top: 1rem;
-  font-size: 0.72rem;
-  color: var(--muted);
-  text-align: center;
+.astrolabe-caption-box {
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.astrolabe-title-tag {
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink);
   letter-spacing: 0.06em;
+}
+
+.astrolabe-sub-tag {
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -345,7 +407,7 @@ body {
 
 .stat-label {
   font-size: 0.78rem;
-  color: var(--muted);
+  color: var(--ink-muted);
   line-height: 1.4;
 }
 
@@ -383,23 +445,23 @@ body {
 
 .section-subtitle {
   font-size: 0.88rem;
-  color: var(--soft);
+  color: var(--ink-soft);
   max-width: 580px;
 }
 
 /* SECTION: EXPERIENCE (实习经历) */
 .exp-card {
   background: var(--card);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--card-border);
   border-radius: 12px;
   padding: clamp(1.8rem, 3vw, 2.6rem);
-  box-shadow: 0 8px 24px rgba(42, 48, 64, 0.04);
+  box-shadow: var(--card-shadow);
   transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
 .exp-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(42, 48, 64, 0.08);
+  box-shadow: 0 16px 36px rgba(34, 38, 48, 0.08);
 }
 
 .exp-header {
@@ -415,13 +477,13 @@ body {
 
 .exp-company {
   font-family: var(--serif);
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--ink);
 }
 
 .exp-dept-role {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--brand);
   font-weight: 500;
   margin-top: 0.2rem;
@@ -429,10 +491,10 @@ body {
 
 .exp-period-pill {
   font-size: 0.78rem;
-  background: rgba(42, 48, 64, 0.06);
+  background: rgba(34, 38, 48, 0.06);
   padding: 0.25rem 0.65rem;
   border-radius: 4px;
-  color: var(--muted);
+  color: var(--ink-muted);
   white-space: nowrap;
 }
 
@@ -465,8 +527,8 @@ body {
 
 .duty-desc {
   font-size: 0.92rem;
-  color: var(--soft);
-  line-height: 1.7;
+  color: var(--ink-soft);
+  line-height: 1.72;
   padding-left: 1.1rem;
 }
 
@@ -479,18 +541,18 @@ body {
 
 .project-card-tilt {
   background: var(--card);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--card-border);
   border-radius: 12px;
   padding: clamp(1.8rem, 3.2vw, 2.5rem);
-  box-shadow: 0 8px 24px rgba(42, 48, 64, 0.04);
+  box-shadow: var(--card-shadow);
   transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s ease;
   transform-style: preserve-3d;
   perspective: 1000px;
 }
 
 .project-card-tilt:hover {
-  border-color: rgba(199, 111, 80, 0.4);
-  box-shadow: 0 16px 40px rgba(42, 48, 64, 0.08);
+  border-color: rgba(200, 94, 61, 0.45);
+  box-shadow: 0 18px 44px rgba(34, 38, 48, 0.09);
 }
 
 .project-meta-bar {
@@ -510,7 +572,7 @@ body {
 
 .project-star-badge {
   font-size: 0.74rem;
-  background: rgba(199, 111, 80, 0.1);
+  background: rgba(200, 94, 61, 0.12);
   color: var(--brand);
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
@@ -543,7 +605,7 @@ body {
 
 .project-bullets-list li {
   font-size: 0.88rem;
-  color: var(--soft);
+  color: var(--ink-soft);
   line-height: 1.65;
   position: relative;
   padding-left: 1.2rem;
@@ -553,7 +615,7 @@ body {
   content: "—";
   position: absolute;
   left: 0;
-  color: var(--muted);
+  color: var(--ink-muted);
 }
 
 .project-bottom-row {
@@ -574,8 +636,8 @@ body {
 
 .tag-badge {
   font-size: 0.72rem;
-  background: rgba(42, 48, 64, 0.05);
-  color: var(--muted);
+  background: rgba(34, 38, 48, 0.05);
+  color: var(--ink-muted);
   padding: 0.2rem 0.55rem;
   border-radius: 3px;
 }
@@ -595,10 +657,10 @@ body {
 /* SECTION: HONORS (竞赛与奖项表格) */
 .honors-table-card {
   background: var(--card);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--card-border);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(42, 48, 64, 0.03);
+  box-shadow: var(--card-shadow);
 }
 
 .honors-table {
@@ -612,8 +674,8 @@ body {
   font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--muted);
-  background: rgba(42, 48, 64, 0.03);
+  color: var(--ink-muted);
+  background: rgba(34, 38, 48, 0.03);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -628,7 +690,7 @@ body {
 }
 
 .honors-table tr:hover td {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.75);
 }
 
 .award-cell {
@@ -642,11 +704,11 @@ body {
 }
 
 .event-cell {
-  color: var(--soft);
+  color: var(--ink-soft);
 }
 
 .date-cell {
-  color: var(--muted);
+  color: var(--ink-muted);
   text-align: right;
   white-space: nowrap;
 }
@@ -660,10 +722,10 @@ body {
 
 .skill-card {
   background: var(--card);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
   padding: 1.4rem;
-  box-shadow: 0 4px 16px rgba(42, 48, 64, 0.03);
+  box-shadow: 0 4px 16px rgba(34, 38, 48, 0.03);
 }
 
 .skill-cat-title {
@@ -685,26 +747,42 @@ body {
 
 .skill-item-tag {
   font-size: 0.78rem;
-  background: rgba(42, 48, 64, 0.04);
-  border: 1px solid rgba(42, 48, 64, 0.08);
+  background: rgba(34, 38, 48, 0.04);
+  border: 1px solid rgba(34, 38, 48, 0.08);
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
   color: var(--ink);
 }
 
-/* SECTION: PHILOSOPHY (知行合一) */
+/* SECTION: PHILOSOPHY (知行合一 · 太极八卦印记) */
 .philosophy-banner {
   background: var(--card);
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  padding: clamp(2.5rem, 4vw, 4rem) 2rem;
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: clamp(2.8rem, 4.5vw, 4.2rem) 2.2rem;
   text-align: center;
-  box-shadow: 0 8px 24px rgba(42, 48, 64, 0.04);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dynamic Tai Chi Bagua Seal */
+.taiji-bagua-emblem {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 1.6rem auto;
+  position: relative;
+  animation: slowSpinTaiji 24s linear infinite;
+}
+
+@keyframes slowSpinTaiji {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .quote-title {
   font-family: var(--serif);
-  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
   font-weight: 600;
   color: var(--ink);
   letter-spacing: 0.1em;
@@ -713,18 +791,33 @@ body {
 
 .quote-en-sub {
   font-size: 0.82rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink-muted);
   margin-bottom: 1.6rem;
 }
 
 .quote-desc-text {
   max-width: 680px;
   margin: 0 auto;
-  font-size: 0.96rem;
-  line-height: 1.85;
-  color: var(--soft);
+  font-size: 0.98rem;
+  line-height: 1.88;
+  color: var(--ink-soft);
+}
+
+/* Red Vermilion Seal Stamp */
+.quote-stamp-seal {
+  display: inline-block;
+  margin-top: 1.8rem;
+  padding: 0.4rem 0.9rem;
+  border: 1.5px solid var(--brand);
+  border-radius: 4px;
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--brand);
+  letter-spacing: 0.15em;
+  transform: rotate(-2deg);
 }
 
 /* SECTION: CONTACT (联系我) */
@@ -757,7 +850,7 @@ body {
 
 .contact-desc-text {
   font-size: 0.94rem;
-  color: var(--soft);
+  color: var(--ink-soft);
   line-height: 1.75;
 }
 
@@ -772,7 +865,7 @@ body {
   justify-content: space-between;
   align-items: center;
   background: var(--card);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--card-border);
   padding: 0.9rem 1.2rem;
   border-radius: 6px;
   text-decoration: none;
@@ -793,7 +886,7 @@ body {
 
 .contact-network-val {
   font-size: 0.8rem;
-  color: var(--muted);
+  color: var(--ink-muted);
 }
 
 /* FOOTER */
@@ -805,7 +898,7 @@ body {
   flex-wrap: wrap;
   gap: 1.2rem;
   font-size: 0.78rem;
-  color: var(--muted);
+  color: var(--ink-muted);
 }
 
 .btn-scroll-top {
@@ -831,9 +924,9 @@ body {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  .hero-3d-frame {
-    max-width: 280px;
-    height: 280px;
+  .astrolabe-viewport {
+    max-width: 300px;
+    height: 300px;
   }
   .contact-grid {
     grid-template-columns: 1fr;

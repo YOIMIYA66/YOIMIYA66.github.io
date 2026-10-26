@@ -20,10 +20,19 @@
   <div class="lamp-glow" id="lamp-glow"></div>
 
   <div class="page-wrap">
+    <!-- TOP TICKER BAR -->
+    <div class="top-ticker-bar">
+      <span>📍 37°59′N 112°34′E · TAIYUAN / BEIJING</span>
+      <span>EDITION 2026.10 · CAREER PORTAL</span>
+    </div>
+
     <!-- MASTHEAD / 刊头导航 -->
     <header class="masthead">
       <div class="masthead-left">
-        <a href="#" class="masthead-title" id="masthead-title">吕炳荣 · Lyu Bingrong</a>
+        <a href="#" class="masthead-title" id="masthead-title">
+          <span>吕炳荣 · Lyu Bingrong</span>
+          <span class="masthead-seal">荣</span>
+        </a>
         <span class="masthead-badge">
           <span class="status-dot"></span>
           <span id="masthead-badge-text">求职中 · 开放实习与全职交流</span>
@@ -69,22 +78,26 @@
           </div>
         </div>
 
-        <!-- Right 3D Visual Frame -->
+        <!-- Right 3D Visual Frame: Three-Body Astrolabe (三体引力轨迹星仪) -->
         <div class="hero-3d-wrapper">
-          <div class="hero-3d-frame">
+          <div class="astrolabe-viewport" id="astrolabe-viewport" title="点击施加引力扰动！">
             <div id="hero-3d-canvas-container">
-              <!-- Fallback SVG shown if WebGL takes time to initialize -->
+              <!-- SVG Fallback while 3D initializes -->
               <div id="hero-3d-fallback" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-                <svg width="140" height="140" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" stroke="#C76F50" stroke-width="2" fill="rgba(199, 111, 80, 0.08)"/>
-                  <polygon points="50,25 75,38 75,62 50,75 25,62 25,38" stroke="#2A3040" stroke-width="1.5" fill="rgba(42, 48, 64, 0.05)"/>
-                  <circle cx="50" cy="50" r="8" fill="#C76F50"/>
+                <svg width="150" height="150" viewBox="0 0 100 100" fill="none">
+                  <circle cx="50" cy="50" r="42" stroke="#2A3040" stroke-width="1.2" stroke-dasharray="3 3"/>
+                  <ellipse cx="50" cy="50" rx="38" ry="18" stroke="#C85E3D" stroke-width="1.5" transform="rotate(30 50 50)"/>
+                  <ellipse cx="50" cy="50" rx="38" ry="18" stroke="#0284C7" stroke-width="1.5" transform="rotate(-35 50 50)"/>
+                  <circle cx="68" cy="36" r="5" fill="#C85E3D"/>
+                  <circle cx="32" cy="62" r="4" fill="#0284C7"/>
+                  <circle cx="52" cy="22" r="3.5" fill="#D97706"/>
                 </svg>
               </div>
             </div>
           </div>
-          <div class="hero-3d-caption" id="hero-3d-caption">
-            Prism Lattice · 3D 交互透镜
+          <div class="astrolabe-caption-box">
+            <span class="astrolabe-title-tag" id="astrolabe-title-tag">三体混沌引力轨迹仪</span>
+            <span class="astrolabe-sub-tag" id="astrolabe-sub-tag">Three-Body Chaotic Astrolabe · 点击施加引力摄动</span>
           </div>
         </div>
       </section>
@@ -372,14 +385,27 @@
         </div>
       </section>
 
-      <!-- SECTION 5: PHILOSOPHY / 准则 -->
+      <!-- SECTION 5: PHILOSOPHY (知行合一 · 太极八卦印记) -->
       <section class="editorial-section" id="philosophy">
         <div class="philosophy-banner">
+          <!-- Dynamic Tai Chi Bagua SVG Emblem -->
+          <div class="taiji-bagua-emblem" title="阴阳互抱 · 动静相生">
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="#C85E3D" stroke-width="1.5" stroke-dasharray="4 2"/>
+              <!-- Yin Yang curves -->
+              <path d="M50 2 A48 48 0 0 1 50 98 A24 24 0 0 1 50 50 A24 24 0 0 0 50 2 Z" fill="#222630"/>
+              <path d="M50 98 A48 48 0 0 1 50 2 A24 24 0 0 1 50 50 A24 24 0 0 0 50 98 Z" fill="#F5EFE6"/>
+              <circle cx="50" cy="26" r="6" fill="#F5EFE6"/>
+              <circle cx="50" cy="74" r="6" fill="#222630"/>
+            </svg>
+          </div>
+
           <div class="quote-title" id="quote-title">知行合一</div>
           <div class="quote-en-sub" id="quote-en-sub">Knowledge and action are one.</div>
           <p class="quote-desc-text" id="quote-desc-text">
             “知是行之始，行是知之成。”只做经得起对抗检验、有度量根据的 AI 系统；写清晰自洽的文档，交付实打实能跑在用户桌面的软件。
           </p>
+          <div class="quote-stamp-seal">知行合一 · 慎思笃行</div>
         </div>
       </section>
 
@@ -398,7 +424,7 @@
               目前我正积极关注大模型评测、AI 智能体研发及系统工程方向的实习与校招机会。欢迎随时致信或添加社交网络交流。
             </p>
             <div>
-              <div style="font-size:0.75rem; color:var(--muted); text-transform:uppercase; margin-bottom:0.4rem;">Direct Email / 邮箱直连</div>
+              <div style="font-size:0.75rem; color:var(--ink-muted); text-transform:uppercase; margin-bottom:0.4rem;">Direct Email / 邮箱直连</div>
               <a href="mailto:lyubingrong@foxmail.com" class="contact-email-large">lyubingrong@foxmail.com</a>
             </div>
           </div>
@@ -432,7 +458,7 @@
     <!-- FOOTER / 版权与返回顶部 -->
     <footer class="site-footer">
       <div id="footer-note">
-        © 2026 吕炳荣 (Lyu Bingrong) · 纸墨版式与轻3D视差呈现
+        © 2026 吕炳荣 (Lyu Bingrong) · 纸墨版式与三体星轨轻3D
       </div>
       <button class="btn-scroll-top" id="btn-scroll-top">返回顶部 ↑</button>
     </footer>

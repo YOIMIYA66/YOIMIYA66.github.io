@@ -3,7 +3,7 @@ import { i18n } from './i18n.js';
 class CareerPortalApp {
   constructor() {
     this.currentLang = this.detectLanguage();
-    this.initLight3D();
+    this.initThreeBody3D();
     this.initLampEffect();
     this.initCard3DTilt();
     this.bindEvents();
@@ -21,17 +21,17 @@ class CareerPortalApp {
     return navLang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
   }
 
-  async initLight3D() {
+  async initThreeBody3D() {
     const container = document.getElementById('hero-3d-canvas-container');
     if (!container) return;
 
     try {
-      const { Light3DHero } = await import('./light-3d.js');
-      this.light3D = new Light3DHero(container);
+      const { ThreeBodyAstrolabe } = await import('./three-body.js');
+      this.astrolabe = new ThreeBodyAstrolabe(container);
       const fallback = document.getElementById('hero-3d-fallback');
       if (fallback) fallback.style.display = 'none';
     } catch (err) {
-      console.warn('3D Hero initialization fallback:', err);
+      console.warn('Three-Body Astrolabe initialization fallback:', err);
     }
   }
 
@@ -93,6 +93,15 @@ class CareerPortalApp {
     document.getElementById('hero-target-box').innerHTML = `<strong>${this.currentLang === 'zh' ? '目标岗位：' : 'Target Roles: '}</strong>${data.hero.target.replace('目标岗位：', '').replace('Target Roles: ', '')}`;
     document.getElementById('btn-contact-text').textContent = data.hero.downloadCv;
     document.getElementById('btn-explore-text').textContent = data.hero.exploreBtn;
+
+    const astrolabeTitle = document.getElementById('astrolabe-title-tag');
+    if (astrolabeTitle) {
+      astrolabeTitle.textContent = this.currentLang === 'zh' ? '三体混沌引力轨迹仪' : 'Three-Body Astrolabe';
+    }
+    const astrolabeSub = document.getElementById('astrolabe-sub-tag');
+    if (astrolabeSub) {
+      astrolabeSub.textContent = this.currentLang === 'zh' ? 'Three-Body Chaotic Astrolabe · 点击施加引力摄动' : 'Chaotic Celestial Orbit · Click to Perturb';
+    }
 
     // Stats
     const statsContainer = document.getElementById('stats-banner');
@@ -196,7 +205,9 @@ class CareerPortalApp {
     }
 
     // Footer
-    document.getElementById('footer-note').textContent = data.contact.footerNote;
+    document.getElementById('footer-note').textContent = this.currentLang === 'zh'
+      ? '© 2026 吕炳荣 (Lyu Bingrong) · 纸墨版式与三体星轨轻3D'
+      : '© 2026 Lyu Bingrong · Magazine Layout & Three-Body Light 3D';
     document.getElementById('btn-scroll-top').textContent = this.currentLang === 'zh' ? '返回顶部 ↑' : 'Back to top ↑';
 
     // Rebind 3D tilt after DOM injection
