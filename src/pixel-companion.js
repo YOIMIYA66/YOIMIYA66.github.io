@@ -1,65 +1,6 @@
-// Lyu Bingrong (YOIMIYA66) Refactored 16-bit Pixel Art Avatar
-// Strictly constrained to 14 theme colors. Enlarged upper body & state machine.
-
-const PALETTE = {
-  INK: '#1F1E1D',
-  PAPER: '#F0EEE6',
-  CARD: '#FAF9F5',
-  TERRACOTTA: '#D97757',
-  TERRACOTTA_DEEP: '#B5593B',
-  SLATE: '#8DA2B6',
-  GREEN: '#5E8C4A',
-  MIST_LIGHT: '#E9E2D4',
-  MIST_DARK: '#DCCFB9',
-  SKIN: '#FCD5B5',
-  SKIN_SHADOW: '#F5AF8B',
-  DARK_BLUE: '#2D3748',
-  PEACH: '#FED7AA',
-  YELLOW: '#FDE047'
-};
-
-const GLYPHS = {
-  'A': [0b111, 0b101, 0b111, 0b101, 0b101],
-  'B': [0b110, 0b101, 0b110, 0b101, 0b110],
-  'C': [0b111, 0b100, 0b100, 0b100, 0b111],
-  'D': [0b110, 0b101, 0b101, 0b101, 0b110],
-  'E': [0b111, 0b100, 0b110, 0b100, 0b111],
-  'F': [0b111, 0b100, 0b110, 0b100, 0b100],
-  'G': [0b111, 0b100, 0b101, 0b101, 0b111],
-  'H': [0b101, 0b101, 0b111, 0b101, 0b101],
-  'I': [0b111, 0b010, 0b010, 0b010, 0b111],
-  'J': [0b001, 0b001, 0b001, 0b101, 0b111],
-  'K': [0b101, 0b110, 0b100, 0b110, 0b101],
-  'L': [0b100, 0b100, 0b100, 0b100, 0b111],
-  'M': [0b101, 0b111, 0b101, 0b101, 0b101],
-  'N': [0b101, 0b111, 0b111, 0b101, 0b101],
-  'O': [0b111, 0b101, 0b101, 0b101, 0b111],
-  'P': [0b111, 0b101, 0b111, 0b100, 0b100],
-  'Q': [0b111, 0b101, 0b101, 0b111, 0b001],
-  'R': [0b110, 0b101, 0b110, 0b101, 0b101],
-  'S': [0b111, 0b100, 0b111, 0b001, 0b111],
-  'T': [0b111, 0b010, 0b010, 0b010, 0b010],
-  'U': [0b101, 0b101, 0b101, 0b101, 0b111],
-  'V': [0b101, 0b101, 0b101, 0b101, 0b010],
-  'W': [0b101, 0b101, 0b101, 0b111, 0b101],
-  'X': [0b101, 0b101, 0b010, 0b101, 0b101],
-  'Y': [0b101, 0b101, 0b010, 0b010, 0b010],
-  'Z': [0b111, 0b001, 0b010, 0b100, 0b111],
-  '0': [0b111, 0b101, 0b101, 0b101, 0b111],
-  '1': [0b010, 0b110, 0b010, 0b010, 0b111],
-  '2': [0b111, 0b001, 0b111, 0b100, 0b111],
-  '3': [0b111, 0b001, 0b111, 0b001, 0b111],
-  '4': [0b101, 0b101, 0b111, 0b001, 0b001],
-  '5': [0b111, 0b100, 0b111, 0b001, 0b111],
-  '6': [0b111, 0b100, 0b111, 0b101, 0b111],
-  '7': [0b111, 0b001, 0b010, 0b010, 0b010],
-  '8': [0b111, 0b101, 0b111, 0b101, 0b111],
-  '9': [0b111, 0b101, 0b111, 0b001, 0b111],
-  '!': [0b010, 0b010, 0b010, 0b000, 0b010],
-  '+': [0b000, 0b010, 0b111, 0b010, 0b000],
-  '-': [0b000, 0b000, 0b111, 0b000, 0b000],
-  ' ': [0b000, 0b000, 0b000, 0b000, 0b000]
-};
+// Lyu Bingrong (YOIMIYA66) Custom Pixel Art Companion & Diorama
+// 100% Authentic 16-bit Pixel Art: Developer in iconic Orange Plaid Flannel Shirt & Glasses,
+// seated at a developer workstation desk, actively coding on a glowing monitor with animated typing!
 
 export class PixelCompanion {
   constructor(canvas) {
@@ -67,470 +8,650 @@ export class PixelCompanion {
     this.ctx = canvas.getContext('2d');
     this.ctx.imageSmoothingEnabled = false;
 
-    this.width = 80;
-    this.height = 80;
-    this.canvas.width = 80;
-    this.canvas.height = 80;
-
-    this.reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // State machine: 'idle' | 'sleep' | 'happy' | 'wave' | 'typing-fast'
-    this.state = 'idle';
-    this.previousState = 'idle';
+    this.width = canvas.width;
+    this.height = canvas.height;
 
     this.mouseX = window.innerWidth / 2;
     this.mouseY = window.innerHeight / 2;
+
     this.lookX = 0;
     this.lookY = 0;
 
     this.isBlinking = false;
+    this.isHappy = false;
+    this.isHovered = false;
     this.hopY = 0;
     this.hopVy = 0;
 
+    this.breathTimer = 0;
+    this.codeTimer = 0;
     this.typeTimer = 0;
-    this.steamTimer = 0;
-    this.sleepTimer = 0; // Inactivity timer (seconds)
-    this.sleepZZ = []; // Floating 'zZ' particles
-
-    // Quotes as requested
-    this.quotes = [
-      'OPEN TO WORK',
-      '66 PRS MERGED',
-      '26 AGENTS',
-      'RED TEAM + EVAL',
-      'READY!'
-    ];
-    this.quoteIndex = 0;
-    this.bubbleText = '';
+    this.steamTick = 0;
+    this.particles = [];
+    this.bubbleText = 'IN FLOW';
     this.bubbleTimer = 0;
+    this.quoteIndex = 0;
+    this.starTick = 0;
 
-    this.isVisible = true;
-    this.rafId = null;
-    this.lastTime = performance.now();
+    // Meaningful engineering & career slogans
+    this.quotes = [
+      'NO TOYS',   // 不制造脆弱玩具，交付真实生产力（工作信条）
+      'TRUTH✓',    // 实事求是，用严密指标度量模型边界
+      '6.5K★',     // Clawd on Desk 核心维护项目 6,500+ stars
+      'FACTS✓',    // 知行合一，实事求是
+      'EVAL AI',   // 智源 BAAI 大模型安全评测与红队
+      'READY!'     // 已毕业，随时支持线上面试与快速到岗
+    ];
 
-    this.boundPointerMove = this.onPointerMove.bind(this);
-    this.boundResize = this.updateCanvasSize.bind(this);
-    this.boundClick = this.onClick.bind(this);
-
-    this.initScaling();
     this.bindEvents();
-    this.setupObservers();
     this.scheduleBlink();
 
-    if (!this.reduceMotion) {
-      this.animate = this.animate.bind(this);
-      this.rafId = requestAnimationFrame(this.animate);
-    } else {
-      this.draw();
+    this.isVisible = true;
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const wasVisible = this.isVisible;
+          this.isVisible = entry.isIntersecting;
+          if (this.isVisible && !wasVisible && !this.rafId) {
+            this.lastTime = performance.now();
+            this.rafId = requestAnimationFrame(this.animate);
+          }
+        });
+      }, { threshold: 0.05 });
+      this.observer.observe(this.canvas);
     }
-  }
 
-  initScaling() {
-    this.updateCanvasSize();
-    window.addEventListener('resize', this.boundResize);
-  }
-
-  updateCanvasSize() {
-    const parent = this.canvas.parentElement;
-    const pw = parent ? parent.clientWidth : 320;
-    // Nearest integer multiple of 80 (minimum 240)
-    const mult = Math.max(3, Math.min(5, Math.floor(pw / 80)));
-    const size = mult * 80;
-    this.canvas.style.width = size + 'px';
-    this.canvas.style.height = size + 'px';
+    this.lastTime = performance.now();
+    this.animate = this.animate.bind(this);
+    this.rafId = requestAnimationFrame(this.animate);
   }
 
   bindEvents() {
-    window.addEventListener('pointermove', this.boundPointerMove, { passive: true });
+    window.addEventListener('pointermove', (e) => {
+      this.mouseX = e.clientX;
+      this.mouseY = e.clientY;
+    }, { passive: true });
 
-    // Single click binding: ONLY on parent #doll button, NO duplicate click on canvas
-    const parentBtn = this.canvas.closest('#doll') || this.canvas;
-    parentBtn.addEventListener('click', this.boundClick);
-  }
+    this.canvas.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.hop();
+    });
 
-  setupObservers() {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+    this.canvas.addEventListener('mouseenter', () => {
+      this.isHovered = true;
+    });
 
-    // Visibility observer for viewport rendering
-    this.visObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const wasVisible = this.isVisible;
-        this.isVisible = entry.isIntersecting;
-        if (this.isVisible && !wasVisible && !this.rafId && !this.reduceMotion) {
-          this.lastTime = performance.now();
-          this.rafId = requestAnimationFrame(this.animate);
-        }
+    this.canvas.addEventListener('mouseleave', () => {
+      this.isHovered = false;
+    });
+
+    const parentBtn = this.canvas.closest('#doll');
+    if (parentBtn && parentBtn !== this.canvas) {
+      parentBtn.addEventListener('click', () => {
+        this.hop();
       });
-    }, { threshold: 0.05 });
-    this.visObserver.observe(this.canvas);
-
-    // Section observers for state machine
-    const workSec = document.getElementById('work');
-    const contactSec = document.getElementById('contact');
-
-    this.secObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (entry.target.id === 'work' && this.state !== 'happy') {
-            this.setState('typing-fast');
-          } else if (entry.target.id === 'contact' && this.state !== 'happy') {
-            this.setState('wave');
-          }
-        } else {
-          if ((entry.target.id === 'work' && this.state === 'typing-fast') ||
-              (entry.target.id === 'contact' && this.state === 'wave')) {
-            if (this.state !== 'happy') this.setState('idle');
-          }
-        }
+      parentBtn.addEventListener('mouseenter', () => {
+        this.isHovered = true;
       });
-    }, { rootMargin: '-20% 0px -40% 0px' });
-
-    if (workSec) this.secObserver.observe(workSec);
-    if (contactSec) this.secObserver.observe(contactSec);
-  }
-
-  setState(newState) {
-    if (this.state === newState) return;
-    this.previousState = this.state;
-    this.state = newState;
-    if (newState !== 'sleep') {
-      this.sleepTimer = 0;
-      this.sleepZZ = [];
+      parentBtn.addEventListener('mouseleave', () => {
+        this.isHovered = false;
+      });
     }
-  }
-
-  onPointerMove(e) {
-    this.mouseX = e.clientX;
-    this.mouseY = e.clientY;
-    // Wake up immediately upon mouse movement
-    if (this.state === 'sleep') {
-      this.setState(this.previousState !== 'sleep' ? this.previousState : 'idle');
-    }
-    this.sleepTimer = 0;
-  }
-
-  onClick() {
-    this.sleepTimer = 0;
-    // Advance quote sequentially
-    this.bubbleText = this.quotes[this.quoteIndex % this.quotes.length];
-    this.quoteIndex++;
-    this.bubbleTimer = 2.4;
-
-    if (this.reduceMotion) {
-      this.state = 'happy';
-      this.draw();
-      setTimeout(() => {
-        this.state = 'idle';
-        this.draw();
-      }, 1500);
-      return;
-    }
-
-    this.setState('happy');
-    this.hopY = -4;
-    this.hopVy = -1.2;
-
-    clearTimeout(this.happyTimeout);
-    this.happyTimeout = setTimeout(() => {
-      if (this.state === 'happy') {
-        this.setState(this.previousState !== 'happy' ? this.previousState : 'idle');
-      }
-    }, 1500);
   }
 
   scheduleBlink() {
-    const delay = 2000 + Math.random() * 3000;
-    this.blinkTimeout = setTimeout(() => {
-      if (this.state !== 'sleep') {
+    setTimeout(() => {
+      if (!this.isHappy) {
         this.isBlinking = true;
         setTimeout(() => {
           this.isBlinking = false;
           this.scheduleBlink();
-        }, 140);
+        }, 130);
       } else {
         this.scheduleBlink();
       }
-    }, delay);
+    }, 2200 + Math.random() * 3200);
+  }
+
+  hop() {
+    // Slight chair bounce on sprint
+    this.hopVy = -1.8;
+    this.isHappy = true;
+    
+    // Cycle through meaningful developer slogans sequentially
+    this.bubbleText = this.quotes[this.quoteIndex % this.quotes.length];
+    this.quoteIndex++;
+    this.bubbleTimer = 2.4;
+
+    setTimeout(() => {
+      this.isHappy = false;
+    }, 1400);
+
+    // Burst 16-bit glowing particle sparks from workstation (terracotta orange, cyan, gold, green)
+    const colors = ['#EA580C', '#38BDF8', '#4ADE80', '#F59E0B', '#FDBA74', '#FDE047'];
+    for (let i = 0; i < 7; i++) {
+      const angle = (i / 7) * Math.PI * 2 + (Math.random() - 0.5) * 0.3;
+      const speed = 1.0 + Math.random() * 1.4;
+      this.particles.push({
+        x: 52 + (Math.random() - 0.5) * 6,
+        y: 35,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 0.8,
+        color: colors[i % colors.length],
+        life: 1.0,
+        decay: 0.035 + Math.random() * 0.02
+      });
+    }
   }
 
   update(dt) {
-    // 1. Inactivity tracking -> enter sleep after 30s
-    this.sleepTimer += dt;
-    if (this.sleepTimer >= 30 && this.state !== 'sleep') {
-      this.setState('sleep');
-    }
+    // 1. Calculate gaze offset (-1, 0, or 1 pixel)
+    const rect = this.canvas.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height * 0.45;
+    const dx = this.mouseX - centerX;
+    const dy = this.mouseY - centerY;
 
-    // 2. Head look direction tracking
-    const r = this.canvas.getBoundingClientRect();
-    const cx = r.left + r.width / 2;
-    const cy = r.top + r.height * 0.45;
-    const dx = this.mouseX - cx;
-    const dy = this.mouseY - cy;
-    this.lookX = Math.max(-2, Math.min(2, Math.round(dx / 120)));
-    this.lookY = Math.max(-1, Math.min(1, Math.round(dy / 140)));
+    this.lookX = dx > 50 ? 1 : (dx < -50 ? -1 : 0);
+    this.lookY = dy > 35 ? 1 : (dy < -35 ? -1 : 0);
 
-    // 3. Typing hand movement
-    const typeSpeed = this.state === 'typing-fast' ? 14 : (this.state === 'idle' ? 7 : 0);
-    this.typeTimer += dt * typeSpeed;
-
-    // 4. Steam timer
-    this.steamTimer += dt * 3;
-
-    // 5. Hop physics for 'happy' state
+    // 2. Chair cushion bounce physics
     if (this.hopY < 0 || this.hopVy !== 0) {
       this.hopY += this.hopVy;
-      this.hopVy += 0.25;
+      this.hopVy += 0.28; // gravity
+      if (this.hopY < -3.5) {
+        this.hopY = -3.5;
+        this.hopVy = 0;
+      }
       if (this.hopY >= 0) {
         this.hopY = 0;
         this.hopVy = 0;
       }
     }
 
-    // 6. Speech bubble countdown
+    // 3. Timers
+    this.breathTimer += dt * 2.8;
+    this.codeTimer += dt * 7.0;
+    this.typeTimer += dt * (this.isHappy ? 22.0 : 9.5);
+    this.steamTick += dt * 3.2;
+    this.starTick += dt * 2.0;
     if (this.bubbleTimer > 0) {
       this.bubbleTimer -= dt;
     }
 
-    // 7. Sleeping zZ particles
-    if (this.state === 'sleep') {
-      if (Math.random() < 0.04 && this.sleepZZ.length < 3) {
-        this.sleepZZ.push({ x: 44, y: 18, life: 1.0, scale: 0.8 + Math.random() * 0.4 });
-      }
-      for (let i = this.sleepZZ.length - 1; i >= 0; i--) {
-        const p = this.sleepZZ[i];
-        p.x += 0.2;
-        p.y -= 0.35;
-        p.life -= dt * 0.5;
-        if (p.life <= 0) this.sleepZZ.splice(i, 1);
+    // 4. Particles
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      const p = this.particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.05;
+      p.life -= p.decay;
+      if (p.life <= 0) {
+        this.particles.splice(i, 1);
       }
     }
   }
 
   draw() {
-    const { ctx } = this;
-    ctx.clearRect(0, 0, 80, 80);
+    const ctx = this.ctx;
+    ctx.clearRect(0, 0, this.width, this.height);
 
-    const rect = (x, y, w, h, color) => {
-      ctx.fillStyle = color;
-      ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
+    const rect = (x, y, w, h, col) => {
+      ctx.fillStyle = col;
+      ctx.fillRect(Math.floor(x), Math.floor(y), Math.floor(w), Math.floor(h));
+    };
+    const pixel = (x, y, col) => {
+      ctx.fillStyle = col;
+      ctx.fillRect(Math.floor(x), Math.floor(y), 1, 1);
     };
 
-    const pixel = (x, y, color) => {
-      ctx.fillStyle = color;
-      ctx.fillRect(Math.round(x), Math.round(y), 1, 1);
-    };
+    // Center coordinates
+    const cx = 40;
+    const cy = 40;
+    const R = 36;
+    const R2 = R * R;
+    const groundY = 63;
 
-    // Background circular vignette
-    ctx.beginPath();
-    ctx.arc(40, 40, 38, 0, Math.PI * 2);
-    ctx.fillStyle = PALETTE.CARD;
-    ctx.fill();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = PALETTE.MIST_DARK;
-    ctx.stroke();
+    // --- 1. Authentic 16-bit Stepped Pixel Circle Background ---
+    for (let y = 4; y <= 76; y++) {
+      const dy = y - cy;
+      const maxHalfW = Math.floor(Math.sqrt(Math.max(0, R2 - dy * dy)));
+      if (maxHalfW <= 0) continue;
 
-    const hy = Math.round(this.hopY);
+      const leftX = cx - maxHalfW;
+      const rightX = cx + maxHalfW;
+      const width = rightX - leftX + 1;
 
-    // --- 1. Monitor (Left side of desk) ---
-    // Monitor screen frame
-    rect(8, 28, 22, 28, PALETTE.INK);
-    // Screen display (dims in sleep mode)
-    const scrColor = this.state === 'sleep' ? PALETTE.INK : PALETTE.DARK_BLUE;
-    rect(10, 30, 18, 22, scrColor);
-    // Monitor stand
-    rect(18, 56, 2, 8, PALETTE.SLATE);
-    rect(14, 64, 10, 2, PALETTE.SLATE);
-
-    // Code lines on monitor
-    if (this.state !== 'sleep') {
-      const shift = Math.floor(this.typeTimer) % 3;
-      rect(12, 33, 10, 2, PALETTE.GREEN);
-      rect(12, 37, 14, 2, PALETTE.YELLOW);
-      rect(14, 41, 8, 2, shift === 0 ? PALETTE.PEACH : PALETTE.GREEN);
-      rect(12, 45, 12, 2, PALETTE.MIST_LIGHT);
-      rect(12, 49, 6, 2, PALETTE.TERRACOTTA);
-    }
-
-    // --- 2. Walnut Wooden Desk ---
-    rect(4, 62, 72, 4, PALETTE.MIST_DARK);
-    rect(4, 66, 72, 12, PALETTE.INK);
-    rect(4, 62, 72, 1, PALETTE.PAPER);
-
-    // --- 3. Coffee Mug (Right side of desk) ---
-    rect(62, 53, 7, 9, PALETTE.TERRACOTTA);
-    rect(63, 52, 5, 1, PALETTE.TERRACOTTA_DEEP);
-    rect(69, 55, 2, 5, PALETTE.TERRACOTTA_DEEP); // Handle
-    rect(63, 54, 5, 2, PALETTE.INK); // Dark coffee surface
-
-    // Rising steam
-    if (this.state !== 'sleep') {
-      const s1 = Math.sin(this.steamTimer) * 1.5;
-      const s2 = Math.cos(this.steamTimer * 0.9) * 1.5;
-      pixel(64 + s1, 50, PALETTE.MIST_LIGHT);
-      pixel(65 + s2, 47, PALETTE.MIST_LIGHT);
-      pixel(66 + s1, 44, PALETTE.MIST_LIGHT);
-    }
-
-    // --- 4. Developer Upper Body (Enlarged, Plaid Shirt) ---
-    const bodyY = 46 + hy;
-    // Plaid flannel shirt (#D97757 base with #B5593B grid checks)
-    rect(28, bodyY, 24, 17, PALETTE.TERRACOTTA);
-    // Vertical checks
-    rect(33, bodyY, 2, 17, PALETTE.TERRACOTTA_DEEP);
-    rect(39, bodyY, 2, 17, PALETTE.TERRACOTTA_DEEP);
-    rect(45, bodyY, 2, 17, PALETTE.TERRACOTTA_DEEP);
-    // Horizontal checks
-    rect(28, bodyY + 4, 24, 2, PALETTE.TERRACOTTA_DEEP);
-    rect(28, bodyY + 10, 24, 2, PALETTE.TERRACOTTA_DEEP);
-    // Collar
-    pixel(38, bodyY, PALETTE.CARD);
-    pixel(39, bodyY + 1, PALETTE.CARD);
-    pixel(40, bodyY + 1, PALETTE.CARD);
-    pixel(41, bodyY, PALETTE.CARD);
-
-    // --- 5. Enlarged Head & Face (Face width >= 18px) ---
-    const headY = 24 + hy + (this.state === 'sleep' ? 2 : 0);
-    const headX = 30; // Face spans x: 30 to 49 (20px width!)
-
-    // Neck
-    rect(37, headY + 18, 6, 4, PALETTE.SKIN_SHADOW);
-
-    // Hair base & volume
-    rect(28, headY, 24, 10, PALETTE.INK);
-    rect(29, headY - 3, 22, 5, PALETTE.INK);
-    rect(32, headY - 5, 16, 3, PALETTE.INK);
-
-    // Face skin (19px width, 14px height)
-    rect( headX, headY + 5, 20, 13, PALETTE.SKIN);
-    // Cheek blush / shadow
-    pixel(headX + 2, headY + 13, PALETTE.SKIN_SHADOW);
-    pixel(headX + 3, headY + 13, PALETTE.SKIN_SHADOW);
-    pixel(headX + 16, headY + 13, PALETTE.SKIN_SHADOW);
-    pixel(headX + 17, headY + 13, PALETTE.SKIN_SHADOW);
-
-    // --- 6. Sony WH-1000XM Over-Ear Headphones ---
-    // Metal headband arch
-    rect(27, headY - 4, 26, 3, PALETTE.SLATE);
-    rect(26, headY - 1, 3, 5, PALETTE.SLATE);
-    rect(51, headY - 1, 3, 5, PALETTE.SLATE);
-    // Left earcup with gold ring
-    rect(25, headY + 4, 5, 10, PALETTE.INK);
-    rect(26, headY + 6, 1, 6, PALETTE.TERRACOTTA);
-    // Right earcup with gold ring
-    rect(50, headY + 4, 5, 10, PALETTE.INK);
-    rect(53, headY + 6, 1, 6, PALETTE.TERRACOTTA);
-
-    // --- 7. Glasses, Eyes & Expression ---
-    const eyeOffsetX = (this.state === 'sleep') ? 0 : this.lookX;
-    const eyeOffsetY = (this.state === 'sleep') ? 0 : this.lookY;
-
-    if (this.state === 'sleep') {
-      // Sleeping eyes (- -)
-      rect(34, headY + 10, 4, 1, PALETTE.INK);
-      rect(42, headY + 10, 4, 1, PALETTE.INK);
-      // Small restful mouth
-      pixel(39, headY + 15, PALETTE.TERRACOTTA_DEEP);
-      pixel(40, headY + 15, PALETTE.TERRACOTTA_DEEP);
-    } else if (this.state === 'happy') {
-      // Happy eyes (^ ^)
-      pixel(34, headY + 10, PALETTE.INK);
-      pixel(35, headY + 9, PALETTE.INK);
-      pixel(36, headY + 10, PALETTE.INK);
-      pixel(43, headY + 10, PALETTE.INK);
-      pixel(44, headY + 9, PALETTE.INK);
-      pixel(45, headY + 10, PALETTE.INK);
-      // Happy smile
-      rect(38, headY + 14, 4, 2, PALETTE.TERRACOTTA_DEEP);
-      rect(39, headY + 15, 2, 1, PALETTE.PEACH);
-    } else {
-      // Normal / Fast Typing / Waving eyes with wireframe glasses
-      // Glasses frames (#8DA2B6)
-      rect(33, headY + 8, 6, 5, PALETTE.SLATE);
-      rect(34, headY + 9, 4, 3, PALETTE.SKIN);
-      rect(41, headY + 8, 6, 5, PALETTE.SLATE);
-      rect(42, headY + 9, 4, 3, PALETTE.SKIN);
-      rect(39, headY + 9, 2, 1, PALETTE.SLATE); // Bridge
-
-      // Eyes (blinking support)
-      if (this.isBlinking) {
-        rect(34 + eyeOffsetX, headY + 10, 4, 1, PALETTE.INK);
-        rect(42 + eyeOffsetX, headY + 10, 4, 1, PALETTE.INK);
+      // Interior fill
+      if (y < groundY) {
+        // Retro sky: warm oatmeal tone
+        rect(leftX, y, width, 1, '#E9E2D4');
+      } else if (y === groundY) {
+        // Horizon line: warm dark ink
+        rect(leftX, y, width, 1, '#1F1E1D');
       } else {
-        rect(35 + eyeOffsetX, headY + 10 + eyeOffsetY, 2, 2, PALETTE.INK);
-        rect(43 + eyeOffsetX, headY + 10 + eyeOffsetY, 2, 2, PALETTE.INK);
-        // Catchlight
-        pixel(35 + eyeOffsetX, headY + 10 + eyeOffsetY, PALETTE.CARD);
-        pixel(43 + eyeOffsetX, headY + 10 + eyeOffsetY, PALETTE.CARD);
+        // Ground floor: soft textured card tone
+        rect(leftX, y, width, 1, '#DCCFB9');
       }
-      // Smile
-      rect(38, headY + 15, 4, 1, PALETTE.TERRACOTTA_DEEP);
+
+      // Stepped 1-pixel dark rim outline on the perimeter
+      pixel(leftX, y, '#1F1E1D');
+      pixel(rightX, y, '#1F1E1D');
     }
 
-    // --- 8. Keyboard & Hands ---
-    // Keyboard
-    rect(32, 59, 16, 4, PALETTE.DARK_BLUE);
-    rect(33, 60, 14, 1, PALETTE.MIST_LIGHT);
+    // Top & bottom cap pixels for the circle
+    pixel(cx, 4, '#1F1E1D');
+    pixel(cx - 1, 4, '#1F1E1D');
+    pixel(cx + 1, 4, '#1F1E1D');
+    pixel(cx, 76, '#1F1E1D');
+    pixel(cx - 1, 76, '#1F1E1D');
+    pixel(cx + 1, 76, '#1F1E1D');
 
-    // Hands depending on state
-    if (this.state === 'wave') {
-      // Left hand on desk
-      rect(32, 58, 4, 3, PALETTE.SKIN);
-      // Right hand waving high!
-      const waveOffset = Math.sin(this.steamTimer * 2) * 2;
-      rect(52, 38 + waveOffset, 4, 6, PALETTE.TERRACOTTA);
-      rect(52, 34 + waveOffset, 4, 4, PALETTE.SKIN);
-      pixel(54, 32 + waveOffset, PALETTE.SKIN); // Thumbs up
-    } else if (this.state === 'sleep') {
-      // Hands resting on desk
-      rect(33, 58, 5, 3, PALETTE.SKIN);
-      rect(42, 58, 5, 3, PALETTE.SKIN);
+    // Subtle twinkling 16-bit sky stars inside aperture
+    const starBlink = Math.sin(this.starTick) > 0;
+    if (starBlink) {
+      pixel(20, 16, '#FFFDF8');
+      pixel(21, 16, '#E2E8F0');
+      pixel(58, 18, '#FFFDF8');
+      pixel(57, 18, '#E2E8F0');
     } else {
-      // Typing hands (active alternation)
-      const alt = Math.floor(this.typeTimer) % 2;
-      rect(33, 57 + alt, 4, 3, PALETTE.SKIN);
-      rect(43, 58 - alt, 4, 3, PALETTE.SKIN);
+      pixel(20, 16, '#94A3B8');
+      pixel(58, 18, '#94A3B8');
     }
 
-    // --- 9. Floating 'zZ' when in sleep mode ---
-    if (this.state === 'sleep') {
-      for (const p of this.sleepZZ) {
-        ctx.fillStyle = PALETTE.SLATE;
-        ctx.font = '700 9px monospace';
-        ctx.fillText('z', Math.round(p.x), Math.round(p.y));
-      }
+    // Idle breathing & slight bounce offsets
+    const breath = Math.sin(this.breathTimer) > 0.45 ? 1 : 0;
+    const curHop = Math.round(this.hopY);
+    const baseY = curHop;
+    const bodyY = baseY - breath;
+
+    // --- 2. Ground Hatch Shadows ---
+    // Chair shadow
+    rect(22, 63, 14, 2, 'rgba(31, 30, 29, 0.22)');
+    // Developer shoes shadow
+    rect(36, 63, 9, 2, 'rgba(31, 30, 29, 0.22)');
+    // Desk feet shadow
+    rect(52, 63, 6, 2, 'rgba(31, 30, 29, 0.22)');
+    rect(64, 63, 6, 2, 'rgba(31, 30, 29, 0.22)');
+
+    // --- 3. Ergonomic Office Chair (Behind Seated Developer) ---
+    // Headrest
+    rect(21, 28 + bodyY, 5, 4, '#151922');
+    rect(22, 29 + bodyY, 3, 2, '#2D3748');
+    // Backrest spine
+    rect(23, 32 + bodyY, 2, 17, '#0F172A');
+    // Ergonomic curved mesh backrest
+    rect(20, 34 + bodyY, 5, 14, '#1E2430');
+    rect(21, 35 + bodyY, 3, 12, '#2D3748');
+    pixel(22, 37 + bodyY, '#475569'); // Backrest mesh specular
+    pixel(22, 42 + bodyY, '#475569');
+    // Chair seat cushion
+    rect(22, 49 + bodyY, 15, 3, '#1E2430');
+    rect(23, 50 + bodyY, 13, 1, '#2D3748');
+    // Chair gas-lift central stem
+    rect(28, 52, 3, 9, '#334155');
+    pixel(29, 54, '#64748B');
+    // Chair 5-star wheeled base on floor
+    rect(23, 60, 13, 2, '#1E293B');
+    rect(22, 61, 3, 2, '#0F172A'); // Left caster
+    rect(34, 61, 3, 2, '#0F172A'); // Right caster
+
+    // --- 4. Seated Developer: Lower Body & Jeans ---
+    // Comfortable dark indigo denim jeans (programmer casual style)
+    rect(25, 47 + bodyY, 13, 5, '#1E293B');
+    rect(27, 48 + bodyY, 9, 2, '#334155'); // Denim wash highlight
+    pixel(31, 49 + bodyY, '#475569');
+    // Vertical lower legs extending down to floor
+    rect(35, 52 + bodyY, 6, 9, '#1E293B');
+    rect(36, 53 + bodyY, 4, 7, '#334155');
+    // Retro Programmer Sneakers (White base with orange accent stripe)
+    rect(36, 60, 8, 3, '#F8FAFC'); // Clean white leather
+    rect(36, 62, 8, 1, '#94A3B8'); // Sneaker rubber sole
+    rect(38, 60, 4, 1, '#EA580C'); // Terracotta orange retro side stripe
+    pixel(43, 61, '#CBD5E1');
+
+    // --- 5. Developer Workstation Desk (Surface & Legs) ---
+    // Desk Top (Warm Walnut Surface with Light Bevel)
+    rect(42, 49, 27, 3, '#4A3425');
+    rect(42, 49, 27, 1, '#8D6E63'); // Warm top highlight
+    rect(42, 51, 27, 1, '#2E1F16'); // Dark lower edge
+    // Left desk support post with foot pad
+    rect(54, 52, 2, 11, '#2D3748');
+    rect(53, 62, 4, 1, '#10141D');
+    // Right desk leg with foot pad
+    rect(65, 52, 3, 11, '#2D3748');
+    rect(64, 62, 5, 1, '#10141D'); // Foot pad
+
+    // --- 6. Developer Torso: Iconic Orange Plaid Flannel Shirt (橘色格子衫) ---
+    // Base Shirt Body
+    rect(26, 35 + bodyY, 13, 13, '#10141D'); // Outer outline
+    rect(27, 36 + bodyY, 11, 11, '#EA580C'); // Primary warm pumpkin orange
+
+    // Dark Russet / Charcoal Plaid Grid Checks (深色格子交错线)
+    // Vertical check stripes
+    rect(29, 36 + bodyY, 1, 11, '#7C2D12');
+    rect(34, 36 + bodyY, 1, 11, '#431407'); // Central button placket
+    // Horizontal check stripes
+    rect(27, 38 + bodyY, 11, 1, '#7C2D12');
+    rect(27, 42 + bodyY, 11, 1, '#7C2D12');
+    rect(27, 45 + bodyY, 11, 1, '#7C2D12');
+
+    // Warm Cream Yellow Accent Checks (浅米暖黄细格线，形成丰富层次)
+    rect(31, 36 + bodyY, 1, 11, '#FED7AA');
+    rect(36, 36 + bodyY, 1, 11, '#FED7AA');
+    rect(27, 40 + bodyY, 11, 1, '#FDBA74');
+    rect(27, 44 + bodyY, 11, 1, '#FDBA74');
+
+    // Plaid Intersections (网格交差点呈现浓郁红棕)
+    pixel(29, 38 + bodyY, '#431407');
+    pixel(29, 42 + bodyY, '#431407');
+    pixel(29, 45 + bodyY, '#431407');
+    pixel(34, 38 + bodyY, '#1F1E1D');
+    pixel(34, 42 + bodyY, '#1F1E1D');
+    pixel(34, 45 + bodyY, '#1F1E1D');
+
+    // Comfortable Inner Dark Tee Collar showing at neckline
+    rect(32, 35 + bodyY, 4, 2, '#1E293B');
+    pixel(33, 36 + bodyY, '#334155');
+
+    // Shirt Placket Buttons (白米色微纽扣)
+    pixel(34, 39 + bodyY, '#FFFDF8');
+    pixel(34, 43 + bodyY, '#FFFDF8');
+
+    // Plaid Chest Pocket (左胸贴袋)
+    rect(27, 40 + bodyY, 3, 3, '#C2410C');
+    pixel(28, 40 + bodyY, '#FDBA74');
+
+    // --- 7. Head, Face, Hair & Glasses (ID Photo Likeness) ---
+    const headY = bodyY;
+    // Clean, Defined Neck
+    rect(32, 33 + headY, 5, 3, '#F5AF8B');
+
+    // Face Shape & Contour
+    rect(28, 19 + headY, 16, 15, '#151821'); // Contour outline
+    rect(29, 20 + headY, 14, 13, '#FCD5B5');
+    rect(30, 19 + headY, 12, 15, '#FCD5B5');
+    rect(32, 32 + headY, 8, 1, '#F6B28B'); // Chin definition
+
+    // Subtle Natural Blush
+    rect(29, 28 + headY, 2, 2, '#F4978E');
+    rect(41, 28 + headY, 2, 2, '#F4978E');
+
+    // Thick Defined Dark Eyebrows
+    rect(31, 22 + headY, 4, 2, '#151821');
+    rect(37, 22 + headY, 4, 2, '#151821');
+
+    // Eyes Behind Glasses
+    if (this.isBlinking) {
+      rect(32, 26 + headY, 3, 1, '#151821');
+      rect(38, 26 + headY, 3, 1, '#151821');
+    } else if (this.isHappy) {
+      // Cheerful squinting eyes
+      pixel(31, 26 + headY, '#151821');
+      rect(32, 25 + headY, 2, 1, '#151821');
+      pixel(34, 26 + headY, '#151821');
+
+      pixel(37, 26 + headY, '#151821');
+      rect(38, 25 + headY, 2, 1, '#151821');
+      pixel(40, 26 + headY, '#151821');
+    } else {
+      rect(31, 25 + headY, 4, 3, '#FFFDF8');
+      rect(37, 25 + headY, 4, 3, '#FFFDF8');
+
+      // Pupils: gaze naturally focused on the screen, tracking mouse
+      const pxOffset = this.lookX < 0 ? 0 : 1;
+      const pxL = 32 + pxOffset;
+      const py = 25 + headY + (this.lookY > 0 ? 1 : 0);
+      const pxR = 38 + pxOffset;
+
+      rect(pxL, py, 2, 3, '#151821');
+      rect(pxR, py, 2, 3, '#151821');
+      pixel(pxL, py, '#FFFDF8'); // Specular catchlight
+      pixel(pxR, py, '#FFFDF8');
     }
 
-    // --- 10. Speech Bubble (Quotes & Slogans) ---
-    if (this.bubbleTimer > 0 && this.bubbleText) {
-      const text = this.bubbleText;
-      const charW = 4;
-      const totalW = text.length * charW - 1;
-      const bw = Math.max(26, totalW + 8);
-      const bx = Math.round(40 - bw / 2);
-      const by = 4;
+    // Sleek Silver Wireframe Glasses
+    rect(30, 24 + headY, 5, 5, '#94A3B8');
+    rect(31, 25 + headY, 3, 3, 'rgba(186, 230, 253, 0.4)');
+    rect(37, 24 + headY, 5, 5, '#94A3B8');
+    rect(38, 25 + headY, 3, 3, 'rgba(186, 230, 253, 0.4)');
+    rect(35, 26 + headY, 2, 1, '#CBD5E1'); // Silver bridge
+    pixel(31, 24 + headY, '#FFFFFF'); // Corner shine
+    pixel(38, 24 + headY, '#FFFFFF');
 
-      // Bubble background & frame
-      rect(bx, by, bw, 10, PALETTE.INK);
-      rect(bx + 1, by + 1, bw - 2, 8, PALETTE.CARD);
-      // Pointer tail
-      pixel(39, by + 10, PALETTE.INK);
-      pixel(40, by + 10, PALETTE.INK);
-      pixel(40, by + 11, PALETTE.INK);
+    // Focused Smile
+    if (this.isHappy) {
+      rect(33, 29 + headY, 5, 3, '#151821');
+      rect(34, 30 + headY, 3, 2, '#EF4444');
+      pixel(35, 30 + headY, '#FFFDF8');
+    } else {
+      rect(34, 30 + headY, 3, 1, '#B91C1C');
+      pixel(36, 29 + headY, '#B91C1C');
+    }
 
-      // Render 3x5 font text
-      const startX = bx + Math.round((bw - totalW) / 2);
-      for (let i = 0; i < text.length; i++) {
-        const char = text[i];
+    // Neat Short Haircut with Forward Fringe
+    rect(27, 15 + headY, 18, 5, '#151821');
+    rect(29, 13 + headY, 14, 3, '#151821');
+    rect(32, 12 + headY, 8, 2, '#151821');
+    rect(27, 19 + headY, 2, 6, '#151821'); // Left sideburn
+    rect(43, 19 + headY, 2, 6, '#151821'); // Right sideburn
+    rect(32, 14 + headY, 7, 2, '#2D3748'); // Crown highlight
+    // Fringe bangs
+    rect(29, 19 + headY, 3, 2, '#151821');
+    rect(34, 19 + headY, 3, 2, '#151821');
+    rect(39, 19 + headY, 3, 2, '#151821');
+
+    // --- Sony Flagship Over-Ear Studio Headphones (索尼头戴式降噪耳机：WH-1000XM 标志性弧线头梁与耳罩) ---
+    // 1. Headband Cushion (贴合发际的皮质软垫与圆弧顶梁)
+    rect(30, 10 + headY, 12, 2, '#23262F'); // Matte black headband cushion
+    rect(32, 9 + headY, 8, 1, '#151821');  // Arch top curve outline
+    rect(31, 10 + headY, 10, 1, '#474D5C'); // Soft metallic crown reflection
+
+    // 2. Seamless Stepless Sliders / Yokes (索尼无级滑轨与旋转支架)
+    rect(26, 12 + headY, 3, 6, '#181B22'); // Left yoke
+    pixel(27, 13 + headY, '#717888');      // Brushed metallic slider highlight
+    rect(43, 12 + headY, 3, 6, '#181B22'); // Right yoke
+    pixel(44, 13 + headY, '#717888');
+
+    // 3. Ergonomic Over-Ear Earcups (两侧包耳式大耳罩与索尼标志性金铜降噪麦克风口)
+    // Left Earcup
+    rect(24, 18 + headY, 3, 9, '#151821'); // Earcup shadow & outer bevel
+    rect(25, 18 + headY, 3, 9, '#22252E'); // Main cup body
+    rect(26, 19 + headY, 2, 7, '#2F3441'); // Cylindrical cup specular reflection
+    pixel(26, 22 + headY, '#D4AF37');     // Sony iconic champagne-gold / bronze mic ring
+
+    // Right Earcup
+    rect(45, 18 + headY, 3, 9, '#151821'); // Earcup shadow & outer bevel
+    rect(44, 18 + headY, 3, 9, '#22252E'); // Main cup body
+    rect(44, 19 + headY, 2, 7, '#2F3441'); // Specular reflection
+    pixel(45, 22 + headY, '#D4AF37');     // Sony iconic champagne-gold / bronze mic ring
+
+    // --- 8. Arms & Keyboard Typing (Matching Orange Plaid Sleeves) ---
+    // Upper arm in orange plaid flannel
+    rect(34, 41 + bodyY, 7, 4, '#10141D');
+    rect(35, 41 + bodyY, 6, 4, '#EA580C');
+    pixel(37, 41 + bodyY, '#7C2D12'); // Plaid line
+    pixel(39, 42 + bodyY, '#FDBA74');
+    pixel(36, 43 + bodyY, '#7C2D12');
+
+    // Rolled-up sleeve cuff
+    rect(40, 44 + bodyY, 3, 3, '#C2410C');
+    pixel(41, 44 + bodyY, '#FED7AA');
+
+    // Custom Mechanical Keyboard on desk
+    rect(44, 48, 10, 3, '#1E293B');
+    // Keyboard keycap pattern with animated keypress glow
+    const typeTick = Math.floor(this.typeTimer) % 2;
+    pixel(44, 48, '#EA580C'); // Terracotta orange ESC key
+    pixel(46, 48, typeTick === 0 ? '#FFFFFF' : '#CBD5E1'); // Alphas with live tap glow
+    pixel(48, 48, '#94A3B8');
+    pixel(50, 48, typeTick === 1 ? '#FFFFFF' : '#CBD5E1');
+    pixel(52, 48, '#38BDF8'); // Blue function key
+
+    // Animated hands actively tapping keys
+    const leftHandY = 46 + bodyY + (typeTick === 0 ? 0 : 1);
+    const rightHandY = 46 + bodyY + (typeTick === 1 ? 0 : 1);
+    rect(43, leftHandY, 3, 2, '#FCD5B5');
+    rect(47, rightHandY, 3, 2, '#FCD5B5');
+    pixel(44, leftHandY, '#F6B28B'); // Knuckle shadow
+    pixel(48, rightHandY, '#F6B28B');
+
+    // --- 9. Workstation Coding Monitor with Live Terminal ---
+    // Monitor Stand
+    rect(56, 47, 6, 2, '#334155');
+    rect(58, 41, 2, 6, '#475569');
+
+    // Monitor Outer Bezel (Sleek dark finish)
+    rect(52, 24, 18, 17, '#0F172A');
+    rect(53, 25, 16, 15, '#1E293B'); // Bezel rim
+    // Monitor Active Screen (Deep terminal background)
+    rect(54, 26, 14, 13, '#020617');
+
+    // Streaming Terminal Code Lines
+    const codeTick = Math.floor(this.codeTimer) % 4;
+    // Line 1: Cyan terminal prompt "❯ def agent():"
+    pixel(55, 27, '#38BDF8');
+    rect(57, 27, 3, 1, '#C084FC'); // def
+    rect(61, 27, 6, 1, '#38BDF8'); // agent
+    // Line 2: Emerald green active logic / tests "model.eval()"
+    rect(55, 29, 4, 1, '#4ADE80');
+    pixel(60, 29, '#FED7AA');
+    rect(62, 29, 5, 1, '#4ADE80');
+    // Line 3: Syntax logic "return OK"
+    rect(56, 31, 4, 1, '#FBBF24');
+    rect(61, 31, 5, 1, '#34D399');
+    // Line 4: Live verification
+    if (codeTick % 2 === 0) {
+      rect(55, 33, 7, 1, '#38BDF8');
+      pixel(63, 33, '#4ADE80');
+    } else {
+      rect(55, 33, 8, 1, '#F59E0B');
+    }
+    // Line 5: Passing status
+    rect(56, 35, 7, 1, '#34D399');
+
+    // Flashing Caret Cursor
+    const cursorBlink = Math.floor(this.codeTimer * 2) % 2 === 0;
+    if (cursorBlink) {
+      pixel(55 + (codeTick % 5) * 2, 37, '#FDE047');
+    }
+
+    // Monitor Power LED
+    pixel(68, 40, '#10B981');
+
+    // Soft Ambient Cyan Light Glow from screen onto desk & hands
+    rect(50, 49, 16, 1, 'rgba(56, 189, 248, 0.35)');
+    pixel(46, 47, 'rgba(56, 189, 248, 0.25)');
+    pixel(48, 47, 'rgba(56, 189, 248, 0.25)');
+
+    // --- 10. Warm Steaming Coffee Mug (Essential Dev Detail) ---
+    // Terracotta ceramic mug with creamy latte heart inside
+    rect(65, 45, 3, 4, '#D97757');
+    rect(65, 45, 3, 1, '#FAF9F5'); // Ceramic rim
+    pixel(66, 45, '#451A03');     // Dark espresso coffee
+    pixel(66, 45, '#FEF3C7');     // Latte foam heart
+    pixel(64, 46, '#B5593B');     // Handle
+    pixel(64, 47, '#B5593B');
+
+    // Animated rising steam
+    const steamWave = Math.sin(this.steamTick);
+    const steamX = 66 + (steamWave > 0 ? 1 : 0);
+    pixel(steamX, 43, 'rgba(250, 249, 245, 0.7)');
+    pixel(66 + (steamWave < -0.2 ? -1 : 0), 41, 'rgba(250, 249, 245, 0.45)');
+    pixel(steamX, 39, 'rgba(250, 249, 245, 0.25)');
+
+    // --- 11. Interactive Speech Bubble (Fitted comfortably inside upper circle arc) ---
+    const showBubble = (this.isHovered && !this.isHappy) || this.bubbleTimer > 0;
+    const textToShow = this.bubbleTimer > 0 ? this.bubbleText : (this.isHovered ? 'IN FLOW' : '');
+    if (showBubble && textToShow) {
+      const charWidth = 4;
+      const totalTextW = textToShow.length * charWidth - 1;
+      const bubbleW = Math.max(24, totalTextW + 6);
+      const bubbleX = Math.round(cx - bubbleW / 2);
+      const bubbleY = 11; // Comfortable vertical fit inside upper circle
+
+      // Bubble outline & fill
+      rect(bubbleX, bubbleY, bubbleW, 9, '#151821');
+      rect(bubbleX + 1, bubbleY + 1, bubbleW - 2, 7, '#FFFDF8');
+      // Bubble tail pointing down to head
+      rect(39, bubbleY + 9, 3, 1, '#151821');
+      rect(40, bubbleY + 10, 2, 1, '#151821');
+
+      // Full 3x5 Pixel Font Dictionary (Comprehensive A-Z, 0-9 & Symbols)
+      const GLYPHS = {
+        'A': [0b111, 0b101, 0b111, 0b101, 0b101],
+        'B': [0b110, 0b101, 0b110, 0b101, 0b110],
+        'C': [0b111, 0b100, 0b100, 0b100, 0b111],
+        'D': [0b110, 0b101, 0b101, 0b101, 0b110],
+        'E': [0b111, 0b100, 0b110, 0b100, 0b111],
+        'F': [0b111, 0b100, 0b110, 0b100, 0b100],
+        'G': [0b111, 0b100, 0b101, 0b101, 0b111],
+        'H': [0b101, 0b101, 0b111, 0b101, 0b101],
+        'I': [0b111, 0b010, 0b010, 0b010, 0b111],
+        'J': [0b001, 0b001, 0b001, 0b101, 0b111],
+        'K': [0b101, 0b110, 0b100, 0b110, 0b101],
+        'L': [0b100, 0b100, 0b100, 0b100, 0b111],
+        'M': [0b101, 0b111, 0b101, 0b101, 0b101],
+        'N': [0b101, 0b111, 0b111, 0b101, 0b101],
+        'O': [0b111, 0b101, 0b101, 0b101, 0b111],
+        'P': [0b111, 0b101, 0b111, 0b100, 0b100],
+        'Q': [0b111, 0b101, 0b101, 0b111, 0b001],
+        'R': [0b110, 0b101, 0b110, 0b101, 0b101],
+        'S': [0b111, 0b100, 0b111, 0b001, 0b111],
+        'T': [0b111, 0b010, 0b010, 0b010, 0b010],
+        'U': [0b101, 0b101, 0b101, 0b101, 0b111],
+        'V': [0b101, 0b101, 0b101, 0b101, 0b010],
+        'W': [0b101, 0b101, 0b101, 0b111, 0b101],
+        'X': [0b101, 0b101, 0b010, 0b101, 0b101],
+        'Y': [0b101, 0b101, 0b010, 0b010, 0b010],
+        'Z': [0b111, 0b001, 0b010, 0b100, 0b111],
+        '0': [0b111, 0b101, 0b101, 0b101, 0b111],
+        '1': [0b010, 0b110, 0b010, 0b010, 0b111],
+        '2': [0b111, 0b001, 0b111, 0b100, 0b111],
+        '3': [0b111, 0b001, 0b111, 0b001, 0b111],
+        '4': [0b101, 0b101, 0b111, 0b001, 0b001],
+        '5': [0b111, 0b100, 0b111, 0b001, 0b111],
+        '6': [0b111, 0b100, 0b111, 0b101, 0b111],
+        '7': [0b111, 0b001, 0b010, 0b010, 0b010],
+        '8': [0b111, 0b101, 0b111, 0b101, 0b111],
+        '9': [0b111, 0b101, 0b111, 0b001, 0b111],
+        '!': [0b010, 0b010, 0b010, 0b000, 0b010],
+        '.': [0b000, 0b000, 0b000, 0b000, 0b010],
+        '-': [0b000, 0b000, 0b111, 0b000, 0b000],
+        '+': [0b000, 0b010, 0b111, 0b010, 0b000],
+        '★': [0b010, 0b111, 0b010, 0b101, 0b000],
+        '✓': [0b000, 0b001, 0b001, 0b101, 0b010],
+        '&': [0b010, 0b101, 0b010, 0b101, 0b011],
+        ' ': [0b000, 0b000, 0b000, 0b000, 0b000]
+      };
+
+      const startX = bubbleX + Math.round((bubbleW - totalTextW) / 2);
+      for (let i = 0; i < textToShow.length; i++) {
+        const char = textToShow[i].toUpperCase();
         const rows = GLYPHS[char] || GLYPHS[' '];
-        const cx = startX + i * charW;
+        const scx = startX + i * charWidth;
+        const color = (char === '★' || char === '✓') ? '#EA580C' : (char === '!' ? '#2563EB' : '#151821');
         for (let r = 0; r < 5; r++) {
           const rowVal = rows[r];
-          if ((rowVal & 0b100) !== 0) pixel(cx, by + 2 + r, PALETTE.TERRACOTTA_DEEP);
-          if ((rowVal & 0b010) !== 0) pixel(cx + 1, by + 2 + r, PALETTE.TERRACOTTA_DEEP);
-          if ((rowVal & 0b001) !== 0) pixel(cx + 2, by + 2 + r, PALETTE.TERRACOTTA_DEEP);
+          if ((rowVal & 0b100) !== 0) pixel(scx, bubbleY + 2 + r, color);
+          if ((rowVal & 0b010) !== 0) pixel(scx + 1, bubbleY + 2 + r, color);
+          if ((rowVal & 0b001) !== 0) pixel(scx + 2, bubbleY + 2 + r, color);
         }
       }
     }
+
+    // --- 12. Particle Sparks on Click (Contained in Circle) ---
+    for (const p of this.particles) {
+      const alpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = alpha;
+      pixel(p.x, p.y, p.color);
+      pixel(p.x - 1, p.y, p.color);
+      pixel(p.x + 1, p.y, p.color);
+      pixel(p.x, p.y - 1, p.color);
+      pixel(p.x, p.y + 1, p.color);
+    }
+    ctx.globalAlpha = 1.0;
   }
 
   animate(currentTime) {
@@ -549,16 +670,6 @@ export class PixelCompanion {
 
   destroy() {
     if (this.rafId) cancelAnimationFrame(this.rafId);
-    clearTimeout(this.blinkTimeout);
-    clearTimeout(this.happyTimeout);
-
-    window.removeEventListener('pointermove', this.boundPointerMove);
-    window.removeEventListener('resize', this.boundResize);
-
-    const parentBtn = this.canvas.closest('#doll') || this.canvas;
-    parentBtn.removeEventListener('click', this.boundClick);
-
-    if (this.visObserver) this.visObserver.disconnect();
-    if (this.secObserver) this.secObserver.disconnect();
+    if (this.observer) this.observer.disconnect();
   }
 }
