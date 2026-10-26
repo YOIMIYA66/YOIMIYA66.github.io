@@ -724,15 +724,138 @@ body {
 }
 .monitor-footer {
   display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 16px;
-  padding: 5px 10px;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 6px 12px;
   background: rgba(255, 255, 255, .06);
   border: 1px solid rgba(255, 255, 255, .16);
   font-size: 10.5px;
   color: var(--stage-ink);
   letter-spacing: .04em;
+  text-align: left;
+}
+.monitor-footer .pixel-led-sm {
+  margin-top: 2.5px;
+  flex-shrink: 0;
+}
+.monitor-footer-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.35;
+  font-family: var(--mono);
+}
+.monitor-footer-highlight {
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+/* 官方成果与认证卡片 (替代虚构终端) */
+.proof-card {
+  margin-top: 24px;
+  background: var(--card);
+  border: 1px solid var(--ink);
+  box-shadow: var(--px3d-lg), var(--sx, 4px) var(--sy, 8px) 26px -10px var(--shadow);
+  padding: 16px 20px;
+}
+.proof-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--rule-strong);
+  margin-bottom: 14px;
+}
+.proof-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 600 11.5px/1.2 var(--mono);
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.proof-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: 600 11.5px/1 var(--mono);
+  color: var(--ink);
+  text-decoration: none;
+  padding: 4px 10px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: var(--px3d-sm);
+  transition: transform .12s ease, box-shadow .12s ease, color .12s ease;
+}
+.proof-card-link:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--px3d-md);
+  color: var(--brand-deep);
+}
+.proof-card-link:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 transparent;
+}
+.proof-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.proof-card-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.proof-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  font: 700 10.5px/1.2 var(--mono);
+  letter-spacing: .04em;
+  border: 1px solid var(--ink);
+  flex-shrink: 0;
+  margin-top: 2px;
+  box-shadow: 1px 1px 0 var(--block);
+  white-space: nowrap;
+}
+.proof-badge.gold {
+  background: #FEF3C7;
+  color: #92400E;
+}
+.proof-badge.silver {
+  background: #F1F5F9;
+  color: #334155;
+}
+.proof-badge.bronze {
+  background: #FFEDD5;
+  color: #9A3412;
+}
+.proof-badge.blue {
+  background: #E0F2FE;
+  color: #0369A1;
+}
+.proof-badge.amber {
+  background: #FEF3C7;
+  color: #B45309;
+}
+.proof-item-text {
+  font: 400 13px/1.55 var(--sans);
+  color: var(--ink);
+}
+.reading-meta {
+  color: var(--soft);
+  font-size: 13px;
+  font-family: var(--sans);
 }
 
 /* 联系 */
