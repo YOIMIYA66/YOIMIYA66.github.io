@@ -43,13 +43,13 @@ img, video { max-width: 100%; }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .page { position: relative; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); padding-block: 0; }
 
-/* 台灯：鼠标处微亮聚光、远处稍暗（光斑收拢为细腻书桌灯质感） */
+/* 台灯：鼠标处微亮聚光与自然柔和散光（300px 适度散光，营造温暖专注的书桌阅读氛围） */
 .lamp {
   position: fixed;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(280px circle at var(--mx, 75vw) var(--my, 25vh), var(--lamp), transparent 65%, var(--lamp-edge) 100%);
+  background: radial-gradient(300px circle at var(--mx, 75vw) var(--my, 25vh), var(--lamp) 0%, rgba(255, 250, 238, .4) 38%, transparent 72%, var(--lamp-edge) 100%);
   mix-blend-mode: soft-light;
 }
 /* 纸卡：影子方向由脚本按台灯位置写进 --sx / --sy */
