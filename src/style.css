@@ -63,9 +63,31 @@ img, video { max-width: 100%; }
 .cover { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); gap: clamp(32px, 5vw, 72px); align-items: end; padding-block: 56px 60px; }
 .kicker { margin: 0 0 18px; font: 600 12.5px/1.3 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--brand); white-space: nowrap; }
 .name { margin: 0; font: 800 clamp(54px, 7.5vw, 108px)/.92 var(--serif); letter-spacing: -.05em; white-space: nowrap; }
-/* 中文名：赤陶色竖排印章，像落款 */
-.seal { display: inline-block; writing-mode: vertical-rl; margin-left: .26em; padding: .2em .226em .2em .054em; border-radius: .06em; background: var(--brand); color: var(--card);
-  font: 900 max(.2em, 12px)/1.05 var(--serif); letter-spacing: 0; vertical-align: top; transform: translateY(.15em) rotate(-3deg); box-shadow: inset 0 0 0 .06em rgba(255, 253, 248, .55); white-space: nowrap; }
+/* 中文名：赤陶色竖排印章（严密居中对齐） */
+.seal {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: .28em;
+  padding: 5px 6px;
+  background: var(--brand);
+  color: var(--card);
+  font: 800 clamp(13px, 1.35vw, 18px)/1.05 var(--serif);
+  letter-spacing: 0;
+  vertical-align: middle;
+  transform: translateY(-0.06em);
+  border: 1px solid var(--brand-deep);
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px rgba(250, 249, 245, .55), 2px 2px 0 var(--brand-deep);
+  white-space: nowrap;
+  user-select: none;
+}
+.seal span {
+  display: block;
+  text-align: center;
+  line-height: 1.1;
+}
 .role { margin: 18px 0 0; font: 400 clamp(16px, 1.9vw, 24px)/1.35 var(--serif); font-style: italic; white-space: nowrap; }
 .lead { max-width: 36em; margin: 22px 0 0; color: var(--soft); font-size: 15.5px; line-height: 1.85; }
 .figs { display: flex; flex-wrap: wrap; gap: 18px 0; margin: 34px 0 0; padding: 0; }
@@ -175,8 +197,15 @@ img, video { max-width: 100%; }
 .p-dot.gold { background: #EAB308; }
 .p-dot.red { background: var(--brand); }
 
-/* ---------- 展台像素桌宠 ---------- */
-.plate { margin: 0; display: grid; gap: 0; }
+/* ---------- 展台像素桌宠 (黄金分割比例构建) ---------- */
+.plate {
+  margin: 0;
+  display: grid;
+  gap: 0;
+  max-width: 440px;
+  width: 100%;
+  margin-inline: auto;
+}
 .stage {
   position: relative;
   z-index: 3;
@@ -184,21 +213,23 @@ img, video { max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  box-sizing: border-box;
 }
 .doll {
   position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 380px;
-  max-height: 380px;
+  width: 98%;
+  height: 98%;
+  max-width: 440px;
+  max-height: 440px;
   aspect-ratio: 1 / 1;
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   filter: drop-shadow(var(--sx, 4px) var(--sy, 8px) 8px var(--shadow));
   transition: transform .15s ease-out;
 }
@@ -213,7 +244,29 @@ img, video { max-width: 100%; }
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
 }
-.caption { padding-top: 10px; text-align: center; font: 500 12px/1.6 var(--mono); color: var(--muted); }
+.caption {
+  padding-top: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  font: 500 12px/1.55 var(--mono);
+  color: var(--muted);
+}
+.caption-chip {
+  display: inline-flex;
+  justify-content: center;
+}
+.caption-desc {
+  font: 500 12.5px/1.55 var(--sans);
+  color: var(--soft);
+  text-align: center;
+  max-width: 100%;
+  text-wrap: balance;
+  word-break: break-word;
+}
 .caption b { margin-right: 10px; color: var(--ink); }
 
 /* ---------- 本期目录 ---------- */
@@ -252,7 +305,7 @@ img, video { max-width: 100%; }
 .ftitle { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; font: 800 clamp(36px, 4.8vw, 64px)/1 var(--serif); letter-spacing: -.04em; }
 .ftitle .star { font: italic 400 clamp(18px, 1.8vw, 24px)/1 var(--serif); letter-spacing: 0; color: var(--brand); white-space: nowrap; }
 .dek { margin: 18px 0 0; max-width: 42em; font: 400 clamp(16px, 1.5vw, 19px)/1.65 var(--serif); color: var(--ink); }
-.fgrid { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: start; margin-top: 40px; }
+.fgrid { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: start; margin-top: 40px; }
 .fig { margin: 0; display: grid; gap: 12px; min-width: 0; }
 .fig .frame { padding: 12px; }
 .data { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1.5px solid var(--rule-strong); }
@@ -467,7 +520,6 @@ body {
 /* 封面 */
 .kicker { color: var(--brand-deep); }
 .name { font-weight: 500; letter-spacing: -.035em; text-shadow: 3px 3px 0 rgba(217, 119, 87, .22); }
-.seal { background: var(--brand); box-shadow: inset 0 0 0 .06em rgba(250, 249, 245, .55), .04em .04em 0 var(--brand-deep), .08em .08em 0 var(--brand-deep); border-radius: 0; }
 .role { font-weight: 400; color: var(--soft); }
 .lead { font: 400 17px/1.85 var(--serif); color: var(--soft); max-width: 34em; }
 .lead .nb { font-family: var(--mono); font-size: .86em; background: var(--brand-tint); padding: 1px 6px; color: var(--brand-deep); }
@@ -551,6 +603,8 @@ body {
 .plate { perspective: 900px; }
 .stage.lit {
   position: relative;
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
   background: linear-gradient(var(--card), var(--card)) padding-box;
   border: 1px solid var(--ink);
   border-radius: 0;
@@ -558,7 +612,10 @@ body {
   transform: rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg));
   transform-style: preserve-3d;
   transition: transform .25s ease-out, box-shadow .25s ease-out;
-  padding: 36px 12px 12px;
+  padding: 34px 10px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .stage.lit::before, .stage.lit::after { content: ""; position: absolute; width: 8px; height: 8px; background: var(--brand); z-index: 6; }
 .stage.lit::before { bottom: 8px; left: 8px; box-shadow: 10px 0 0 var(--ink); }
