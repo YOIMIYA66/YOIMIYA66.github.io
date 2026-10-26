@@ -351,6 +351,13 @@ export class PixelCompanion {
     // Neck
     rect(32, 33 + headY, 5, 3, '#F5AF8B');
 
+    // Studio Headset resting around the neck (Titanium band & earcups)
+    rect(27, 32 + headY, 3, 5, '#1E2430'); // Left earcup
+    pixel(27, 34 + headY, '#EA580C');     // Orange driver accent
+    rect(40, 32 + headY, 3, 5, '#1E2430'); // Right earcup
+    pixel(42, 34 + headY, '#EA580C');     // Orange driver accent
+    rect(29, 35 + headY, 12, 1, '#334155'); // Headphone arch behind neck
+
     // Face Shape & Contour
     rect(28, 19 + headY, 16, 15, '#151821'); // Contour outline
     rect(29, 20 + headY, 14, 13, '#FCD5B5');
@@ -437,16 +444,17 @@ export class PixelCompanion {
     rect(40, 44 + bodyY, 3, 3, '#C2410C');
     pixel(41, 44 + bodyY, '#FED7AA');
 
-    // Keyboard on desk
-    rect(44, 48, 9, 2, '#1E293B');
-    // Keyboard keycap pattern
-    pixel(45, 48, '#64748B');
-    pixel(47, 48, '#64748B');
-    pixel(49, 48, '#64748B');
-    pixel(51, 48, '#64748B');
+    // Custom Mechanical Keyboard on desk
+    rect(44, 48, 10, 3, '#1E293B');
+    // Keyboard keycap pattern with animated keypress glow
+    const typeTick = Math.floor(this.typeTimer) % 2;
+    pixel(44, 48, '#EA580C'); // Terracotta orange ESC key
+    pixel(46, 48, typeTick === 0 ? '#FFFFFF' : '#CBD5E1'); // Alphas with live tap glow
+    pixel(48, 48, '#94A3B8');
+    pixel(50, 48, typeTick === 1 ? '#FFFFFF' : '#CBD5E1');
+    pixel(52, 48, '#38BDF8'); // Blue function key
 
     // Animated hands actively tapping keys
-    const typeTick = Math.floor(this.typeTimer) % 2;
     const leftHandY = 46 + bodyY + (typeTick === 0 ? 0 : 1);
     const rightHandY = 46 + bodyY + (typeTick === 1 ? 0 : 1);
     rect(43, leftHandY, 3, 2, '#FCD5B5');
@@ -467,21 +475,26 @@ export class PixelCompanion {
 
     // Streaming Terminal Code Lines
     const codeTick = Math.floor(this.codeTimer) % 4;
-    // Line 1: Cyan terminal prompt "❯ agent"
+    // Line 1: Cyan terminal prompt "❯ def agent():"
     pixel(55, 27, '#38BDF8');
-    rect(57, 27, 7, 1, '#38BDF8');
-    // Line 2: Emerald green active logic / tests
-    rect(55, 29, 11, 1, '#4ADE80');
-    // Line 3: Function / syntax highlighting
-    rect(56, 31, 8, 1, '#818CF8');
-    // Line 4: Code block / evaluation
+    rect(57, 27, 3, 1, '#C084FC'); // def
+    rect(61, 27, 6, 1, '#38BDF8'); // agent
+    // Line 2: Emerald green active logic / tests "model.eval()"
+    rect(55, 29, 4, 1, '#4ADE80');
+    pixel(60, 29, '#FED7AA');
+    rect(62, 29, 5, 1, '#4ADE80');
+    // Line 3: Syntax logic "return OK"
+    rect(56, 31, 4, 1, '#FBBF24');
+    rect(61, 31, 5, 1, '#34D399');
+    // Line 4: Live verification
     if (codeTick % 2 === 0) {
-      rect(55, 33, 9, 1, '#F59E0B');
+      rect(55, 33, 7, 1, '#38BDF8');
+      pixel(63, 33, '#4ADE80');
     } else {
-      rect(55, 33, 10, 1, '#38BDF8');
+      rect(55, 33, 8, 1, '#F59E0B');
     }
     // Line 5: Passing status
-    rect(56, 35, 6, 1, '#34D399');
+    rect(56, 35, 7, 1, '#34D399');
 
     // Flashing Caret Cursor
     const cursorBlink = Math.floor(this.codeTimer * 2) % 2 === 0;
@@ -492,14 +505,18 @@ export class PixelCompanion {
     // Monitor Power LED
     pixel(68, 40, '#10B981');
 
-    // Soft Ambient Light Glow on Desk
-    rect(52, 49, 14, 1, 'rgba(56, 189, 248, 0.28)');
+    // Soft Ambient Cyan Light Glow from screen onto desk & hands
+    rect(50, 49, 16, 1, 'rgba(56, 189, 248, 0.35)');
+    pixel(46, 47, 'rgba(56, 189, 248, 0.25)');
+    pixel(48, 47, 'rgba(56, 189, 248, 0.25)');
 
     // --- 10. Warm Steaming Coffee Mug (Essential Dev Detail) ---
-    // Terracotta ceramic mug
+    // Terracotta ceramic mug with creamy latte heart inside
     rect(65, 45, 3, 4, '#D97757');
     rect(65, 45, 3, 1, '#FAF9F5'); // Ceramic rim
-    pixel(64, 46, '#B5593B'); // Handle
+    pixel(66, 45, '#451A03');     // Dark espresso coffee
+    pixel(66, 45, '#FEF3C7');     // Latte foam heart
+    pixel(64, 46, '#B5593B');     // Handle
     pixel(64, 47, '#B5593B');
 
     // Animated rising steam

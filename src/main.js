@@ -57,7 +57,7 @@
 
   /* ---------- 3. 台灯与动态阴影：鼠标处更亮，纸偶和卡纸的影子往远离鼠标的方向落 ---------- */
   const lamp = document.querySelector('.lamp');
-  const lit = Array.prototype.slice.call(document.querySelectorAll('.lit, .term, .doll, .stage, .floppy-btn'));
+  const lit = Array.prototype.slice.call(document.querySelectorAll('.lit, .term, .doll, .stage, .like-badge-btn'));
   let light = null;
   let lightQueued = false;
 
@@ -121,69 +121,40 @@
     }, { passive: true });
   }
 
-  /* ---------- 5. 版权页彩蛋：16-Bit 3.5寸软盘（金属保护滑块物理回弹、读写 LED 与状态气泡） ---------- */
+  /* ---------- 5. 版权页彩蛋：16-Bit 像素点赞徽章 ---------- */
   const egg = document.getElementById('egg');
-  const floppy = document.getElementById('floppy');
-  const floppyBubble = document.getElementById('floppy-bubble');
+  const likeBtn = document.getElementById('like-badge');
+  const likeCountEl = document.getElementById('like-count');
+  const likeTooltip = document.getElementById('like-tooltip');
 
-  if (egg && floppy) {
-    let seen = false;
-    let quoteIndex = 0;
-    let bubbleTimer = null;
+  if (egg && likeBtn && likeCountEl) {
+    let likes = parseInt(localStorage.getItem('yoimiya_likes') || '66', 10);
+    likeCountEl.textContent = likes;
 
-    const quotesZh = [
-      '💾 1.44MB · 简历已归档',
-      '⚡ READ_OK · 随时到岗',
-      '✦ HIRE_ME.EXE · 100%',
-      '💾 软盘已就绪 · DRIVE A:',
-      '🚀 6,500+ ★ · 66 PRs'
-    ];
-    const quotesEn = [
-      '💾 1.44MB · RESUME ARCHIVED',
-      '⚡ READ_OK · AVAILABLE NOW',
-      '✦ HIRE_ME.EXE · 100%',
-      '💾 DISK READY · DRIVE A:',
-      '🚀 6,500+ ★ · 66 PRs'
-    ];
-
-    function showBubble(text) {
-      if (!floppyBubble) return;
-      floppyBubble.innerHTML = `<span>${text}</span>`;
-      egg.classList.add('show-bubble');
-      clearTimeout(bubbleTimer);
-      bubbleTimer = setTimeout(() => {
-        egg.classList.remove('show-bubble');
-      }, 2600);
+    let tooltipTimer = null;
+    function flashTooltip(text) {
+      if (!likeTooltip) return;
+      likeTooltip.innerHTML = `<span>${text}</span>`;
+      egg.classList.add('show-tooltip');
+      clearTimeout(tooltipTimer);
+      tooltipTimer = setTimeout(() => {
+        egg.classList.remove('show-tooltip');
+      }, 2000);
     }
 
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(es => {
-        if (es[0].isIntersecting) {
-          if (!seen) {
-            seen = true;
-            egg.classList.add('up');
-          }
-        }
-      }, { threshold: 0.05, rootMargin: '40px' }).observe(egg);
-    } else {
-      egg.classList.add('up');
-    }
+    likeBtn.addEventListener('click', () => {
+      likes++;
+      localStorage.setItem('yoimiya_likes', likes);
+      likeCountEl.textContent = likes;
 
-    floppy.addEventListener('click', () => {
-      // 1. 金属滑块滑动并弹簧复位
-      floppy.classList.add('slid', 'active');
+      likeBtn.classList.add('popped');
       setTimeout(() => {
-        floppy.classList.remove('slid');
-      }, 300);
-      setTimeout(() => {
-        floppy.classList.remove('active');
-      }, 700);
+        likeBtn.classList.remove('popped');
+      }, 250);
 
-      // 2. 轮换状态语句
       const isEn = document.documentElement.getAttribute('data-lang') === 'en';
-      const list = isEn ? quotesEn : quotesZh;
-      quoteIndex = (quoteIndex + 1) % list.length;
-      showBubble(list[quoteIndex]);
+      const msg = isEn ? `Thank you! +1 ♥ (${likes})` : `感谢认可！+1 ♥ (${likes})`;
+      flashTooltip(msg);
     });
   }
 
