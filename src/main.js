@@ -71,20 +71,21 @@
 
   function shade() {
     lightQueued = false;
-    if (!light || !lamp) return;
+    if (!light || !lamp || reduce.matches) return;
     lamp.style.setProperty('--mx', light.x + 'px');
     lamp.style.setProperty('--my', light.y + 'px');
     const vh = window.innerHeight;
-    lit.forEach(el => {
+    for (let i = 0; i < lit.length; i++) {
+      const el = lit[i];
       const r = el.getBoundingClientRect();
-      if (r.bottom < -100 || r.top > vh + 100) return;
+      if (r.bottom < -50 || r.top > vh + 50) continue;
       const dx = (r.left + r.width / 2) - light.x;
       const dy = (r.top + r.height * 0.45) - light.y;
       const len = Math.max(1, Math.hypot(dx, dy));
-      const s = Math.min(22, 5 + len / 50);
+      const s = Math.min(20, 4 + len / 60);
       el.style.setProperty('--sx', (dx / len * s).toFixed(1) + 'px');
       el.style.setProperty('--sy', (dy / len * s).toFixed(1) + 'px');
-    });
+    }
   }
 
   function aim(x, y) {
@@ -137,7 +138,10 @@
   const tooltipEn = document.getElementById('like-tooltip-en');
 
   if (egg && likeBtn && likeCountEl) {
-    let likes = parseInt(localStorage.getItem('yoimiya_likes') || '66', 10);
+    let likes = 66;
+    try {
+      likes = parseInt(localStorage.getItem('yoimiya_likes') || '66', 10);
+    } catch (e) {}
     likeCountEl.textContent = likes;
 
     // 趣味开发者感谢短语库（双语对应，纯粹赞赏与激励，不重复显示总数字）
@@ -157,7 +161,9 @@
 
     likeBtn.addEventListener('click', () => {
       likes++;
-      localStorage.setItem('yoimiya_likes', likes);
+      try {
+        localStorage.setItem('yoimiya_likes', likes);
+      } catch (e) {}
       likeCountEl.textContent = likes;
 
       // 1. 按钮弹性微跳动与心跳重触发

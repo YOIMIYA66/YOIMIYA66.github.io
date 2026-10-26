@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Dark Background / Terminal -->
+  <rect width="32" height="32" fill="#1F1E1D"/>
+  <!-- Sony Headphones Headband -->
+  <rect x="9" y="4" width="14" height="2" fill="#8DA2B6"/>
+  <rect x="8" y="6" width="2" height="4" fill="#8DA2B6"/>
+  <rect x="22" y="6" width="2" height="4" fill="#8DA2B6"/>
+  <!-- Earcups & Gold Accent -->
+  <rect x="7" y="9" width="3" height="6" fill="#1F1E1D"/>
+  <rect x="7" y="10" width="1" height="4" fill="#D97757"/>
+  <rect x="22" y="9" width="3" height="6" fill="#1F1E1D"/>
+  <rect x="24" y="10" width="1" height="4" fill="#D97757"/>
+  <!-- Hair -->
+  <rect x="11" y="5" width="10" height="4" fill="#1F1E1D"/>
+  <rect x="10" y="7" width="12" height="3" fill="#1F1E1D"/>
+  <!-- Face -->
+  <rect x="10" y="9" width="12" height="8" fill="#FCD5B5"/>
+  <rect x="11" y="17" width="10" height="2" fill="#F5AF8B"/>
+  <!-- Glasses -->
+  <rect x="11" y="10" width="4" height="3" stroke="#8DA2B6" stroke-width="1" fill="none"/>
+  <rect x="17" y="10" width="4" height="3" stroke="#8DA2B6" stroke-width="1" fill="none"/>
+  <rect x="15" y="11" width="2" height="1" fill="#8DA2B6"/>
+  <!-- Eyes -->
+  <rect x="12" y="11" width="2" height="2" fill="#1F1E1D"/>
+  <rect x="18" y="11" width="2" height="2" fill="#1F1E1D"/>
+  <!-- Smile -->
+  <rect x="14" y="15" width="4" height="1" fill="#B5593B"/>
+  <!-- Plaid Flannel Shirt (#D97757 & #B5593B) -->
+  <rect x="6" y="19" width="20" height="13" fill="#D97757"/>
+  <rect x="10" y="19" width="2" height="13" fill="#B5593B"/>
+  <rect x="14" y="19" width="4" height="13" fill="#B5593B"/>
+  <rect x="20" y="19" width="2" height="13" fill="#B5593B"/>
+  <rect x="6" y="22" width="20" height="2" fill="#B5593B"/>
+  <rect x="6" y="27" width="20" height="2" fill="#B5593B"/>
+  <!-- Collar -->
+  <polygon points="14,19 16,22 15,19" fill="#FAF9F5"/>
+  <polygon points="18,19 16,22 17,19" fill="#FAF9F5"/>
+</svg>
