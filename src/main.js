@@ -100,14 +100,23 @@
   window.addEventListener('pointermove', e => aim(e.clientX, e.clientY), { passive: true });
   window.addEventListener('scroll', () => { if (light) aim(light.x, light.y); }, { passive: true });
 
-  /* ---------- 4. 像素风桌宠伴侣 (致敬 Clawd on Desk 像素艺术) ---------- */
-  const pixelCanvas = document.getElementById('pixel-canvas');
-  if (pixelCanvas) {
-    import('./pixel-companion.js').then(({ PixelCompanion }) => {
-      window.pixelCompanion = new PixelCompanion(pixelCanvas);
+  /* ---------- 4. A.R.I.A 现代交互式虚拟形象 (CRT-Head Agent) ---------- */
+  const avatarVideo = document.getElementById('avatar-video');
+  if (avatarVideo) {
+    import('./avatar-companion.js').then(({ AvatarCompanion }) => {
+      window.avatarCompanion = new AvatarCompanion();
     }).catch(err => {
-      console.warn('Pixel companion load fallback:', err);
+      console.warn('Avatar companion load fallback:', err);
     });
+  } else {
+    const pixelCanvas = document.getElementById('pixel-canvas');
+    if (pixelCanvas) {
+      import('./pixel-companion.js').then(({ PixelCompanion }) => {
+        window.pixelCompanion = new PixelCompanion(pixelCanvas);
+      }).catch(err => {
+        console.warn('Pixel companion load fallback:', err);
+      });
+    }
   }
 
   /* ---------- 4b. 展台轻 3D 倾斜：跟随鼠标微微转动 ---------- */

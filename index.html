@@ -18,6 +18,8 @@
 <meta name="twitter:description" content="Core maintainer of Clawd on Desk (6,500+ stars), former BAAI LLM safety evaluation intern, Challenge Cup National 1st Prize. Available immediately.">
 <meta name="twitter:image" content="https://yoimiya66.github.io/assets/og.png">
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="https://db.onlinewebfonts.com/c/5ac3fe7c6abd2f62067f266d89671492?family=HelveticaNowDisplay-Medium">
+<link rel="stylesheet" href="https://db.onlinewebfonts.com/c/1aa3377e489837a26d019bba501e779d?family=HelveticaNowDisplayW01-Rg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Geist+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -139,26 +141,51 @@
         </p>
       </div>
 
-      <!-- 右侧展台：像素风开发者伙伴 (致敬 Clawd on Desk 开源桌宠美学) -->
-      <figure class="plate">
-        <div class="stage lit">
+      <!-- 右侧展台：A.R.I.A 现代交互式虚拟形象 (CRT-Head Agent · 鼠标视线跟随与打字机交互) -->
+      <figure class="plate avatar-plate">
+        <div class="stage lit avatar-stage" id="avatar-stage">
           <div class="stage-bar">
             <span class="stage-tag">
               <span class="pixel-led-sm" style="background:#10B981;"></span>
-              <span class="zh">小吕正在coding</span>
-              <span class="en">Lyu is coding...</span>
+              <span class="zh">A.R.I.A 虚拟形象 · 实时视线追踪</span>
+              <span class="en">A.R.I.A Agent · Eye-Tracking Live</span>
             </span>
-            <span class="stage-mode">HOVER &amp; CLICK</span>
+            <div class="stage-actions">
+              <span class="stage-mode">MOUSE SCRUB</span>
+              <button class="stage-expand-btn" id="avatar-fullscreen-btn" type="button" title="进入全屏沉浸模式 / Fullscreen Immersive Mode" aria-label="Fullscreen Immersive Mode">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                <span class="zh">沉浸全屏</span>
+                <span class="en">Immersive</span>
+              </button>
+            </div>
           </div>
-          <button class="doll" type="button" id="doll" aria-label="Interactive Pixel Avatar">
-            <span class="zh vh">小吕的 16-bit 像素虚拟形象，点击互动</span>
-            <span class="en vh">Lyu's 16-bit pixel avatar. Click to interact</span>
-            <canvas id="pixel-canvas" width="80" height="80" style="width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;display:block;"></canvas>
-          </button>
+          
+          <div class="avatar-screen-wrapper" id="avatar-screen-wrapper" title="点击切换互动对话 / Click to cycle dialogue">
+            <video class="avatar-video" id="avatar-video" src="./assets/aria-avatar.mp4" muted playsinline preload="auto"></video>
+            
+            <!-- Typewriter & Dialogue HUD -->
+            <div class="avatar-hud">
+              <div class="avatar-hud-intro">
+                <span class="avatar-hud-badge">A.R.I.A × YOIMIYA66</span>
+                <span class="avatar-hud-sub"><span class="zh">自适应交互智能体</span><span class="en">Adaptive Agent</span></span>
+              </div>
+              <div class="avatar-typewriter-box">
+                <p class="avatar-typewriter-text" id="avatar-typewriter-text"></p><span class="avatar-cursor" id="avatar-cursor"></span>
+              </div>
+              <div class="avatar-action-pills">
+                <a class="avatar-pill" href="#contact"><span class="zh">投递意向</span><span class="en">Get in touch</span></a>
+                <a class="avatar-pill" href="https://github.com/rullerzhou-afk/clawd-on-desk/pulls?q=is%3Apr+author%3AYOIMIYA66" target="_blank" rel="noopener"><span class="zh">66 PRs ↗</span><span class="en">66 PRs ↗</span></a>
+                <button class="avatar-pill copy-email-pill" type="button" data-copy="lyubingrong@foxmail.com">
+                  <span>lyubingrong@foxmail.com</span>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <figcaption class="caption">
-          <span class="zh">16-BIT 像素风虚拟形象 · 点击互动</span>
-          <span class="en">16-BIT Pixel Avatar · Click to interact</span>
+          <span class="zh">A.R.I.A 现代交互式虚拟形象 · 左右移动鼠标控制头部朝向 · 点击快速对话</span>
+          <span class="en">A.R.I.A Modern Interactive Agent · Move mouse to scrub gaze · Click for dialogue</span>
         </figcaption>
       </figure>
     </section>
@@ -891,6 +918,32 @@
     </span>
     <span>© 2026 吕炳荣 (Lyu Bingrong / YOIMIYA66)</span>
   </footer>
+</div>
+
+<!-- A.R.I.A 全屏沉浸式互动层 (Mainframe Full-Screen Interactive Hero Experience) -->
+<div class="avatar-fullscreen-modal" id="avatar-modal" aria-hidden="true">
+  <video class="avatar-modal-video" id="avatar-modal-video" src="./assets/aria-avatar.mp4" muted playsinline preload="auto"></video>
+  <div class="avatar-modal-overlay">
+    <div class="avatar-modal-card">
+      <p class="avatar-modal-blur">
+        Hey there, meet A.R.I.A,<br>
+        Mainframe &amp; Lyu's Adaptive Response Interface Agent
+      </p>
+      <div class="avatar-modal-typewriter-wrap">
+        <p class="avatar-modal-typewriter" id="avatar-modal-typewriter"></p><span class="avatar-cursor"></span>
+      </div>
+      <div class="avatar-modal-pills">
+        <a class="modal-pill white" href="#contact" id="modal-close-contact"><span class="zh">投递意向 / Pitch us an idea</span><span class="en">Pitch us an idea</span></a>
+        <a class="modal-pill white" href="https://github.com/rullerzhou-afk/clawd-on-desk" target="_blank" rel="noopener"><span class="zh">开源项目 / Clawd on Desk (6.5k★)</span><span class="en">Clawd on Desk (6.5k★)</span></a>
+        <a class="modal-pill white" href="#work" id="modal-close-work"><span class="zh">代表作品 / See how we operate</span><span class="en">See how we operate</span></a>
+        <button class="modal-pill outline copy-email-pill" type="button" data-copy="lyubingrong@foxmail.com">
+          <span>Reach us: <ins>lyubingrong@foxmail.com</ins></span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        </button>
+      </div>
+    </div>
+    <button class="avatar-modal-close" id="avatar-modal-close" type="button" aria-label="Close fullscreen modal">✕ 退出全屏 / ESC</button>
+  </div>
 </div>
 
 <script type="module" src="./src/main.js"></script>
