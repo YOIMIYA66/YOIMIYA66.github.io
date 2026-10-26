@@ -33,12 +33,15 @@ def get_fonts():
 
 def create_work02_eye_showcase():
     f = get_fonts()
-    eye_arch = Image.open('public/assets/eye-detection-architecture.png').convert('RGBA')
-    samples_img = Image.open('public/assets/eye-detection-samples.png').convert('RGBA')
+    raw_arch = Image.open('public/assets/eye-detection-architecture.png').convert('RGB')
     
-    # Clean, breathable canvas 1100 x 740
-    canvas_w, canvas_h = 1100, 740
-    canvas = Image.new('RGBA', (canvas_w, canvas_h), (13, 17, 23, 255)) # #0D1117
+    # 1. Cleanly crop out empty white padding on left (x<100) and right (x>1175)
+    # Bounding box of content: (107, 67, 1167, 535)
+    cropped_arch = raw_arch.crop((100, 60, 1175, 540)).convert('RGBA')
+    
+    # 2. Canvas setup (1100 x 640) - Spacious, breathable HUD showcase
+    canvas_w, canvas_h = 1100, 640
+    canvas = Image.new('RGBA', (canvas_w, canvas_h), (13, 17, 23, 255)) # #0D1117 dark canvas
     draw = ImageDraw.Draw(canvas)
     
     # Top header bar (40px)
@@ -57,50 +60,35 @@ def create_work02_eye_showcase():
     margin_x = 24
     inner_w = canvas_w - (margin_x * 2) # 1052px
     
-    # === Section 01: Architecture Diagram ===
-    sec1_top = 50
-    draw.rectangle([margin_x, sec1_top, margin_x + inner_w, sec1_top + 28], fill=(16, 24, 39, 255))
-    draw.text((margin_x + 12, sec1_top + 6), "01 · 双眼孪生权重共享主干网络 (Weight-shared Backbone) 与高层特征交叉融合架构", fill=(56, 189, 248, 255), font=f['zh_title'])
+    # === Section Header ===
+    sec_top = 50
+    draw.rectangle([margin_x, sec_top, margin_x + inner_w, sec_top + 28], fill=(16, 24, 39, 255))
+    draw.text((margin_x + 12, sec_top + 6), "“明眸八极”双眼孪生权重共享卷积主干网络 (Weight-shared Twin CNN) 与特征交叉融合架构", fill=(56, 189, 248, 255), font=f['zh_title'])
     
-    arch_card_top = sec1_top + 28
-    arch_img_w = inner_w
-    arch_img_h = int(eye_arch.height * (arch_img_w / eye_arch.width))
-    if arch_img_h > 310:
-        arch_img_h = 310
-        arch_img_w = int(eye_arch.width * (arch_img_h / eye_arch.height))
+    # === Main Architecture Card ===
+    arch_card_top = sec_top + 28
+    # Available height for card: 640 - 40 - 28 - 64 (bottom specs) - 24 = ~484px
+    card_h = 470
+    draw.rectangle([margin_x, arch_card_top, margin_x + inner_w, arch_card_top + card_h], fill=(255, 255, 255, 255), outline=(203, 213, 225, 255), width=1)
     
-    arch_resized = eye_arch.resize((arch_img_w, arch_img_h), Image.Resampling.LANCZOS)
-    arch_x = margin_x + (inner_w - arch_img_w) // 2
+    # Scale cropped architecture to fit cleanly inside white card with padding
+    pad_x = 20
+    pad_y = 12
+    max_w = inner_w - (pad_x * 2) # 1012px
+    max_h = card_h - (pad_y * 2)  # 446px
     
-    # White card container
-    draw.rectangle([margin_x, arch_card_top, margin_x + inner_w, arch_card_top + arch_img_h + 8], fill=(255, 255, 255, 255), outline=(203, 213, 225, 255), width=1)
-    canvas.paste(arch_resized, (arch_x, arch_card_top + 4), arch_resized if arch_resized.mode == 'RGBA' else None)
+    scale = min(max_w / cropped_arch.width, max_h / cropped_arch.height)
+    target_w = int(cropped_arch.width * scale)
+    target_h = int(cropped_arch.height * scale)
     
-    # === Section 02: Real Retinal Disease Samples ===
-    sec2_top = arch_card_top + arch_img_h + 18
-    draw.rectangle([margin_x, sec2_top, margin_x + inner_w, sec2_top + 28], fill=(16, 24, 39, 255))
-    draw.text((margin_x + 12, sec2_top + 6), "02 · 真实临床 8 类眼底视网膜病灶切片对照 (Clinical 8-Class Retinal Benchmark)", fill=(52, 211, 153, 255), font=f['zh_title'])
+    arch_resized = cropped_arch.resize((target_w, target_h), Image.Resampling.LANCZOS)
+    paste_x = margin_x + (inner_w - target_w) // 2
+    paste_y = arch_card_top + (card_h - target_h) // 2
+    canvas.paste(arch_resized, (paste_x, paste_y), arch_resized if arch_resized.mode == 'RGBA' else None)
     
-    # Perfect crop for Row 4 + labels (y: 520 to 804)
-    crop_samples = samples_img.crop((40, 520, 1227, 804))
-    
-    samples_card_top = sec2_top + 28
-    samples_target_w = inner_w - 60
-    samples_target_h = int(crop_samples.height * (samples_target_w / crop_samples.width))
-    if samples_target_h > 185:
-        samples_target_h = 185
-        samples_target_w = int(crop_samples.width * (samples_target_h / crop_samples.height))
-        
-    samples_resized = crop_samples.resize((samples_target_w, samples_target_h), Image.Resampling.LANCZOS)
-    s_x = margin_x + (inner_w - samples_target_w) // 2
-    
-    # White card container for samples
-    draw.rectangle([margin_x, samples_card_top, margin_x + inner_w, samples_card_top + samples_target_h + 8], fill=(255, 255, 255, 255), outline=(203, 213, 225, 255), width=1)
-    canvas.paste(samples_resized, (s_x, samples_card_top + 4), samples_resized if samples_resized.mode == 'RGBA' else None)
-    
-    # === Section 03: Bottom Technical Specs Strip ===
-    bar_top = samples_card_top + samples_target_h + 16
-    bar_h = 60
+    # === Bottom Technical Specs Strip ===
+    bar_top = arch_card_top + card_h + 12
+    bar_h = 62
     draw.rectangle([margin_x, bar_top, margin_x + inner_w, bar_top + bar_h], fill=(16, 24, 39, 255), outline=(34, 47, 67, 255), width=1)
     
     col_w = inner_w // 4
@@ -115,11 +103,11 @@ def create_work02_eye_showcase():
         cx = margin_x + (i * col_w)
         if i > 0:
             draw.line([cx, bar_top + 10, cx, bar_top + bar_h - 10], fill=(38, 53, 74, 255), width=1)
-        draw.text((cx + 18, bar_top + 11), label, fill=(148, 163, 184, 255), font=f['zh_micro'])
-        draw.text((cx + 18, bar_top + 31), val, fill=color, font=f['zh_tag'])
+        draw.text((cx + 18, bar_top + 12), label, fill=(148, 163, 184, 255), font=f['zh_micro'])
+        draw.text((cx + 18, bar_top + 33), val, fill=color, font=f['zh_tag'])
         
     canvas.save('public/assets/work02-vision-showcase.png', 'PNG', optimize=True)
-    print("Created focused work02-vision-showcase.png successfully!")
+    print("Created cropped work02-vision-showcase.png successfully!")
 
 if __name__ == '__main__':
     create_work02_eye_showcase()
