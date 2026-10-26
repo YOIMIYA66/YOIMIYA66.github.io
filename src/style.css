@@ -70,30 +70,36 @@ img, video { max-width: 100%; }
 .cover { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); gap: clamp(32px, 5vw, 72px); align-items: end; padding-block: 56px 60px; }
 .kicker { margin: 0 0 18px; font: 600 12.5px/1.3 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--brand); white-space: nowrap; }
 .name { margin: 0; font: 800 clamp(54px, 7.5vw, 108px)/.92 var(--serif); letter-spacing: -.05em; white-space: nowrap; }
-/* 中文名：赤陶色竖排印章（严密居中对齐） */
+/* 中文名：赤陶色竖排手作印章（复刻 rullerzhou.com 传统落款微倾 -3.2° 质感，字身严格居中） */
 .seal {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-left: .28em;
-  padding: 5px 6px;
+  padding: .2em .24em .22em;
   background: var(--brand);
   color: var(--card);
-  font: 800 clamp(13px, 1.35vw, 18px)/1.05 var(--serif);
+  font: 800 clamp(13px, 1.35vw, 18px)/1.08 var(--serif);
   letter-spacing: 0;
-  vertical-align: middle;
-  transform: translateY(-0.06em);
+  vertical-align: top;
+  transform: translateY(.14em) rotate(-3.2deg);
+  transform-origin: center center;
   border: 1px solid var(--brand-deep);
-  border-radius: 0;
+  border-radius: 1px;
   box-shadow: inset 0 0 0 1px rgba(250, 249, 245, .55), 2px 2px 0 var(--brand-deep);
   white-space: nowrap;
   user-select: none;
+  transition: transform .2s cubic-bezier(.2, .9, .3, 1.2), box-shadow .2s ease;
+}
+.seal:hover {
+  transform: translateY(.10em) rotate(-1.5deg) scale(1.02);
+  box-shadow: inset 0 0 0 1px rgba(250, 249, 245, .7), 3px 3px 0 var(--brand-deep);
 }
 .seal span {
   display: block;
   text-align: center;
-  line-height: 1.1;
+  line-height: 1.08;
 }
 .role { margin: 18px 0 0; font: 400 clamp(16px, 1.9vw, 24px)/1.35 var(--serif); font-style: italic; white-space: nowrap; }
 .lead { max-width: 36em; margin: 22px 0 0; color: var(--soft); font-size: 15.5px; line-height: 1.85; }
