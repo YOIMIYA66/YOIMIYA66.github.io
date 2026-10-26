@@ -955,7 +955,9 @@ body {
 
 /* 作品 01 实机运行桌面展示 */
 .clawd-showcase {
-  margin: 36px 0 0;
+  margin: 36px auto 0;
+  max-width: 740px;
+  width: 100%;
   display: grid;
   gap: 12px;
 }
