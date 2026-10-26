@@ -194,27 +194,27 @@ export class PixelCompanion {
       // Interior fill
       if (y < groundY) {
         // Retro sky: mist blue
-        rect(leftX, y, width, 1, '#CBD7E1');
+        rect(leftX, y, width, 1, '#E9E2D4');
       } else if (y === groundY) {
         // Horizon line: dark ink
-        rect(leftX, y, width, 1, '#2A3040');
+        rect(leftX, y, width, 1, '#1F1E1D');
       } else {
         // Ground floor: soft textured card tone
-        rect(leftX, y, width, 1, '#DFE7ED');
+        rect(leftX, y, width, 1, '#DCCFB9');
       }
 
       // Stepped 1-pixel dark rim outline on the perimeter
-      pixel(leftX, y, '#2A3040');
-      pixel(rightX, y, '#2A3040');
+      pixel(leftX, y, '#1F1E1D');
+      pixel(rightX, y, '#1F1E1D');
     }
 
     // Top & bottom cap pixels for the circle
-    pixel(cx, 4, '#2A3040');
-    pixel(cx - 1, 4, '#2A3040');
-    pixel(cx + 1, 4, '#2A3040');
-    pixel(cx, 76, '#2A3040');
-    pixel(cx - 1, 76, '#2A3040');
-    pixel(cx + 1, 76, '#2A3040');
+    pixel(cx, 4, '#1F1E1D');
+    pixel(cx - 1, 4, '#1F1E1D');
+    pixel(cx + 1, 4, '#1F1E1D');
+    pixel(cx, 76, '#1F1E1D');
+    pixel(cx - 1, 76, '#1F1E1D');
+    pixel(cx + 1, 76, '#1F1E1D');
 
     // Subtle twinkling 16-bit sky stars inside aperture
     const starBlink = Math.sin(this.starTick) > 0;
@@ -236,7 +236,7 @@ export class PixelCompanion {
     // --- 2. Ground Hatch Shadow ---
     const shadowScale = Math.max(0.55, 1 - Math.abs(curHop) / 10);
     const shadowW = Math.round(26 * shadowScale);
-    rect(cx - shadowW / 2, 64, shadowW, 2, 'rgba(42, 48, 64, 0.25)');
+    rect(cx - shadowW / 2, 64, shadowW, 2, 'rgba(31, 30, 29, 0.22)');
 
     // --- 3. Formal Dark Leather Shoes ---
     rect(31, 60 + baseY, 7, 3, '#10141D');

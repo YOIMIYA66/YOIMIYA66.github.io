@@ -101,6 +101,26 @@
     });
   }
 
+  /* ---------- 4b. 展台轻 3D 倾斜：跟随鼠标微微转动 ---------- */
+  const stage = document.querySelector('.stage');
+  if (stage && !reduce.matches) {
+    let tiltQueued = false;
+    let tp = null;
+    function tilt() {
+      tiltQueued = false;
+      if (!tp) return;
+      const r = stage.getBoundingClientRect();
+      const nx = Math.max(-1, Math.min(1, (tp.x - (r.left + r.width / 2)) / (r.width * 1.2)));
+      const ny = Math.max(-1, Math.min(1, (tp.y - (r.top + r.height / 2)) / (r.height * 1.2)));
+      stage.style.setProperty('--ty', (nx * 7).toFixed(2) + 'deg');
+      stage.style.setProperty('--tx', (-ny * 5).toFixed(2) + 'deg');
+    }
+    window.addEventListener('pointermove', e => {
+      tp = { x: e.clientX, y: e.clientY };
+      if (!tiltQueued) { tiltQueued = true; requestAnimationFrame(tilt); }
+    }, { passive: true });
+  }
+
   /* ---------- 5. 版权页彩蛋：纸风车（吹气加速、角速度物理衰减） ---------- */
   const egg = document.getElementById('egg');
   const pinwheel = document.getElementById('pinwheel');
@@ -175,6 +195,29 @@
     pinwheel.addEventListener('click', () => {
       w = Math.max(-1800, Math.min(1800, w + (w >= 0 ? 1 : -1) * 780));
       run();
+    });
+  }
+
+  /* ---------- 6. 悬浮回到顶部按钮 ---------- */
+  const backTop = document.getElementById('back-top');
+  if (backTop) {
+    let scrollQueued = false;
+    function checkScroll() {
+      scrollQueued = false;
+      if (window.scrollY > 420) {
+        backTop.classList.add('show');
+      } else {
+        backTop.classList.remove('show');
+      }
+    }
+    window.addEventListener('scroll', () => {
+      if (!scrollQueued) {
+        scrollQueued = true;
+        requestAnimationFrame(checkScroll);
+      }
+    }, { passive: true });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 })();

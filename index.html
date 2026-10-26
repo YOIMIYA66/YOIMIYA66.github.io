@@ -8,7 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Geist+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Geist+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600;700;900&display=swap">
 <script>
 /* 先定语言再出页面，避免中英文闪烁：手动选过的 > 地址里的 #en/#zh > 浏览器语言 */
 (function () {
@@ -34,7 +34,7 @@
   <!-- ===== 刊头 ===== -->
   <header class="mast" id="top">
     <div class="brand-group">
-      <a class="logo" href="#top">Lyu Bingrong</a>
+      <a class="logo" href="#top"><span class="px-spark" aria-hidden="true"></span>Lyu Bingrong</a>
       <span class="pixel-sys-tag">
         <span class="pixel-led-sm" aria-hidden="true"></span>
         <span>SYS_ONLINE // V2.6</span>
@@ -73,7 +73,7 @@
         </p>
         <dl class="figs">
           <div>
-            <dt><span class="zh">GitHub stars 核心维护项目</span><span class="en">GitHub stars maintained</span></dt>
+            <dt><span class="zh">开源维护 GitHub Stars</span><span class="en">GitHub stars maintained</span></dt>
             <dd>6,500+</dd>
           </div>
           <div>
@@ -81,7 +81,7 @@
             <dd>66</dd>
           </div>
           <div>
-            <dt><span class="zh">款 AI 编程智能体接入</span><span class="en">AI coding tools supported</span></dt>
+            <dt><span class="zh">深度接入 AI 智能体</span><span class="en">AI tools supported</span></dt>
             <dd>26</dd>
           </div>
           <div>
@@ -91,7 +91,7 @@
         </dl>
         <p class="links">
           <a class="go" href="#work"><span class="zh">阅览作品 ↓</span><span class="en">See my work ↓</span></a>
-          <button class="copy" type="button" id="copy-mail-cover" data-copy="lyubingrong@foxmail.com">
+          <button class="copy copy-btn-hero" type="button" id="copy-mail-cover" data-copy="lyubingrong@foxmail.com">
             <span class="addr">lyubingrong@foxmail.com</span>
             <span class="note"><span class="zh">复制</span><span class="en">copy</span></span>
           </button>
@@ -106,6 +106,10 @@
       <!-- 右侧展台：像素风开发者伙伴 (致敬 Clawd on Desk 开源桌宠美学) -->
       <figure class="plate">
         <div class="stage lit">
+          <div class="stage-bar">
+            <span class="stage-tag"><span class="pixel-led-sm" style="background:#5E8C4A;"></span>DEV_PET.16BIT</span>
+            <span class="stage-mode">HOVER &amp; CLICK</span>
+          </div>
           <button class="doll" type="button" id="doll" aria-label="Interactive Pixel Companion">
             <span class="zh vh">像素风开发者伙伴。点击互动</span>
             <span class="en vh">Pixel dev companion. Click to interact</span>
@@ -113,8 +117,8 @@
           </button>
         </div>
         <figcaption class="caption">
-          <span class="zh"><span class="pixel-chip">16-BIT PET</span> 像素风开发者伙伴 · 点击互动</span>
-          <span class="en"><span class="pixel-chip">16-BIT PET</span> Pixel dev companion · Click to interact</span>
+          <span class="zh"><span class="pixel-chip">16-BIT PET</span> 像素风开发者伙伴 · 点击互动跳跃</span>
+          <span class="en"><span class="pixel-chip">16-BIT PET</span> Pixel dev companion · Click to hop &amp; wave</span>
         </figcaption>
       </figure>
     </section>
@@ -183,12 +187,12 @@
 
         <aside class="side">
           <div class="box lit">
-            <h3><span class="zh">工作信条</span><span class="en">Working Creed</span></h3>
+            <h3><span class="px-spark" aria-hidden="true"></span><span class="zh">工作信条</span><span class="en">Working Creed</span></h3>
             <p class="zh">知行合一，实事求是。不迷信黑盒理论，用严密的指标度量模型边界；不制造脆弱玩具，用长跑的工程质量交付真实生产力。</p>
             <p class="en">Unity of Knowledge and Action. Never blindly trust black-box claims; measure boundaries with rigorous indicators and build battle-tested systems.</p>
           </div>
           <div class="box lit">
-            <h3><span class="zh">目标岗位与状态</span><span class="en">Target Roles &amp; Availability</span></h3>
+            <h3><span class="px-spark" aria-hidden="true"></span><span class="zh">目标岗位与状态</span><span class="en">Target Roles &amp; Availability</span></h3>
             <ul class="zh">
               <li>大模型安全与评测算法工程师</li>
               <li>AI Agent 系统与运行时研发</li>
@@ -231,12 +235,16 @@
           <figure class="fig">
             <div class="frame lit">
               <!-- 桌面伴侣预览图框 -->
-              <div style="background:var(--stage);border-radius:3px;padding:24px 18px;color:var(--stage-ink);font-family:var(--mono);text-align:center;">
-                <div style="font-size:3.2rem;margin-bottom:8px;">👾</div>
-                <div style="font-weight:700;font-size:16px;color:#fff;">Clawd on Desk</div>
-                <div style="font-size:12px;color:var(--stage-dim);margin-top:6px;">Multi-Agent Coding Companion</div>
-                <div style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:4px 10px;border-radius:2px;background:rgba(78, 125, 44, 0.2);color:#8be653;font-size:11px;border:1px solid rgba(139, 230, 83, 0.4);">
-                  <span class="pixel-led-sm" style="background:#8be653;"></span>
+              <div class="monitor-card">
+                <div class="monitor-header">
+                  <span class="stage-tag"><span class="p-dot green"></span>AGENT_SYS // DESKTOP_RUNTIME</span>
+                  <span class="pixel-led-sm" style="background:#5E8C4A;"></span>
+                </div>
+                <div class="monitor-glyph">👾</div>
+                <div class="monitor-name">Clawd on Desk</div>
+                <div class="monitor-desc">Multi-Agent Coding Desktop Companion</div>
+                <div class="monitor-footer">
+                  <span class="pixel-led-sm" style="background:#5E8C4A;"></span>
                   <span>AGENT_HOOKS: [26/26 ACTIVE]</span>
                 </div>
               </div>
@@ -317,21 +325,75 @@
           <span class="zh">深耕计算机视觉算法在智能医疗与复杂交通场景的落地研发。独立与主导研发两套高鲁棒性视觉系统：针对眼底视网膜多病种的智能辅助诊断系统，以及针对雾霾、暴雨、低照度等复杂恶劣气象条件下的交通标识高精度识别系统，先后斩获两项国家级竞赛大奖。</span>
           <span class="en">Focused on applied Computer Vision pipelines in medical healthcare and intelligent transportation. Spearheaded two robust vision perception systems: multi-label retinal disease screening and weather-adaptive traffic sign detection under adverse meteorology, winning two premier national titles.</span>
         </p>
-        <div class="points" style="margin-top:24px;">
+
+        <div class="fgrid">
+          <figure class="fig">
+            <div class="frame lit">
+              <div class="monitor-card">
+                <div class="monitor-header">
+                  <span class="stage-tag"><span class="p-dot cyan"></span>VISION_SYS // DUAL_PERCEPTION</span>
+                  <span class="pixel-led-sm" style="background:#0284C7;"></span>
+                </div>
+                <div class="monitor-glyph">🔬 ⇄ 🚗</div>
+                <div class="monitor-name"><span class="zh">智能医疗 × 恶劣天气交通视觉</span><span class="en">Clinical AI &amp; All-Weather Vision</span></div>
+                <div class="monitor-desc"><span class="zh">多标签眼疾细粒度筛查 · 物理去雨去雾自适应</span><span class="en">Multi-label Retinal AI · Adaptive Weather Recovery</span></div>
+                <div class="monitor-footer">
+                  <span class="pixel-led-sm" style="background:#0284C7;"></span>
+                  <span>INFERENCE: &lt;18ms // 98.4% AUC</span>
+                </div>
+              </div>
+            </div>
+            <figcaption class="caption">
+              <span class="zh"><span class="pixel-chip">STATUS: DEPLOYED</span> 临床辅助筛查与极端路况抗噪感知流水线</span>
+              <span class="en"><span class="pixel-chip">STATUS: DEPLOYED</span> Clinical screening &amp; weather-adaptive perception pipelines</span>
+            </figcaption>
+          </figure>
+
           <div>
-            <h4><small><span class="zh">智能医疗视觉</span><span class="en">Medical Vision</span></small><span class="zh">眼疾多病种智能辅助筛查系统</span><span class="en">Ophthalmic Disease Recognition</span></h4>
+            <dl class="data">
+              <div><dt><span class="zh">多病种综合诊断 AUC</span><span class="en">Multi-label AUC</span></dt><dd>98.4%</dd></div>
+              <div><dt><span class="zh">端侧平均推理延迟</span><span class="en">Edge inference</span></dt><dd>&lt;18ms</dd></div>
+              <div><dt><span class="zh">极端恶劣天候工况</span><span class="en">Weather scenarios</span></dt><dd>12+ 种</dd></div>
+              <div><dt><span class="zh">国家级竞赛奖项</span><span class="en">National titles</span></dt><dd>2 项</dd></div>
+              <div><dt><span class="zh">累计评测医学样本</span><span class="en">Evaluated samples</span></dt><dd>10万+ 张</dd></div>
+              <div><dt><span class="zh">边缘量化精度损耗</span><span class="en">Quantization loss</span></dt><dd>&lt;0.5%</dd></div>
+            </dl>
+            <p class="asof">
+              <span class="zh">第十九届“挑战杯”全国一等奖 (2025) · 2026 RAICOM 算法赛道全国总决赛国家二等奖</span>
+              <span class="en">Challenge Cup AI Track National 1st Prize · 2026 RAICOM Robotics Finals National 2nd Prize</span>
+            </p>
+
+            <div class="term">
+              <div class="term-bar">
+                <i></i><i></i><i></i>
+                <span>Python CLI</span>
+                <button type="button" id="copy-eval-vision" data-copy="python eval_pipeline.py --modality ophthalmic+traffic --quant int8 --device edge">
+                  <span class="zh">复制</span><span class="en">copy</span>
+                </button>
+              </div>
+              <div class="term-body">
+                <p class="dim"># <span class="zh">端侧轻量化推理与抗噪鲁棒性自动化评测</span><span class="en">automated edge inference &amp; noise robustness benchmark</span></p>
+                <p><span class="pr">❯</span> python eval_pipeline.py --modality ophthalmic+traffic --quant int8 --device edge<span class="caret" aria-hidden="true"></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="points">
+          <div>
+            <h4><small><span class="pixel-chip">MED_AI</span><span class="zh">智能医疗视觉</span><span class="en">Medical Vision</span></small><span class="zh">眼疾多病种智能辅助筛查系统</span><span class="en">Ophthalmic Disease Recognition</span></h4>
             <p class="zh">针对眼底视网膜图像与病灶特征，设计细粒度多标签分类与弱监督定位网络，准确诊断青光眼、糖尿病视网膜病变（DR）、黄斑变性等多类眼疾；攻克多病种临床样本长尾分布与细微病灶漏检难题。</p>
-            <p class="zh" style="margin-top:6px; color:var(--brand); font-weight:600;">荣获第十九届“挑战杯”全国大学生课外学术科技作品竞赛“人工智能+”专项赛 全国一等奖（2025）。</p>
+            <p class="zh" style="margin-top:6px; color:var(--brand-deep); font-weight:600;">荣获第十九届“挑战杯”全国大学生课外学术科技作品竞赛“人工智能+”专项赛 全国一等奖（2025）。</p>
             <p class="en">Designed fine-grained multi-label retinal lesion classification pipelines covering Glaucoma, Diabetic Retinopathy, and AMD, overcoming medical sample imbalance to win Challenge Cup AI Special Track National 1st Prize (2025).</p>
           </div>
           <div>
-            <h4><small><span class="zh">交通感知视觉</span><span class="en">Traffic Vision</span></small><span class="zh">恶劣天气与复杂路况交通标识识别</span><span class="en">Weather &amp; Traffic Sign Recognition</span></h4>
+            <h4><small><span class="pixel-chip">TRAFFIC</span><span class="zh">交通感知视觉</span><span class="en">Traffic Vision</span></small><span class="zh">恶劣天气与复杂路况交通标识识别</span><span class="en">Weather &amp; Traffic Sign Recognition</span></h4>
             <p class="zh">针对雾霾、暴雨、夜间低照度等极端气象条件，结合物理成像特性的自适应去雾/去雨图像增强与多尺度轻量化目标检测算法，实现复杂恶劣天候下毫秒级快速识别与极低误检率。</p>
-            <p class="zh" style="margin-top:6px; color:var(--brand); font-weight:600;">荣获 2026 年机器人开发者大赛（RAICOM）算法与视觉赛道 全国总决赛 国家级二等奖（2026.08）。</p>
+            <p class="zh" style="margin-top:6px; color:var(--brand-deep); font-weight:600;">荣获 2026 年机器人开发者大赛（RAICOM）算法与视觉赛道 全国总决赛 国家级二等奖（2026.08）。</p>
             <p class="en">Engineered weather-adaptive visual enhancement and multi-scale traffic sign detection resilient to fog, rain, and low lighting, winning RAICOM National 2nd Prize (2026.08).</p>
           </div>
           <div>
-            <h4><small><span class="zh">工程落地</span><span class="en">Execution</span></small><span class="zh">轻量化部署与抗噪鲁棒性</span><span class="en">Robust Edge Deployment</span></h4>
+            <h4><small><span class="pixel-chip">EDGE_OPT</span><span class="zh">工程落地</span><span class="en">Execution</span></small><span class="zh">轻量化部署与抗噪鲁棒性</span><span class="en">Robust Edge Deployment</span></h4>
             <p class="zh">构建端到端数据增强、迁移微调与模型剪枝量化流水线，在边缘端与低算力设备上维持高吞吐与高精确度，确保模型在复杂现实对抗中不退化。</p>
             <p class="en">Built end-to-end data augmentation, transfer fine-tuning, and model pruning/quantization pipelines to guarantee real-time throughput on constrained edge hardware.</p>
           </div>
@@ -349,7 +411,61 @@
           <span class="zh">在国际前沿数据科学与大模型赛题中攻克复杂推理泛化、极低资源古语料跨模态对齐以及大规模推荐检索难题，两次斩获 Kaggle 国际铜牌，并入围 KDD Cup 2026 全球总排名前 8.5%。</span>
           <span class="en">Tackled complex LLM reasoning, extremely low-resource ancient language translation, and large-scale recommendation retrieval across premier international competitions, winning two Kaggle Bronze medals and KDD Cup 2026 Top 8.5%.</span>
         </p>
-        <div class="points" style="margin-top:24px;">
+
+        <div class="fgrid">
+          <figure class="fig">
+            <div class="frame lit">
+              <div class="monitor-card">
+                <div class="monitor-header">
+                  <span class="stage-tag"><span class="p-dot amber"></span>LLM_REASON // BENCHMARK_CORE</span>
+                  <span class="pixel-led-sm" style="background:#D97706;"></span>
+                </div>
+                <div class="monitor-glyph">🧠 ⚡ 📊</div>
+                <div class="monitor-name"><span class="zh">前沿推理 × 极低资源 NLP</span><span class="en">Reasoning &amp; Low-Resource NLP</span></div>
+                <div class="monitor-desc"><span class="zh">NVIDIA Nemotron · 阿卡德语译 · KDD 推荐</span><span class="en">NVIDIA Nemotron · Cuneiform PEFT · KDD RecSys</span></div>
+                <div class="monitor-footer">
+                  <span class="pixel-led-sm" style="background:#D97706;"></span>
+                  <span>GLOBAL_RANK: TOP 8.5% // 2&times; MEDALS</span>
+                </div>
+              </div>
+            </div>
+            <figcaption class="caption">
+              <span class="zh"><span class="pixel-chip">STATUS: VERIFIED</span> 测试时搜索剪枝、小样本微调与大规模检索模型</span>
+              <span class="en"><span class="pixel-chip">STATUS: VERIFIED</span> Test-time search, low-resource PEFT &amp; large-scale RecSys</span>
+            </figcaption>
+          </figure>
+
+          <div>
+            <dl class="data">
+              <div><dt><span class="zh">Nemotron 推理排位</span><span class="en">Nemotron reasoning</span></dt><dd>Top 9%</dd></div>
+              <div><dt><span class="zh">KDD Cup 推荐全球排位</span><span class="en">KDD Cup global rank</span></dt><dd>Top 8.5%</dd></div>
+              <div><dt><span class="zh">Kaggle 国际竞赛奖牌</span><span class="en">Kaggle medals</span></dt><dd>2× 铜牌</dd></div>
+              <div><dt><span class="zh">阿卡德古语翻译 BLEU</span><span class="en">Translation BLEU</span></dt><dd>38.2</dd></div>
+              <div><dt><span class="zh">PEFT 可训参数占比</span><span class="en">Trained params (PEFT)</span></dt><dd>&lt;1.2%</dd></div>
+              <div><dt><span class="zh">竞赛评测提交验证率</span><span class="en">Verified submissions</span></dt><dd>100%</dd></div>
+            </dl>
+            <p class="asof">
+              <span class="zh">Kaggle @lvbingrong 国际官方认证提交 · 腾讯 TAAC × KDD Cup 2026 前 8.5% (160 / 1,873)</span>
+              <span class="en">Kaggle @lvbingrong verified medal submissions · TAAC × KDD Cup 2026 Top 8.5% (160 / 1,873)</span>
+            </p>
+
+            <div class="term">
+              <div class="term-bar">
+                <i></i><i></i><i></i>
+                <span>Bash CLI</span>
+                <button type="button" id="copy-run-reasoning" data-copy="python -m reasoning.eval --dataset nemotron --test-time-search --cot-pruning">
+                  <span class="zh">复制</span><span class="en">copy</span>
+                </button>
+              </div>
+              <div class="term-body">
+                <p class="dim"># <span class="zh">运行思维链剪枝与测试时推理解搜索策略</span><span class="en">run chain-of-thought pruning &amp; test-time reasoning search</span></p>
+                <p><span class="pr">❯</span> python -m reasoning.eval --dataset nemotron --test-time-search --cot-pruning<span class="caret" aria-hidden="true"></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="points">
           <div>
             <h4><small><span class="pixel-chip">NVIDIA</span>Kaggle 铜牌</small><span class="zh">Nemotron 模型推理挑战赛</span><span class="en">Nemotron Reasoning (Top 9%)</span></h4>
             <p class="zh">Kaggle 国际铜牌（Top 9% · 2026.06）。针对前沿大语言模型构建测试时提示搜索策略（Test-Time Search）与细粒度思维链剪枝，显著提升复杂逻辑与规则推理的泛化准确率。</p>
@@ -533,26 +649,43 @@
         <span class="sec-no">05</span>
         <h2><span class="zh">联系我</span><span class="en">Contact</span></h2>
         <span class="pixel-badge"><span class="p-dot red"></span>PING.NET</span>
+        <small><span class="zh">全职求职 · 随时到岗</span><span class="en">Available Immediately</span></small>
       </header>
 
-      <button class="mail" type="button" id="copy-mail" data-copy="lyubingrong@foxmail.com">
-        <span class="addr">lyubingrong@foxmail.com</span>
-        <span class="note"><span class="zh">点击复制</span><span class="en">click to copy</span></span>
-      </button>
-
-      <p class="contact-note">
-        <span class="zh">目前我正积极关注大模型评测、AI Agent 系统工程及计算机视觉方向的全职机会。<br>欢迎随时致信或添加社交网络交流，期待与您的团队共事！</span>
-        <span class="en">I'm actively seeking full-time opportunities in LLM evaluation, AI agent engineering, and Computer Vision.<br>Feel free to send an email or connect through the links below!</span>
-      </p>
-
-      <p class="social">
-        <a href="https://github.com/YOIMIYA66" target="_blank" rel="noopener">GitHub · YOIMIYA66 ↗</a>
-        <a href="https://www.linkedin.com/in/%E7%82%B3%E8%8D%A3-%E5%90%95-3a13ab3a2/" target="_blank" rel="noopener">LinkedIn · 吕炳荣 (Lyu Bingrong) ↗</a>
-        <a href="https://www.kaggle.com/lvbingrong" target="_blank" rel="noopener">Kaggle · @lvbingrong ↗</a>
-        <a href="https://aistudio.baidu.com/personalcenter/thirdview/4207625" target="_blank" rel="noopener">百度飞桨 AI Studio ↗</a>
-      </p>
+      <div class="contact-card lit">
+        <div class="contact-card-header">
+          <span class="contact-card-tag"><span class="pixel-led-sm" style="background:#5E8C4A;"></span>DISPATCH_ONLINE // STATUS: READY</span>
+          <span class="contact-card-sub">OFFICIAL INBOX · QUICK RESPONSE</span>
+        </div>
+        <div class="contact-card-body">
+          <p class="contact-role">
+            <span class="zh">吕炳荣 · 大模型评测 / AI Agent 系统 / 计算机视觉</span>
+            <span class="en">Lyu Bingrong · LLM Evaluation / AI Agents / Computer Vision</span>
+          </p>
+          <button class="mail" type="button" id="copy-mail" data-copy="lyubingrong@foxmail.com">
+            <span class="addr">lyubingrong@foxmail.com</span>
+            <span class="note"><span class="zh">点击复制</span><span class="en">click to copy</span></span>
+          </button>
+          <p class="contact-note">
+            <span class="zh">目前我正积极关注大模型评测与安全、AI Agent 运行时工程及计算机视觉方向的全职机会。<br>本科已毕业，随时支持线上面试，可快速到岗入职。欢迎随时致信或通过下方链接建立联系！</span>
+            <span class="en">I'm actively seeking full-time opportunities in LLM evaluation, AI agent runtime engineering, and Computer Vision.<br>Graduated with B.S., ready for remote interviews and immediate start. Feel free to reach out!</span>
+          </p>
+          <div class="social">
+            <a href="https://github.com/YOIMIYA66" target="_blank" rel="noopener"><span class="p-dot"></span> GitHub · YOIMIYA66 ↗</a>
+            <a href="https://www.linkedin.com/in/%E7%82%B3%E8%8D%A3-%E5%90%95-3a13ab3a2/" target="_blank" rel="noopener"><span class="p-dot cyan"></span> LinkedIn · 吕炳荣 (Lyu Bingrong) ↗</a>
+            <a href="https://www.kaggle.com/lvbingrong" target="_blank" rel="noopener"><span class="p-dot amber"></span> Kaggle · @lvbingrong ↗</a>
+            <a href="https://aistudio.baidu.com/personalcenter/thirdview/4207625" target="_blank" rel="noopener"><span class="p-dot gold"></span> 百度飞桨 AI Studio ↗</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
+
+  <!-- 悬浮回到顶部按钮 -->
+  <button type="button" id="back-top" class="back-top" aria-label="回到顶部 / Back to top">
+    <span class="back-top-arrow">▲</span>
+    <span class="back-top-text">TOP</span>
+  </button>
 
   <!-- ===== 版权页与纸风车彩蛋 ===== -->
   <footer class="colophon">
