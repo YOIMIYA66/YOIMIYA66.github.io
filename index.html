@@ -143,7 +143,7 @@
       </header>
 
       <div class="about">
-        <div>
+        <div class="about-main">
           <div class="body">
             <h3 class="pull">
               <span class="zh">在确定性与边界之间，构建可度量、可落地的 AI 系统。</span>
@@ -156,32 +156,6 @@
             <p class="drop en">I'm Lyu Bingrong (YOIMIYA66), graduated with a B.S. in Software Engineering from North University of China. Working at the intersection of systems and applied AI, I focus on solving real-world reliability challenges: establishing robust safety benchmarks for frontier LLMs, engineering high-performance agent runtime hooks for desktop applications, and developing clinical-grade Computer Vision pipelines for ophthalmic diagnosis and all-weather traffic perception.</p>
             <p class="en">Formerly interned at the Beijing Academy of Artificial Intelligence (BAAI) Intelligent Evaluation Group on LLM adversarial red-teaming and arena user preference modeling. As a core maintainer of Clawd on Desk (6,500+ stars), I spearheaded the settings architecture overhaul and 20+ agent hook integrations with 66 merged PRs.</p>
             <p class="en">I avoid fragile toy demos and prioritize measurable stability, engineering resilience, and verifiable quality.</p>
-          </div>
-
-          <div class="tags">
-            <b><span class="zh">技术栈能力</span><span class="en">Core Capabilities</span></b>
-            <ul class="zh">
-              <li>大模型安全评测 (Red Teaming)</li>
-              <li>竞技场标注置信度建模</li>
-              <li>AI Agent Hooks &amp; 状态机 (26+ Agents)</li>
-              <li>计算机视觉：眼疾筛查 / 恶劣天气交通感知</li>
-              <li>PyTorch / OpenCV / Hugging Face</li>
-              <li>Python / C++ / JavaScript / Bash</li>
-              <li>Electron / Node.js 桌面系统工程</li>
-              <li>Docker / GitHub Actions CI-CD / winget 发版</li>
-              <li>开源社区核心维护 (66 PRs Merged)</li>
-            </ul>
-            <ul class="en">
-              <li>LLM Red Teaming &amp; Safety Evaluation</li>
-              <li>Arena Rating Credibility Modeling</li>
-              <li>AI Agent Hooks &amp; State Machine (26+ Agents)</li>
-              <li>Computer Vision: Ophthalmic &amp; All-Weather Traffic AI</li>
-              <li>PyTorch / OpenCV / Hugging Face</li>
-              <li>Python / C++ / JavaScript / Bash</li>
-              <li>Electron / Node.js Desktop Systems</li>
-              <li>Docker / GitHub Actions CI-CD / winget Release</li>
-              <li>Open-Source Maintainership (66 PRs Merged)</li>
-            </ul>
           </div>
         </div>
 
@@ -207,6 +181,127 @@
             </ul>
           </div>
         </aside>
+      </div>
+
+      <!-- ===== 全宽技术栈与核心工程能力全景面板 ===== -->
+      <div class="skills-block">
+        <div class="skills-header">
+          <div class="skills-title">
+            <span class="pixel-chip">STACK_MATRIX</span>
+            <span class="zh">技术栈与核心能力全景</span>
+            <span class="en">Core Capabilities &amp; Technical Stack</span>
+          </div>
+          <span class="skills-status">
+            <span class="pixel-led-sm" style="background:#10B981;"></span>
+            <span>4 DOMAINS // FULL_STACK</span>
+          </span>
+        </div>
+
+        <div class="skills-grid">
+          <!-- 领域 01: 大模型安全与评测 -->
+          <div class="skill-card lit">
+            <div class="skill-card-head">
+              <span class="p-dot amber"></span>
+              <h4><span class="zh">大模型安全与评测</span><span class="en">LLM Safety &amp; Eval</span></h4>
+            </div>
+            <p class="skill-card-desc">
+              <span class="zh">智源研究院（BAAI）实战，红队漏洞对抗与数据置信度</span>
+              <span class="en">BAAI red-teaming, prompt injection &amp; data credibility</span>
+            </p>
+            <ul class="skill-tags zh">
+              <li>Red Teaming (红队对抗评测)</li>
+              <li>提示注入与越狱挖掘</li>
+              <li>竞技场标注置信度建模</li>
+              <li>匿名对战噪声异常检测</li>
+              <li>多维度主观量表评测制定</li>
+            </ul>
+            <ul class="skill-tags en">
+              <li>Red Teaming &amp; Safety Eval</li>
+              <li>Prompt Injection &amp; Jailbreak</li>
+              <li>Arena Credibility Modeling</li>
+              <li>Crowdsourced Noise Filtering</li>
+              <li>Subjective Scoring Rubrics</li>
+            </ul>
+          </div>
+
+          <!-- 领域 02: AI Agent 与桌面系统工程 -->
+          <div class="skill-card lit">
+            <div class="skill-card-head">
+              <span class="p-dot green"></span>
+              <h4><span class="zh">AI Agent 与系统工程</span><span class="en">AI Agents &amp; Systems</span></h4>
+            </div>
+            <p class="skill-card-desc">
+              <span class="zh">Clawd on Desk 核心维护，6.5k+ Stars 开源桌面底座</span>
+              <span class="en">Core maintainer of Clawd on Desk (6.5k+ Stars)</span>
+            </p>
+            <ul class="skill-tags zh">
+              <li>26+ 款 AI Agent 运行时 Hooks</li>
+              <li>多 Agent 异步进程拦截调度</li>
+              <li>全局设置架构解耦与广播流</li>
+              <li>Electron / Node.js 桌面工程</li>
+              <li>多屏 DPI 自适应与系统托盘</li>
+            </ul>
+            <ul class="skill-tags en">
+              <li>26+ AI Agent Runtime Hooks</li>
+              <li>Async Process Interception</li>
+              <li>Decoupled Settings System</li>
+              <li>Electron &amp; Node.js Desktop</li>
+              <li>Multi-DPI &amp; Windows Tray</li>
+            </ul>
+          </div>
+
+          <!-- 领域 03: 计算机视觉与前沿算法 -->
+          <div class="skill-card lit">
+            <div class="skill-card-head">
+              <span class="p-dot cyan"></span>
+              <h4><span class="zh">计算机视觉与前沿算法</span><span class="en">Computer Vision &amp; AI</span></h4>
+            </div>
+            <p class="skill-card-desc">
+              <span class="zh">全国“挑战杯”国赛一等奖、RAICOM 国二、2× Kaggle 铜牌</span>
+              <span class="en">Challenge Cup Nat'l 1st, RAICOM 2nd, 2× Kaggle Bronze</span>
+            </p>
+            <ul class="skill-tags zh">
+              <li>眼疾多病种细粒度筛查诊断</li>
+              <li>复杂天气交通标识高精识别</li>
+              <li>物理自适应去雨去雾图像增强</li>
+              <li>测试时推理搜索与思维链剪枝</li>
+              <li>极低资源古语料 PEFT / LoRA</li>
+            </ul>
+            <ul class="skill-tags en">
+              <li>Fine-Grained Retinal Screening</li>
+              <li>All-Weather Traffic Sign AI</li>
+              <li>Physical Weather De-rain/De-fog</li>
+              <li>Test-Time Search &amp; CoT Pruning</li>
+              <li>Low-Resource PEFT / LoRA</li>
+            </ul>
+          </div>
+
+          <!-- 领域 04: 工具链与工程交付 -->
+          <div class="skill-card lit">
+            <div class="skill-card-head">
+              <span class="p-dot gold"></span>
+              <h4><span class="zh">工程基建与交付</span><span class="en">Infra &amp; Production</span></h4>
+            </div>
+            <p class="skill-card-desc">
+              <span class="zh">工业级代码规范、端到端自动化 CI/CD 与跨平台发版</span>
+              <span class="en">Production code standards, automated CI/CD &amp; packaging</span>
+            </p>
+            <ul class="skill-tags zh">
+              <li>PyTorch / OpenCV / Hugging Face</li>
+              <li>Python / C++ / JavaScript / Bash</li>
+              <li>Docker 容器化与量化部署</li>
+              <li>GitHub Actions 自动化 CI-CD</li>
+              <li>winget 官方包管理器自动化发版</li>
+            </ul>
+            <ul class="skill-tags en">
+              <li>PyTorch / OpenCV / Hugging Face</li>
+              <li>Python / C++ / JavaScript / Bash</li>
+              <li>Docker &amp; Quantized Edge Deploy</li>
+              <li>GitHub Actions CI-CD Pipelines</li>
+              <li>Official winget Release Automation</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
