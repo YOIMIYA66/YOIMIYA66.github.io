@@ -953,12 +953,18 @@ body {
   letter-spacing: .04em;
 }
 
-/* 作品 01 实机运行桌面展示 */
-.clawd-showcase {
-  margin: 36px auto 0;
-  max-width: 740px;
-  width: 100%;
+/* 作品 01 实机运行桌面展示 与 XERJ 双展台 */
+.clawd-showcase-duo {
   display: grid;
+  grid-template-columns: minmax(0, 1.24fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: stretch;
+  margin: 36px 0 0;
+}
+.clawd-showcase-media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 .showcase-frame.lit {
@@ -1207,65 +1213,125 @@ body {
   margin-top: 2px;
 }
 
-/* XERJ (★16.8K) 官方参考语料权威认证卡片 */
-.corpus-callout {
-  margin: 28px 0;
-  background: #FAF8F5;
-  border: 1.5px solid var(--ink);
-  box-shadow: var(--px3d-lg), var(--sx, 4px) var(--sy, 8px) 24px -8px var(--shadow);
-  padding: 18px 22px;
-  position: relative;
+/* XERJ (★16.8K) 官方参考语料专属认证展示卡片 (双展台对齐) */
+.xerj-showcase-card {
+  background: var(--card);
+  border: 1px solid var(--ink);
+  box-shadow: var(--px3d), var(--sx, 4px) var(--sy, 8px) 26px -10px var(--shadow);
+  padding: 20px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  transition: transform .15s steps(3), box-shadow .15s steps(3);
 }
-.corpus-callout-head {
+.xerj-showcase-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--px3d-lg), var(--sx, 6px) var(--sy, 10px) 30px -10px var(--shadow);
+}
+.xerj-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
   padding-bottom: 12px;
   border-bottom: 1px dashed var(--rule-strong);
-  margin-bottom: 12px;
+  gap: 10px;
 }
-.corpus-badge-wrap {
-  display: inline-flex;
+.xerj-badge-row {
+  display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
-.corpus-tag {
-  font: 600 11px/1.2 var(--mono);
-  letter-spacing: .1em;
+.xerj-status-tag {
+  font: 600 10.5px/1.2 var(--mono);
+  letter-spacing: .08em;
   color: #4F46E5;
   background: rgba(79, 70, 229, 0.08);
   padding: 2px 7px;
   border: 1px solid rgba(79, 70, 229, 0.2);
 }
-.corpus-links {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+.xerj-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
-.corpus-callout-body .corpus-title {
-  margin: 0 0 8px;
-  font: 700 16px/1.35 var(--serif);
+.xerj-card-title {
+  margin: 4px 0 2px;
+  font: 700 17px/1.35 var(--serif);
   color: var(--ink);
+  letter-spacing: -.01em;
 }
-.corpus-callout-body p {
+.xerj-subtitle {
+  margin: 0 0 10px;
+  font: 600 12px/1.35 var(--mono);
+  color: var(--brand-deep);
+}
+.xerj-commit-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 14px;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  margin-bottom: 12px;
+}
+.commit-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.commit-stat-label {
+  font: 600 10px/1 var(--mono);
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+.commit-hash-link {
+  font: 700 12px/1.2 var(--mono);
+  color: #4F46E5;
+  text-decoration: none;
+}
+.commit-hash-link:hover {
+  text-decoration: underline;
+}
+.commit-stat-val {
+  font: 600 11px/1.2 var(--mono);
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.xerj-desc {
   margin: 0;
-  font: 400 14px/1.7 var(--serif);
+  font: 400 13px/1.65 var(--serif);
   color: var(--soft);
 }
-.corpus-callout-body p + p {
+.xerj-desc strong {
+  color: var(--ink);
+}
+.xerj-desc + .xerj-desc {
   margin-top: 6px;
 }
-.corpus-callout-body code {
-  font-family: var(--mono);
-  background: var(--paper);
-  padding: 1px 5px;
-  border: 1px solid var(--rule);
-  color: var(--brand-deep);
-  font-size: .9em;
+.xerj-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--rule);
+}
+.xerj-main-btn {
+  background: #EEF2FF !important;
+  color: #4338CA !important;
+  border-color: #6366F1 !important;
+  font-weight: 700 !important;
+}
+.xerj-main-btn:hover {
+  background: #4F46E5 !important;
+  color: #FFFFFF !important;
 }
 
 /* 竞赛三大核心桂冠置顶高光卡片 */
@@ -1518,6 +1584,7 @@ body {
   .points div:first-child, .wins div:first-child { border-top: 0; }
   .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .top-honors-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .clawd-showcase-duo { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .toc-sub { display: none; }
 }
 @media (max-width: 860px) {
