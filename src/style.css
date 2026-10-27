@@ -648,6 +648,33 @@ body {
   color: var(--ok);
 }
 
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 16px;
+  font: 600 13px/1 var(--mono);
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--ink);
+  box-shadow: var(--px3d);
+  cursor: pointer;
+  transition: transform .12s steps(2), box-shadow .12s steps(2), background .12s;
+}
+.print-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--px3d-lg);
+  background: #FFFFFF;
+}
+.print-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--block);
+}
+.print-btn .print-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
 /* 展台：轻 3D 倾斜的像素舞台 */
 .plate { perspective: 900px; }
 .stage.lit {
@@ -803,8 +830,8 @@ body {
   gap: 7px;
 }
 .skill-tags li {
-  font: 500 12px/1.35 var(--mono);
-  padding: 5px 8px;
+  font: 500 11.5px/1.35 var(--mono);
+  padding: 5px 6px;
   background: rgba(31, 30, 29, .03);
   border: 1px solid rgba(31, 30, 29, .14);
   box-shadow: none;
@@ -821,6 +848,18 @@ body {
   background: var(--brand-tint);
   border-color: var(--brand);
   color: var(--brand-deep);
+}
+.skill-tags li.highlight {
+  font-weight: 700;
+  background: var(--brand-tint);
+  border-color: var(--brand);
+  color: var(--brand-deep);
+  box-shadow: 1px 1px 0 var(--brand);
+}
+.skill-tags li.highlight::before {
+  content: "★ ";
+  color: var(--brand);
+  font-size: 11px;
 }
 
 /* 作品 */
@@ -1097,19 +1136,20 @@ body {
 .proof-card-link {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font: 600 11.5px/1 var(--mono);
+  gap: 6px;
+  font: 600 12px/1 var(--mono);
   color: var(--ink);
   text-decoration: none;
-  padding: 4px 10px;
+  padding: 5px 12px;
   background: var(--paper);
   border: 1px solid var(--ink);
   box-shadow: var(--px3d-sm);
-  transition: transform .12s ease, box-shadow .12s ease, color .12s ease;
+  transition: transform .12s steps(2), box-shadow .12s steps(2), color .12s ease, background .12s ease;
 }
 .proof-card-link:hover {
   transform: translate(-1px, -1px);
   box-shadow: var(--px3d-md);
+  background: #FFFFFF;
   color: var(--brand-deep);
 }
 .proof-card-link:active {
@@ -1671,8 +1711,13 @@ body {
     flex-wrap: wrap;
     gap: 12px;
   }
+  .print-btn,
   .copy-btn-hero {
     max-width: 100%;
+  }
+  .print-btn {
+    font-size: 12px;
+    padding: 10px 14px;
   }
   .copy-btn-hero .addr {
     font-size: 12px;
@@ -1725,6 +1770,8 @@ body {
   .egg,
   .lang,
   .stage-mode,
+  .print-btn,
+  .links a.go,
   .copy-btn-hero .note,
   #copy-winget,
   .contact-card-sub {

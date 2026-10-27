@@ -19,6 +19,15 @@ async function main() {
 
   await page.goto('http://localhost:4173/', { waitUntil: 'networkidle' });
 
+  // Test companion bubble click
+  const doll = await page.$('#doll');
+  if (doll) {
+    await doll.click();
+    await page.waitForTimeout(300);
+    const plate = await page.$('.plate');
+    if (plate) await plate.screenshot({ path: path.join(ARTIFACT_DIR, 'bubble_preview.png') });
+  }
+
   // Desktop Screenshots
   const heroEl = await page.$('.cover');
   if (heroEl) await heroEl.screenshot({ path: path.join(ARTIFACT_DIR, 'desktop_hero.png') });
@@ -41,6 +50,13 @@ async function main() {
   const honorsEl = await page.$('#honors');
   if (honorsEl) await honorsEl.screenshot({ path: path.join(ARTIFACT_DIR, 'desktop_honors.png') });
 
+  // Test Print Media simulation
+  await page.emulateMedia({ media: 'print' });
+  await page.waitForTimeout(200);
+  const printHero = await page.$('.cover');
+  if (printHero) await printHero.screenshot({ path: path.join(ARTIFACT_DIR, 'print_preview.png') });
+  await page.emulateMedia({ media: 'screen' });
+
   // Mobile Viewport Check
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(500);
@@ -53,20 +69,17 @@ async function main() {
     };
   });
 
+  const mobileHeroEl = await page.$('.cover');
+  if (mobileHeroEl) await mobileHeroEl.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_hero.png') });
+
+  const mobileSkillsEl = await page.$('.skills-block');
+  if (mobileSkillsEl) await mobileSkillsEl.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_skills.png') });
+
   const mobileWork01El = await page.$('#clawd-on-desk');
   if (mobileWork01El) await mobileWork01El.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_work01.png') });
 
-  const mobileWork02El = await page.$('#cv-projects');
-  if (mobileWork02El) await mobileWork02El.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_work02.png') });
-
-  const mobileWork03El = await page.$('#kaggle-project');
-  if (mobileWork03El) await mobileWork03El.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_work03.png') });
-
   const mobileExpEl = await page.$('#experience');
   if (mobileExpEl) await mobileExpEl.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_experience.png') });
-
-  const mobileHonorsEl = await page.$('#honors');
-  if (mobileHonorsEl) await mobileHonorsEl.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_honors.png') });
 
   console.log('Errors:', errors);
   console.log('Mobile overflow check:', overflow);
