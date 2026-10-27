@@ -650,6 +650,7 @@ body {
 
 .print-btn {
   display: inline-flex;
+  text-decoration: none !important;
   align-items: center;
   gap: 7px;
   padding: 11px 16px;
