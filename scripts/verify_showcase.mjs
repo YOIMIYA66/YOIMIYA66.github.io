@@ -38,6 +38,9 @@ async function main() {
   const expEl = await page.$('#experience');
   if (expEl) await expEl.screenshot({ path: path.join(ARTIFACT_DIR, 'desktop_experience.png') });
 
+  const honorsEl = await page.$('#honors');
+  if (honorsEl) await honorsEl.screenshot({ path: path.join(ARTIFACT_DIR, 'desktop_honors.png') });
+
   // Mobile Viewport Check
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(500);
@@ -50,6 +53,9 @@ async function main() {
     };
   });
 
+  const mobileWork01El = await page.$('#clawd-on-desk');
+  if (mobileWork01El) await mobileWork01El.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_work01.png') });
+
   const mobileWork02El = await page.$('#cv-projects');
   if (mobileWork02El) await mobileWork02El.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_work02.png') });
 
@@ -58,6 +64,9 @@ async function main() {
 
   const mobileExpEl = await page.$('#experience');
   if (mobileExpEl) await mobileExpEl.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_experience.png') });
+
+  const mobileHonorsEl = await page.$('#honors');
+  if (mobileHonorsEl) await mobileHonorsEl.screenshot({ path: path.join(ARTIFACT_DIR, 'mobile_honors.png') });
 
   console.log('Errors:', errors);
   console.log('Mobile overflow check:', overflow);
