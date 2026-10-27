@@ -110,7 +110,7 @@ img, video { max-width: 100%; }
 .figs dt { order: 2; font: 500 12px/1.4 var(--mono); color: var(--muted); white-space: nowrap; }
 .figs dd { order: 1; margin: 0; font: 800 36px/1 var(--serif); letter-spacing: -.03em; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
 .links { display: flex; flex-wrap: nowrap; align-items: center; gap: 14px 26px; margin: 32px 0 0; font: 600 14px/1 var(--mono); }
-.links a, .copy { appearance: none; border: 0; background: none; padding: 6px 4px; min-height: 36px; display: inline-flex; align-items: center; cursor: pointer; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1.5px; white-space: nowrap; }
+.links a:not(.go):not(.print-btn), .copy:not(.copy-btn-hero) { appearance: none; border: 0; background: none; padding: 6px 4px; min-height: 36px; display: inline-flex; align-items: center; cursor: pointer; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1.5px; white-space: nowrap; }
 .links a.go { color: var(--brand); white-space: nowrap; }
 .copy .note { margin-left: 8px; font-weight: 500; font-size: 12px; color: var(--muted); text-decoration: none; display: inline-block; white-space: nowrap; }
 .copy.copied .note { color: var(--ok); }
@@ -648,32 +648,41 @@ body {
   color: var(--ok);
 }
 
+.links a.print-btn,
 .print-btn {
   display: inline-flex;
-  text-decoration: none !important;
   align-items: center;
-  gap: 7px;
-  padding: 11px 16px;
+  gap: 8px;
+  padding: 12px 18px;
+  text-decoration: none !important;
+  color: var(--ink) !important;
+  background: var(--card) !important;
+  border: 1px solid var(--ink) !important;
+  box-shadow: var(--px3d) !important;
   font: 600 13px/1 var(--mono);
-  color: var(--ink);
-  background: var(--card);
-  border: 1px solid var(--ink);
-  box-shadow: var(--px3d);
+  line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
   transition: transform .12s steps(2), box-shadow .12s steps(2), background .12s;
 }
+.links a.print-btn:hover,
 .print-btn:hover {
   transform: translate(-2px, -2px);
-  box-shadow: var(--px3d-lg);
-  background: #FFFFFF;
+  box-shadow: var(--px3d-lg) !important;
+  background: #FFFFFF !important;
+  color: var(--ink) !important;
+  text-decoration: none !important;
 }
+.links a.print-btn:active,
 .print-btn:active {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--block);
+  box-shadow: 1px 1px 0 var(--block) !important;
 }
-.print-btn .print-icon {
-  font-size: 14px;
-  line-height: 1;
+.print-btn .dl-icon {
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--ink);
 }
 
 /* 展台：轻 3D 倾斜的像素舞台 */
@@ -1712,13 +1721,15 @@ body {
     flex-wrap: wrap;
     gap: 12px;
   }
+  .links a.print-btn,
   .print-btn,
   .copy-btn-hero {
     max-width: 100%;
   }
+  .links a.print-btn,
   .print-btn {
     font-size: 12px;
-    padding: 10px 14px;
+    padding: 10px 16px;
   }
   .copy-btn-hero .addr {
     font-size: 12px;
